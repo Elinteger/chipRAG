@@ -8,7 +8,6 @@ import pandas as pd
 import psycopg2
 import yaml
 from dotenv import load_dotenv
-from pgvector.psycopg2 import register_vector
 from psycopg2.extras import execute_values
 from transformers import AutoModel
 
@@ -70,7 +69,7 @@ def upload_dataframe(
 ) -> None:
     """
     Uploads a given DataFrame using a query to a postgreSQL Database. This only works properly with a
-    Pandas DataFrame with the columns [pesticide, text, embedding].
+    Pandas DataFrame with the columns [pesticide, text].
 
     Args:
         df (pd.DataFrame): The Pandas DataFrame which is to be uploaded.
@@ -87,7 +86,7 @@ def upload_dataframe(
     cur = conn.cursor()
 
     # turn dataframe into list
-    data = [(row['pesticide'], row['text'], row['embedding']) for _, row in df.iterrows()]
+    data = [(row['pesticide'], row['text']) for _, row in df.iterrows()]
 
     # run SQL with data on database
     execute_values(cur, insert_query, data)
@@ -115,10 +114,8 @@ def query_database(
     with open("config/prompt.yaml", "r", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
     keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(user_prompt)
-    semantic_search_query = prompts["semantic_search_query"]
     fuzzy_single_query = prompts["fuzzy_single_query"]
     fuzzy_window_query = prompts["fuzzy_window_query"]
-    # add user query to the prompt
 
     # Kipitz
     load_dotenv()
@@ -128,11 +125,8 @@ def query_database(
         api_key=KIPITZ_API_TOKEN
     )
 
-    # Postgresql / vector-based search
-    register_vector(conn)
+    # Postgresql 
     cur = conn.cursor()
-    model = AutoModel.from_pretrained("jinaai/jina-embeddings-v3", trust_remote_code=True)
-    embedded_query = model.encode(user_prompt, task="text_matching")
 
     ## extract keywords with LLM/Kipitz
     completion = openai_client.chat.completions.create(
@@ -144,10 +138,6 @@ def query_database(
     if type(keywords) != list:
         raise TypeError(f"keywords are supposed to be a list, got {type(keywords).__name__},\
                         check kipitz output or prompt")
-    
-    ## Semantic similarity
-    cur.execute(semantic_search_query, (embedded_query, embedded_query, embedded_query))
-    semantic_res = cur.fetchall()
 
     ## Fuzzy text search
     # -> CREATE EXTENSION pg_trgm;
@@ -168,6 +158,8 @@ def query_database(
         cur.execute(fuzzy_query, (keyword,))
         fuzzy_res.extend(cur.fetchall())
 
-    prompt_context = list(set(semantic_res + fuzzy_res))
+    # should already be distinct due to the queries, but as a failsafe
+    # in case the queries change in the future and this has been forgotten
+    prompt_context = list(set(fuzzy_res))
     
     return prompt_context

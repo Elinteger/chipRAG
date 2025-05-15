@@ -1,6 +1,7 @@
 """
 !!! THIS MODULE IS NO LONGER NEEDED AS WE DO NOT EMBED - KEPT IN FOR EVENTUAL FUTURE REFERENCE -> DEPRECATED !!!
-
+If wanted to be used again, make sure to program "embedded/semantic search" using the exact same embedding model in 
+prompter.py aswell!
 
 
 This module provides a single publicly available function that embeds a text into a vector representation for 
