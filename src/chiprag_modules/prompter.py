@@ -12,8 +12,8 @@ from dotenv import load_dotenv
 def extract_relevant_values(
     user_prompt: str,
     prompt_context: list[str]     
-) -> pd.DataFrame:
-#TODO: add description    
+) -> str:
+#TODO: add description, returns a pd.DataFrame in the end, str for now!    
 
     #TODO: add errorhandling for faulty inputs
 
@@ -32,7 +32,7 @@ def extract_relevant_values(
 
     ## extract pesticides and values out of context
     final_df = pd.DataFrame(columns=['pesiticide', 'values'])
-
+    final_str = ""
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
@@ -50,5 +50,6 @@ def extract_relevant_values(
         #TODO: check if list of values is wanted
         values = eval(completion.choices[0].message.content)
         #TODO: add to dataframe
+        final_str += values + "\n"
 
-    return final_df #FIXME: is empty by now!
+    return final_str #FIXME: should be final_df

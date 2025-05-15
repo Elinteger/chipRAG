@@ -100,7 +100,7 @@ def upload_dataframe(
 def query_database(
     user_prompt: str,
     conn,
-    close_conn_afterwards: bool = False
+    close_conn_afterwards: bool = True
 )->list[str]:
     '''
     #FIXME: add comment
@@ -110,12 +110,14 @@ def query_database(
         raise TypeError(f"'database' must be a string, got {type(user_prompt).__name__}")
 
     ## setup
-    # load prompts
+    # load prompts and queries
     with open("config/prompt.yaml", "r", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
-    keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(user_prompt)
-    fuzzy_single_query = prompts["fuzzy_single_query"]
-    fuzzy_window_query = prompts["fuzzy_window_query"]
+    keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(query=user_prompt)
+    with open("config/query.yaml", "r", encoding="utf-8") as f:
+        queries = yaml.safe_load(f)
+    fuzzy_single_query = queries["fuzzy_single_query"]
+    fuzzy_window_query = queries["fuzzy_window_query"]
 
     # Kipitz
     load_dotenv()
@@ -152,8 +154,7 @@ def query_database(
         else:
             window_size = len(keyword.split())
             # insert window size in {window_size} in prompt
-            formatted_fuzzy_window_query = fuzzy_window_query.format()
-            fuzzy_query = formatted_fuzzy_window_query.format(window_size)
+            fuzzy_query = fuzzy_window_query.format(window_size)
 
         cur.execute(fuzzy_query, (keyword,))
         fuzzy_res.extend(cur.fetchall())
@@ -162,4 +163,8 @@ def query_database(
     # in case the queries change in the future and this has been forgotten
     prompt_context = list(set(fuzzy_res))
     
+    cur.close()
+    if close_conn_afterwards:
+        conn.close()
+
     return prompt_context
