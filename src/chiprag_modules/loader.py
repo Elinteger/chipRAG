@@ -24,7 +24,7 @@ def load_pesticide_chapters(
 
     Args:
         pdf_path (str): System path to the PDF document.
-        start_page (int): First page to load (otherwise inclusive). 
+        start_page (int): First page to load (inclusive). 
                         Typically the first page containing pesticide data.
         end_page (int): Last page to load (inclusive). Usually the last page with a relevant table, 
                         excluding those about "Extraneous Maximum Residue Values."
@@ -44,7 +44,7 @@ def load_pesticide_chapters(
             raise TypeError(f"{name} must be an integer, got {type(value).__name__}")
         if value < 0:
             raise ValueError(f"{name} must be a non-negative integer, got {value}")
-    if end_page > start_page:
+    if end_page < start_page:
         raise ValueError(f"`end_page` ({end_page}) must be greater than `start_page` ({start_page}).")
 
     ## load document and delete unwanted pages
@@ -69,7 +69,7 @@ def load_pesticide_chapters(
         """
         cropbox_width = 600  # x1
         cropbox_height = 750  # y1
-        page.set_cropbox(pymupdf.Rect(0, 0, cropbox_width, cropbox_height))
+        page.set_cropbox(pymupdf.Rect(0, 0, cropbox_width, cropbox_height))  # Rect = x0, y0, x1, y1
         tmp_text = page.get_text(sort=True)
         # remove multiple spaces and characters after newlines
         text += re.sub(r'\n +', '\n', re.sub(r' {2,}', ' ', tmp_text) + '\n')
@@ -100,7 +100,7 @@ def load_pesticide_names_from_outline(
             raise TypeError(f"{name} must be an integer, got {type(value).__name__}")
         if value < 0:
             raise ValueError(f"{name} must be a non-negative integer, got {value}")
-    if end_outline > start_outline:
+    if end_outline < start_outline:
         raise ValueError(f"`end_outline`({end_outline}) must be greater than `start_outline` ({start_outline}).")
     
     ## load document and delete unwanted pages

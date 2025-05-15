@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+
 from chiprag_modules import ( 
     load_pesticide_chapters, 
     load_pesticide_names_from_outline, 
@@ -14,7 +18,10 @@ from chiprag_modules import (
 
 def main():
     print("Hello Chiprag!")
-
+    # Testing functions
+    test_document = "misc/Pestizide_21_EN.pdf"
+    s = load_pesticide_chapters(test_document, 33, 34)
+    print(s)
 
 def upload_new_document():
     print("I upload your stuff the chiprag way!")
