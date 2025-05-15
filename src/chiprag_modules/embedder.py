@@ -1,4 +1,8 @@
 """
+!!! THIS MODULE IS NO LONGER NEEDED AS WE DO NOT EMBED - KEPT IN FOR EVENTUAL FUTURE REFERENCE -> DEPRECATED !!!
+
+
+
 This module provides a single publicly available function that embeds a text into a vector representation for 
 future semantic searching. Also has a private helper function to validate user input. 
 Vector-dimensionality depends on the model. 

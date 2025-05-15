@@ -6,7 +6,6 @@ from chiprag_modules import (
     load_pesticide_chapters, 
     load_pesticide_names_from_outline, 
     chunk_report_by_sections,
-    embed_text 
     )
 
 #TODO: remove some inputs and swap them with a config (stuff like models and so on)
