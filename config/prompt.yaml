@@ -1,0 +1,21 @@
+keyword_extraction_prompt: |
+  You're about to get a prompt possibly containing a pesticide and/or a food like meats, fruits, kernels and so on.
+  You are supposed to return any pesticide and food you find in that prompt. Return the entries as you find them in the prompt, don't change anything about themselfs.
+  Take into account that there might be typos in the prompt you get!
+  No matter how many pesticides and foods you may find, return them as String elements in a python list, entries seperated my commas. Only return the list itself, don't add anything
+  else like '```python```' for example.
+  Prompt: {query}
+
+value_extraction_prompt: |  
+  The User asked this prompt: {prompt}
+  You're about to get a section about the pesticide {pesticide} followed by a single or multiple tables with a bunch of foods. These tables have the headings \"Food/Category Name\"
+  and \"Maximum Residue Limit\". Some foods have those Maximum Residue Limits other have nothing next to them. Those are usually categories for foods or simply a food that goes over
+  multiple rows in the original document.
+  Your job is to extract all foods and their respective Maximum Residue Limits and return them to me as Python-List elements. Only do so though, when the pesticide this section is about
+  the pesticide asked about in the original user-prompt. If no food is named in that prompt, but instead a food, check if the food or a synonym for it is in the current section.
+  If you can neither verify that the section is about the asked pesticide nor that the food or foodcategory asked for is mentioned in the section, skip that entry send no comment back, but an empty String "".
+  If the section is actually fitting to the users prompt, only send back the list of lists, refrain from adding things suchs as '```python```' for example.
+  If you are unsure about a value, write a -1 into that field, do not add, remove or alter any information you get. Only extract and return.
+  Here is the section you are supposed to do that task with:
+  {text}"
+  

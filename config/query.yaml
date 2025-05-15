@@ -1,0 +1,38 @@
+insert_query: |
+  INSERT INTO pesticide_embed (pesticide, text, embedding)
+  VALUES %s
+
+semantic_search_query: |
+  SELECT DISTINCT pesticide, text
+  FROM (
+    SELECT pesticide, text, embedding <=> %s AS similarity
+    FROM pesticide_embed
+    WHERE embedding <=> %s > 0.7
+    ORDER BY embedding <=> %s
+    LIMIT 20
+  ) AS sub
+
+
+fuzzy_single_query: |
+  SELECT DISTINCT t.pesticide, t.text 
+  FROM pesticide_embed AS t,
+    regexp_split_to_table(t.text, '\\s+') AS word
+  WHERE similarity(word, %s) > 0.75;
+
+fuzzy_window_query: |
+  WITH word_windows AS (
+    SELECT t.pesticide, t.text, 
+      array_agg(word ORDER BY idx) AS words
+    FROM pesticide_embed AS t
+    CROSS JOIN LATERAL regexp_split_to_table(t.text, '\\s+') WITH ORDINALITY AS word(word, idx)
+    GROUP BY t.pesticide, t.text
+  )
+  SELECT DISTINCT t.pesticide, t.text, 
+      COUNT(*) AS match_count
+   FROM word_windows t
+  CROSS JOIN LATERAL (
+    SELECT array_to_string(words[i:i + {window_size}], ' ') AS phrase
+    FROM generate_series(1, array_length(words, 1) - {window_size} + 1) AS g(i)
+    WHERE similarity(array_to_string(words[i:i + {window_size}], ' '), %s) > 0.75
+  ) AS matched_windows
+  GROUP BY t.pesticide, t.text;
