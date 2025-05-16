@@ -126,6 +126,7 @@ def load_pesticide_names_from_outline(
         cropbox_width = 600  # x1
         cropbox_height = 750  # y1
         page.set_cropbox(pymupdf.Rect(0, 0, cropbox_width, cropbox_height))
+        text += page.get_text(sort=True)
 
     ## filter out pesticide names
     """

@@ -9,7 +9,6 @@ import psycopg2
 import yaml
 from dotenv import load_dotenv
 from psycopg2.extras import execute_values
-from transformers import AutoModel
 
 
 def establish_connection(
@@ -140,7 +139,7 @@ def query_database(
     if type(keywords) != list:
         raise TypeError(f"keywords are supposed to be a list, got {type(keywords).__name__},\
                         check kipitz output or prompt")
-
+    
     ## Fuzzy text search
     # -> CREATE EXTENSION pg_trgm;
     fuzzy_res = []

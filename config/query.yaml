@@ -15,7 +15,7 @@ insert_query: |
 fuzzy_single_query: |
   SELECT DISTINCT t.pesticide, t.text 
   FROM chinese_pesticide_residues AS t,
-    regexp_split_to_table(t.text, '\\s+') AS word
+    regexp_split_to_table(t.text, '\s+') AS word
   WHERE similarity(word, %s) > 0.75;
 
 fuzzy_window_query: |
@@ -23,7 +23,7 @@ fuzzy_window_query: |
     SELECT t.pesticide, t.text, 
       array_agg(word ORDER BY idx) AS words
     FROM chinese_pesticide_residues AS t
-    CROSS JOIN LATERAL regexp_split_to_table(t.text, '\\s+') WITH ORDINALITY AS word(word, idx)
+    CROSS JOIN LATERAL regexp_split_to_table(t.text, '\s+') WITH ORDINALITY AS word(word, idx)
     GROUP BY t.pesticide, t.text
   )
   SELECT DISTINCT t.pesticide, t.text, 

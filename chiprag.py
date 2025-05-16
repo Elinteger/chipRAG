@@ -31,7 +31,7 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Give me all maximum residue values for zoxamide."
+    user_prompt = "Give me all pesticides and their maximum residue values for citrus."
     upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
     print("-----------------------")
     answer = answer_prompt(user_prompt)
@@ -53,7 +53,6 @@ def upload_new_document(
     print(f"2/5 Extracting pesticides from outline done! - took {time.time() - start_time}")
     start_time = time.time()
     pest_df = chunk_report_by_sections(pdf_str, pdf_pest)
-    print(pest_df)
     print(f"3/5 Chunking document done - took {time.time() - start_time}!")
     load_dotenv()
     password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
