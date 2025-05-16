@@ -31,7 +31,7 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Give me all pesticides and their maximum residue values for citrus."
+    user_prompt = "Olive for oil" 
     upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
     print("-----------------------")
     answer = answer_prompt(user_prompt)
@@ -74,6 +74,7 @@ def answer_prompt(user_prompt):
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)
+    print(context_list)
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
     final_str = extract_relevant_values(user_prompt, context_list)

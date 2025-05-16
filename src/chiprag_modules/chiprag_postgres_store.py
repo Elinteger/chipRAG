@@ -129,17 +129,19 @@ def query_database(
     # Postgresql 
     cur = conn.cursor()
 
+    # TODO: We expect the user to only give keywords like "citrus, zoxamide, pumpkin seeds" split with ;
     ## extract keywords with LLM/Kipitz
-    completion = openai_client.chat.completions.create(
-    model="casperhansen/llama-3.3-70b-instruct-awq",
-    messages=[{"role": "user", "content": keyword_extraction_prompt}],   
-    )
-    #TODO: check if this is what we actually want
-    keywords = eval(completion.choices[0].message.content)
-    if type(keywords) != list:
-        raise TypeError(f"keywords are supposed to be a list, got {type(keywords).__name__},\
-                        check kipitz output or prompt")
-    
+    # completion = openai_client.chat.completions.create(
+    # model="casperhansen/llama-3.3-70b-instruct-awq",
+    # messages=[{"role": "user", "content": keyword_extraction_prompt}],   
+    # )
+    # #TODO: check if this is what we actually want
+    # keywords = eval(completion.choices[0].message.content)
+    # if type(keywords) != list:
+    #     raise TypeError(f"keywords are supposed to be a list, got {type(keywords).__name__},\
+    #                     check kipitz output or prompt")
+    keywords = [item.strip() for item in user_prompt.split(';')]
+
     ## Fuzzy text search
     # -> CREATE EXTENSION pg_trgm;
     fuzzy_res = []
@@ -153,7 +155,8 @@ def query_database(
         else:
             window_size = len(keyword.split())
             # insert window size in {window_size} in prompt
-            fuzzy_query = fuzzy_window_query.format(window_size)
+            #TODO: check if there are no duplicates this way, or if there is an easier/faster way!
+            fuzzy_query = fuzzy_window_query.format(window_size=window_size)
 
         cur.execute(fuzzy_query, (keyword,))
         fuzzy_res.extend(cur.fetchall())

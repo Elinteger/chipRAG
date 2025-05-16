@@ -32,7 +32,7 @@ def extract_relevant_values(
 
     ## extract pesticides and values out of context
     final_df = pd.DataFrame(columns=['pesiticide', 'values'])
-    final_str = ""
+    listfornow = []
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
@@ -47,9 +47,10 @@ def extract_relevant_values(
         messages=[{"role": "user", "content": prompt}],   
         )
 
-        #TODO: check if list of values is wanted
-        values = eval(completion.choices[0].message.content)
-        #TODO: add to dataframe
-        final_str += values + "\n"
+        # #TODO: check if list of values is wanted
+        # values = eval(completion.choices[0].message.content)
+        # #TODO: add to dataframe
+        # final_str += values + "\n"
+        listfornow.append(completion.choices[0].message.content)
 
-    return final_str #FIXME: should be final_df
+    return listfornow #FIXME: should be final_df
