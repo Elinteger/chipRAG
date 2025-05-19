@@ -10,7 +10,7 @@ import re
 from pathlib import Path
 
 
-#TODO: add multipage support
+#FIXME: add multidoc support
 def load_pesticide_chapters(
     pdf_path: str,    
     start_page: int,
@@ -35,10 +35,9 @@ def load_pesticide_chapters(
     ## faulty argument handling
     path = Path(pdf_path)
     if not path.exists():
-        raise FileNotFoundError(f"File not found: {pdf_path}")
+        raise FileNotFoundError(f"file not found: {pdf_path}")
     if not path.is_file() or path.suffix.lower() != ".pdf":
-        raise ValueError(f"Provided path must be a valid pdf path: {pdf_path}")
-    
+        raise ValueError(f"provided path must be a valid pdf path: {pdf_path}")
     for name, value in {"start_page": start_page, "end_page": end_page}.items():
         if not isinstance(value, int):
             raise TypeError(f"{name} must be an integer, got {type(value).__name__}")
@@ -94,7 +93,6 @@ def load_pesticide_names_from_outline(
         raise FileNotFoundError(f"File not found: {pdf_path}")
     if not path.is_file() or path.suffix.lower() != ".pdf":
         raise ValueError(f"Provided path must be a valid pdf path: {pdf_path}")
-    
     for name, value in {"start_outline": start_outline, "end_outline": end_outline, "pesticide_chapter_number": pesticide_chapter_number}.items():
         if not isinstance(value, int):
             raise TypeError(f"{name} must be an integer, got {type(value).__name__}")

@@ -15,10 +15,9 @@ from chiprag_modules import (
     extract_relevant_values
     )
 
-#TODO: remove some inputs and swap them with a config (stuff like models and so on)
-#TODO: maybe faulty arguments arent an issue? check if check is always needed
-#TODO: chiprag_modules isnt known when starting program
-#TODO: spalte für dokumentversion
+#FIXME: remove some inputs and swap them with a config (stuff like models and so on)
+#FIXME: spalte für dokumentversion, overall db plan!
+#FIXME: tests
 def main():
     start_time = time.time()
     print("Hello Chiprag!")

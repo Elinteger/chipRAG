@@ -14,9 +14,13 @@ def extract_relevant_values(
     user_prompt: str,
     prompt_context: list[str]     
 ) -> str:
-#TODO: add description, returns a pd.DataFrame in the end, str for now!    
+#FIXME: add description, returns a pd.DataFrame in the end, str for now!    
 
-    #TODO: add errorhandling for faulty inputs
+    ## faulty argument handling
+    if not isinstance(user_prompt, str):
+        raise TypeError(f"'user_prompt' must be a string, got {type(user_prompt).__name__}")
+    if not isinstance(prompt_context, list) or not all(isinstance(item, str) for item in prompt_context):
+        raise TypeError(f"'prompt_context' must be a list of strings, got: {type(prompt_context).__name__}")
 
     ## setup 
     load_dotenv()

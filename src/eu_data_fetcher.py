@@ -1,13 +1,11 @@
-#TODO: add description and look for how to __init__
+#FIXME: add description and look for how to __init__
 import json
 import pandas as pd
 import requests
 
 
-def fetch_data_from_eu_api(
-        
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-#TODO: description
+def fetch_data_from_eu_api() -> tuple[pd.DataFrame, pd.DataFrame]:
+#FIXME: description
     ## setup/config
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
     format = "json"
@@ -22,7 +20,12 @@ def fetch_data_from_eu_api(
 def clean_data_from_eu_api(
     data: json
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    #TODO: description
+    #FIXME: description
+
+     ## faulty argument handling
+    if not isinstance(data, str):
+        raise TypeError(f"'data' must be a json, got {type(data).__name__}")
+    
     df = pd.read_json(data)
     # only get columns of importance
     filtered_df = df[["pesticide_residue_name", "product_code", "product_name", "mrl_value_only", "applicability_text", "application_date"]]
