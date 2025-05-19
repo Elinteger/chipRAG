@@ -15,6 +15,8 @@ from chiprag_modules import (
     extract_relevant_values
     )
 
+import pandas as pd
+
 #FIXME: remove some inputs and swap them with a config (stuff like models and so on)
 #FIXME: spalte für dokumentversion, overall db plan!
 #FIXME: tests
@@ -29,7 +31,8 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Liver of pig; carbaryl" 
+    #FIXME: when there are multiple keywords, results are mixed, already happens before prompting that keywords are asked for mixed! -> so most likely during creation of the context-list
+    user_prompt = "Liver of pig; zoxamide" 
     upload = False
     if upload:
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
@@ -73,7 +76,6 @@ def answer_prompt(user_prompt):
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)
-    print(f"context list: {context_list}")
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
     final_str = extract_relevant_values(user_prompt, context_list)

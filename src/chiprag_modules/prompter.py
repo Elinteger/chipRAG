@@ -44,21 +44,19 @@ def extract_relevant_values(
 
     extracted_data = []
     ## extract pesticides and values out of context
-    #FIXME: for multiple values a "mischspalte" exists, either here or in the postgres store is an error
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
+        keyword = context[2]
         prompt = base_value_extraction_prompt.format(
-            prompt=user_prompt,
+            prompt=keyword,
             pesticide=pesticide,
             text=text
             )
-        
         completion = openai_client.chat.completions.create(
         model="casperhansen/llama-3.3-70b-instruct-awq",
         messages=[{"role": "user", "content": prompt}],   
         )
-
         answer = completion.choices[0].message.content
         data_list = ast.literal_eval(answer)
         data_list = [[pesticide] + sublist for sublist in data_list]

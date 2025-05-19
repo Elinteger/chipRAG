@@ -16,8 +16,6 @@ def chunk_report_by_sections(
     pesticide_list: list[str]  
 ) -> pd.DataFrame:
     """
-    # FIXME: Consider adding fuzzy matching for improved heading detection.
-
     Splits a given text into chapters by identifying pesticide-related headings,
     which are matched against a provided list of pesticide names. These pesticide
     names are extracted from the same source documents outline/table of content.

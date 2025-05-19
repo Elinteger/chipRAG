@@ -195,7 +195,9 @@ def query_database(
             print(f"unexpected error: {e}")
             conn.rollback()
             raise
-        fuzzy_res.extend(cur.fetchall())
+        
+        results = cur.fetchall()
+        fuzzy_res.extend([row + (keyword,) for row in results])
     
     cur.close()
     if close_conn_afterwards:
