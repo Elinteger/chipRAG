@@ -1,6 +1,7 @@
 import os
 import sys
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+# needed so that python can find our modules
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))  
 
 import time
 from dotenv import load_dotenv
@@ -31,12 +32,16 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Olive for oil" 
-    upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
-    print("-----------------------")
+    user_prompt = "Fenothiocarb; Benomyl" 
+    upload = False
+    if upload:
+        upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
+        print("-----------------------")
     answer = answer_prompt(user_prompt)
     print("-----------------------")
     print(answer)
+    # for a in answer:
+    #     print(a)
     print(f"Took {divmod(int(time.time() - start_time), 60)[0]:02d}:{divmod(int(time.time() - start_time), 60)[1]:02d} overall")
 
 
@@ -53,7 +58,7 @@ def upload_new_document(
     print(f"2/5 Extracting pesticides from outline done! - took {time.time() - start_time}")
     start_time = time.time()
     pest_df = chunk_report_by_sections(pdf_str, pdf_pest)
-    print(f"3/5 Chunking document done - took {time.time() - start_time}!")
+    print(f"3/5 Chunking document done! - took {time.time() - start_time}")
     load_dotenv()
     password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
 
@@ -74,7 +79,6 @@ def answer_prompt(user_prompt):
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)
-    print(context_list)
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
     final_str = extract_relevant_values(user_prompt, context_list)

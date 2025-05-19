@@ -2,6 +2,7 @@
 This module provides a single function which prompts an LLM with a users prompt and the
 context/information gathered during querying the database.
 """
+import ast
 import openai
 import os
 import pandas as pd 
@@ -29,10 +30,8 @@ def extract_relevant_values(
         prompts = yaml.safe_load(f)
     base_value_extraction_prompt = prompts["value_extraction_prompt"]
 
-
+    extracted_data = []
     ## extract pesticides and values out of context
-    final_df = pd.DataFrame(columns=['pesiticide', 'values'])
-    listfornow = []
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
@@ -47,10 +46,13 @@ def extract_relevant_values(
         messages=[{"role": "user", "content": prompt}],   
         )
 
-        # #TODO: check if list of values is wanted
-        # values = eval(completion.choices[0].message.content)
-        # #TODO: add to dataframe
-        # final_str += values + "\n"
-        listfornow.append(completion.choices[0].message.content)
+        answer = completion.choices[0].message.content
+        data_list = ast.literal_eval(answer)
+        data_list = [[pesticide] + sublist for sublist in data_list]
+        extracted_data += data_list
 
-    return listfornow #FIXME: should be final_df
+    # and list into dataframe
+    # return extracted_data
+    final_df = pd.DataFrame(extracted_data, columns=['pesiticide', 'food', 'mrl'])
+
+    return final_df

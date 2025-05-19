@@ -16,7 +16,7 @@ fuzzy_single_query: |
   SELECT DISTINCT t.pesticide, t.text 
   FROM chinese_pesticide_residues AS t,
     regexp_split_to_table(t.text, '\s+') AS word
-  WHERE similarity(word, %s) > 0.75;
+  WHERE similarity(word, %s) > 0.80;
 
 fuzzy_window_query: |
   WITH word_windows AS (

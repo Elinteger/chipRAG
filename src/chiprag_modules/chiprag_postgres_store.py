@@ -110,9 +110,9 @@ def query_database(
 
     ## setup
     # load prompts and queries
-    with open("config/prompt.yaml", "r", encoding="utf-8") as f:
-        prompts = yaml.safe_load(f)
-    keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(query=user_prompt)
+    # with open("config/prompt.yaml", "r", encoding="utf-8") as f:
+    #     prompts = yaml.safe_load(f)
+    # keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(query=user_prompt)
     with open("config/query.yaml", "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     fuzzy_single_query = queries["fuzzy_single_query"]
