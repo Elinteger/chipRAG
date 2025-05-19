@@ -130,7 +130,7 @@ def query_database(
 ) -> list[str]:
     '''
     Queries the database using the provided Connection object.  
-    Performs a fuzzy word match for single keywords and a fuzzy window search for keyphrases.
+    Performs a fuzzy word match for single keywords and an exact 'ILIKE' match for keyphrases.
 
     Args:
         user_prompt (str): Keywords given by the user, split by ';'. This is not enforced by code, but is a requirement.
@@ -154,7 +154,7 @@ def query_database(
     with open("config/query.yaml", "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     fuzzy_single_query = queries["fuzzy_single_query"]
-    get_all_query = queries["get_all_query"]
+    multiple_query = queries["multiple_query"]
 
     # create cursor from connection object
     cur = conn.cursor()
@@ -165,80 +165,40 @@ def query_database(
     # fuzzy text search
     #FIXME: |-| -> CREATE EXTENSION pg_trgm; in postgresql database!
     fuzzy_res = []
-    fetched_database = None
+    is_phrase = False
     for keyword in keywords:
         if len(keyword) == 0:
             continue
-        # if keyword is a single word, do a word by word match
+        # if keyword is a single word, do a fuzzy word by word match
         if len(keyword.split()) == 1:
-            fuzzy_query = fuzzy_single_query
-            try:
-                cur.execute(fuzzy_query, (keyword,))
-            except DatabaseError as e:
-                print(f"database error while trying to run SQL on postgre database: {e}")
-                conn.rollback()
-                raise
-            except ProgrammingError as e:
-                print(f"programming error while trying to run SQL on postgre database: {e}")
-                conn.rollback()
-                raise
-            except Exception as e:
-                print(f"unexpected error: {e}")
-                conn.rollback()
-                raise
-            # cur.execute(fuzzy_query, (keyword,)) #FIXME: check if its still working!
-            fuzzy_res.extend(cur.fetchall())
-        # if keyword is actually a keyphrase, fetch the database and do a fuzzy search locally
-        # -> used to be a SQL-query aswell, but it sadly didn't work as well, look into query.yaml for old query
+            sql_query = fuzzy_single_query
+            is_phrase = False 
+        # if keyword is a keyphrase, do an exact case-insensitive keyphrase match 
         else:
-            if fetched_database == None:
-                # create sqlalchemy connection as psycopg2 isn't supported by pandas anymore
-                # TODO: replace all of psycopg2 to sqlalchemy in chiprag
-                load_dotenv()
-                password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
-                POSTGRES_ADDRESS = "localhost"
-                POSTGRES_PORT = "5432"
-                POSTGRES_USERNAME = "postgres"
-                POSTGRES_PASSWORD = password_postgre
-                POSTGRES_DBNAME = "pesticide_db"
-                postgres_str = ('postgresql://{username}:{password}@{ipaddress}:{port}/{dbname}'
-                .format(username=POSTGRES_USERNAME,
-                password=POSTGRES_PASSWORD,
-                ipaddress=POSTGRES_ADDRESS,
-                port=POSTGRES_PORT,
-                dbname=POSTGRES_DBNAME))
-
-                cnx = create_engine(postgres_str)
-                fetched_database = pd.read_sql_query(get_all_query, con=cnx)
-            match_counter = 0
-            for _, row in fetched_database.iterrows():
-                text = row['text']
-                match_counter += text.lower().count("liver of pig".lower())
-                if _contains_keyphrase(row['text'], keyword): 
-                    match_counter += 1
-                    fuzzy_res.append(tuple(row)) 
-            return match_counter
+            sql_query = multiple_query
+            is_phrase = True
+        # query database  
+        try:
+            if is_phrase:
+                cur.execute(sql_query, (f"%{keyword}%",))
+            else:    
+                cur.execute(sql_query, (keyword,))
+        except DatabaseError as e:
+            print(f"database error while trying to run SQL on postgre database: {e}")
+            conn.rollback()
+            raise
+        except ProgrammingError as e:
+            print(f"programming error while trying to run SQL on postgre database: {e}")
+            conn.rollback()
+            raise
+        except Exception as e:
+            print(f"unexpected error: {e}")
+            conn.rollback()
+            raise
+        fuzzy_res.extend(cur.fetchall())
+    
     cur.close()
     if close_conn_afterwards:
         conn.close()
 
     return list(set(fuzzy_res))
-
-
-def _contains_keyphrase(
-        text: str,
-        keyphrase: str,
-        threshhold: int = 95
-) -> bool:
-    """
-    A small private helper-function to check if a keyphrase is inside a block of text using RapidFuzz to allow typos.
-
-    Args:
-        text (str): Text to be scanned through for keyphrase.
-        keyprase (str): Keyphrase which is to be searched for.
-        theshhold (int): Similarity percentage that has to be reached for a match. Defaults to 80.
-
-    Returns
-        bool: True if a fuzzy match of the keyphrase in the text could me made.
-    """
-    return fuzz.partial_ratio(text.lower(), keyphrase.lower()) >= threshhold 

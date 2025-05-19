@@ -28,5 +28,7 @@ fuzzy_single_query: |
 #   ) AS matched_windows
 #   GROUP BY t.pesticide, t.text;
   
-get_all_query : |
-  SELECT * FROM chinese_pesticide_residues;
+multiple_query: |
+  SELECT DISTINCT t.pesticide, t.text
+  FROM chinese_pesticide_residues AS t
+  WHERE t.text ILIKE %s;

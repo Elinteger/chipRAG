@@ -29,7 +29,7 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Liver of pig" 
+    user_prompt = "Liver of pig; carbaryl" 
     upload = False
     if upload:
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)

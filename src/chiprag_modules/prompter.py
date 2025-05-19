@@ -44,6 +44,7 @@ def extract_relevant_values(
 
     extracted_data = []
     ## extract pesticides and values out of context
+    #FIXME: for multiple values a "mischspalte" exists, either here or in the postgres store is an error
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
