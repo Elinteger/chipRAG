@@ -18,8 +18,6 @@ from chiprag_modules import (
 #TODO: remove some inputs and swap them with a config (stuff like models and so on)
 #TODO: maybe faulty arguments arent an issue? check if check is always needed
 #TODO: chiprag_modules isnt known when starting program
-#FIXME: Vektorisierung raus? Nochmal tests machen, ob embed ergebnisse gebraucht werden
-#       -> wenn nein: aus allen raus!
 #TODO: spalte für dokumentversion
 def main():
     start_time = time.time()

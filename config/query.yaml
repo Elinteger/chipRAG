@@ -2,16 +2,6 @@ insert_query: |
   INSERT INTO chinese_pesticide_residues (pesticide, text)
   VALUES %s
 
-# semantic_search_query: |
-#   SELECT DISTINCT pesticide, text
-#   FROM (
-#     SELECT pesticide, text, embedding <=> %s AS similarity
-#     FROM pesticide_embed
-#     WHERE embedding <=> %s > 0.7
-#     ORDER BY embedding <=> %s
-#     LIMIT 20
-#   ) AS sub
-
 fuzzy_single_query: |
   SELECT DISTINCT t.pesticide, t.text 
   FROM chinese_pesticide_residues AS t,

@@ -1,11 +1,3 @@
-# keyword_extraction_prompt: |
-#   You're about to get a prompt possibly containing a pesticide and/or a food like meats, fruits, kernels and so on.
-#   You are supposed to return any pesticide and food you find in that prompt. Return the entries as you find them in the prompt, don't change anything about themselfs.
-#   Take into account that there might be typos in the prompt you get!
-#   No matter how many pesticides and foods you may find, return them as String elements in a python list, entries seperated my commas. Only return the list itself, don't add anything
-#   else like '```python```' for example.
-#   Prompt: {query}
-
 value_extraction_prompt: |  
   The User asked this for this pesticide or food: {prompt}
   You're about to get a section about the pesticide {pesticide} followed by a single or multiple tables with a bunch of foods possibly within a foodcategory. These tables have the headings \"Food/Category Name\"

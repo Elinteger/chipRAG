@@ -109,10 +109,6 @@ def query_database(
         raise TypeError(f"'database' must be a string, got {type(user_prompt).__name__}")
 
     ## setup
-    # load prompts and queries
-    # with open("config/prompt.yaml", "r", encoding="utf-8") as f:
-    #     prompts = yaml.safe_load(f)
-    # keyword_extraction_prompt = prompts["keyword_extraction_prompt"].format(query=user_prompt)
     with open("config/query.yaml", "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     fuzzy_single_query = queries["fuzzy_single_query"]
@@ -129,17 +125,8 @@ def query_database(
     # Postgresql 
     cur = conn.cursor()
 
-    # TODO: We expect the user to only give keywords like "citrus, zoxamide, pumpkin seeds" split with ;
-    ## extract keywords with LLM/Kipitz
-    # completion = openai_client.chat.completions.create(
-    # model="casperhansen/llama-3.3-70b-instruct-awq",
-    # messages=[{"role": "user", "content": keyword_extraction_prompt}],   
-    # )
-    # #TODO: check if this is what we actually want
-    # keywords = eval(completion.choices[0].message.content)
-    # if type(keywords) != list:
-    #     raise TypeError(f"keywords are supposed to be a list, got {type(keywords).__name__},\
-    #                     check kipitz output or prompt")
+    # we expect the user to only give keywords like "citrus; zoxamide; pumpkin seeds" split with ; as a prompt
+    # TODO: Validate user input prompt in Axon Ivy(?)
     keywords = [item.strip() for item in user_prompt.split(';')]
 
     ## Fuzzy text search
