@@ -29,16 +29,13 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Fenothiocarb; Benomyl" 
+    user_prompt = "Liver of pig" 
     upload = False
     if upload:
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
         print("-----------------------")
     answer = answer_prompt(user_prompt)
-    print("-----------------------")
     print(answer)
-    # for a in answer:
-    #     print(a)
     print(f"Took {divmod(int(time.time() - start_time), 60)[0]:02d}:{divmod(int(time.time() - start_time), 60)[1]:02d} overall")
 
 
@@ -76,6 +73,7 @@ def answer_prompt(user_prompt):
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)
+    print(f"context list: {context_list}")
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
     final_str = extract_relevant_values(user_prompt, context_list)
