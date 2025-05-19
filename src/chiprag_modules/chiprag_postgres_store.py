@@ -1,11 +1,10 @@
 """
 Collection of functions to send data to and get data from a PostgreSQL database in the context of this 
-somewhat-RAG pipeline.
+somewhat unconventional RAG pipeline.
 """
 import pandas as pd
 import psycopg2
 import yaml
-from dotenv import load_dotenv
 from psycopg2 import OperationalError, DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
 
@@ -28,7 +27,7 @@ def establish_connection(
         port (int): Portnumber over which Database-API can be accessed. Defaults to 5432
 
     Returns:
-        A psycopg2 connection object.
+        psycopg2.extensions.connection: A psycopg2 connection object.
     """ 
     ## faulty argument handling
     if not isinstance(database, str):
@@ -69,14 +68,13 @@ def upload_dataframe(
     close_conn_afterwards: bool = True
 ) -> None:
     """
-    Uploads a given DataFrame using a query to a postgreSQL Database. This only works properly with a
+    Uploads a given DataFrame using a query to a postgreSQL Database. This function is tailored to a 
     Pandas DataFrame with the columns [pesticide, text].
 
     Args:
         df (pd.DataFrame): The Pandas DataFrame which is to be uploaded.
         conn (psycopg2 Connection Object): Connection Object to perform actions with the database.
-        close_conn_afterwards (bool): Variable to decide if Connection Object is to be closed after closed
-                                      after use. Defaults to True.
+        close_conn_afterwards (bool): Variable to decide whether to close the Connection Object after use. Defaults to True.
     """
     ## faulty argument handling
     if not isinstance(df, pd.DataFrame):
@@ -127,7 +125,16 @@ def query_database(
     close_conn_afterwards: bool = True
 ) -> list[str]:
     '''
-    #FIXME: add comment
+    Queries the database using the provided Connection object.  
+    Performs a fuzzy word match for single keywords and a fuzzy window search for keyphrases.
+
+    Args:
+        user_prompt (str): Keywords given by the user, split by ';'. This is not enforced by code, but is a requirement.
+        conn (Psycopg2 Connection Object): Connection Object to perform actions with the database.
+        close_conn_afterwards (bool): Variable to decide whether to close the Connection Object after use. Defaults to True.
+
+    Returns:
+        list[str]: List of all rows matching the SQL-query.
     '''
     ## faulty argument handling
     #FIXME: validate that user input is properly as expected: "citrus; zoxamide; pumpkin seeds" -> use AxonIvy?

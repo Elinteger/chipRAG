@@ -1,9 +1,10 @@
 """
 This module provides functions to read specified parts of a PDF document and split it accordingly.
-It is tailored to the English translations of the Chinese report "Translation of Maximum Residue Limits 
-for Pesticides in Foods" by the United States Department of Agriculture. 
-"""
 
+It is tailored to the English translations of the Chinese report titled "Translation of Maximum Residue Limits 
+for Pesticides in Foods," published by the United States Department of Agriculture. Specifically, it targets 
+the translation of document `GB 2763-2021`, but it should work similarly for related reports of the same kind.
+"""
 import logging
 import pymupdf 
 import re
@@ -18,9 +19,7 @@ def load_pesticide_chapters(
 ) -> str:
     """
     Extracts all the text from the specified PDF in range of the specified pages. 
-    Expects the content of the pages to be the document mentioned above. Specified
-    to extract subsections of pesticides and their maximum residue value tables of
-    the translation of `GB 2763-2021` by the USDA.
+    Expects the content of the pages to be the document mentioned above.
 
     Args:
         pdf_path (str): System path to the PDF document.
@@ -84,8 +83,15 @@ def load_pesticide_names_from_outline(
 ) -> list[str]:
     """
     Extracts all the pesticide names out of the outline.
-    Expects the content of the pages to be the document mentioned above. Specified
-    to the outline of the translation of `GB 2763-2021` by the USDA.
+    Expects the content of the pages to be the document mentioned above.
+
+    Args:
+        pdf_path (str): System path to the PDF document.
+        start_outline (int): First page to load (inclusive). This is the first page containing the outline listing all pesticides mentioned in the document.
+        end_page (int): Last page to load (inclusive). This is the last page containing the outline listing all pesticides mentioned in the document.
+
+    Returns: 
+        list[str]: List of all pesticide names listed on the specified outline pages.
     """
     ## faulty argument handling
     path = Path(pdf_path)

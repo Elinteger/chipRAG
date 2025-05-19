@@ -13,9 +13,17 @@ from dotenv import load_dotenv
 def extract_relevant_values(
     user_prompt: str,
     prompt_context: list[str]     
-) -> str:
-#FIXME: add description, returns a pd.DataFrame in the end, str for now!    
+) -> pd.DataFrame:
+    """
+    Prompts an LLM to extract Food/Maximum Residue Limit value pairs from the extracted context based on the users input. 
 
+    Args:
+        user_prompt (str): Keywords given by the user, split by ';'. This is not enforced by code, but is a requirement.
+        prompt_context list[str]: List of all sections of the PDF matching the users prompt.
+
+    Returns:
+        pd.DataFrame: Pandas DataFrame with the columns ['pesiticide', 'food', 'mrl'] extracted from the given context by an LLM.
+    """
     ## faulty argument handling
     if not isinstance(user_prompt, str):
         raise TypeError(f"'user_prompt' must be a string, got {type(user_prompt).__name__}")
