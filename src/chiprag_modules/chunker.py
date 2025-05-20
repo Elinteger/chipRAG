@@ -10,7 +10,6 @@ import logging
 import pandas as pd
 import re
 
-
 def chunk_report_by_sections(
     text: str,
     pesticide_list: list[str]  

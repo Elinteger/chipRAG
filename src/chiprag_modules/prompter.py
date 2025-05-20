@@ -4,11 +4,9 @@ context/information gathered during querying the database.
 """
 import ast
 import openai
-import os
 import pandas as pd 
 import yaml
-from dotenv import load_dotenv
-
+from config.load_config import settings
 
 def extract_relevant_values(
     user_prompt: str,
@@ -27,18 +25,14 @@ def extract_relevant_values(
     ## faulty argument handling
     if not isinstance(user_prompt, str):
         raise TypeError(f"'user_prompt' must be a string, got {type(user_prompt).__name__}")
-    # if not isinstance(prompt_context, list) or not all(isinstance(item, str) for item in prompt_context):
-    #     raise TypeError(f"'prompt_context' must be a list of strings, got: {type(prompt_context).__name__}")
 
     ## setup 
-    load_dotenv()
-    KIPITZ_API_TOKEN = os.getenv("KIPITZ_API_TOKEN")
     openai_client = openai.OpenAI(
-***REMOVED***
-        api_key=KIPITZ_API_TOKEN
+        base_url=settings.kipitz_base_url,
+        api_key=settings.kipitz_api_token
     )
 
-    with open("config/prompt.yaml", "r", encoding="utf-8") as f:
+    with open(settings.prompt_path, "r", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
     base_value_extraction_prompt = prompts["value_extraction_prompt"]
 
@@ -54,8 +48,8 @@ def extract_relevant_values(
             text=text
             )
         completion = openai_client.chat.completions.create(
-        model="casperhansen/llama-3.3-70b-instruct-awq",
-        messages=[{"role": "user", "content": prompt}],   
+        model=settings.kipitz_model,
+        messages=[{"role": settings.kipitz_role, "content": prompt}],   
         )
         answer = completion.choices[0].message.content
         data_list = ast.literal_eval(answer)

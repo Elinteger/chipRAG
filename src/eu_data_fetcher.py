@@ -3,7 +3,6 @@ import json
 import pandas as pd
 import requests
 
-
 def fetch_data_from_eu_api() -> tuple[pd.DataFrame, pd.DataFrame]:
 #FIXME: description
     ## setup/config

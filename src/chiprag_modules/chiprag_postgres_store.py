@@ -5,52 +5,25 @@ somewhat unconventional RAG pipeline.
 import pandas as pd
 import psycopg2
 import yaml
+from config.load_config import settings
 from psycopg2 import OperationalError, DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
 
-def establish_connection(
-    database: str, #pesticide_db
-    user: str, #postgres
-    password: str,
-    host: str = 'localhost',
-    port: int = 5432
-) -> psycopg2.extensions.connection:
+def establish_connection() -> psycopg2.extensions.connection:
     """
-    Establishes a connection with a specified PostgreSQL. 
-    Default is a local database on localhost port 5432.
-
-    Args:
-        database (str): Name of the database that is to be connected to.
-        user (str): Username of the user accessing the database.
-        password (str): Password of the user accessing the database.
-        host (str): URL where the Database-API is hosted. Defaults to localhost.
-        port (int): Portnumber over which Database-API can be accessed. Defaults to 5432
+    Establishes a connection with a configured PostgreSQL database. 
 
     Returns:
         psycopg2.extensions.connection: A psycopg2 connection object.
     """ 
-    ## faulty argument handling
-    if not isinstance(database, str):
-        raise TypeError(f"'database' must be a string, got {type(database).__name__}")
-    if not isinstance(user, str):
-        raise TypeError(f"'user' must be a string, got {type(user).__name__}")
-    if not isinstance(password, str):
-        raise TypeError(f"'password' must be a string, got {type(password).__name__}")
-    if not isinstance(host, str):
-        raise TypeError(f"'host' must be a string, got {type(host).__name__}")
-    if not isinstance(port, int):
-        raise TypeError(f"'port' must be an integer, got {type(port).__name__}")
-    if not (1 <= port <= 65535):
-        raise ValueError("'port' must be in range 1–65535")
-    
     ## connect to database
     try:
         conn = psycopg2.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port
+            host=settings.postgre_host,
+            database=settings.postgre_database_name,
+            user=settings.postgre_username,
+            password=settings.postgre_password,
+            port=settings.postgre_port
         )
     except OperationalError as e:
         print(f"operational error while trying to connect to postgre database: {e}")
@@ -86,7 +59,7 @@ def upload_dataframe(
     
     ## upload DataFrame
     # load SQL-queries
-    with open("config/query.yaml", "r", encoding="utf-8") as f:
+    with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     insert_query = queries["insert_query"]
 
@@ -147,7 +120,7 @@ def query_database(
 
     ## querying
     # load SQL-queries
-    with open("config/query.yaml", "r", encoding="utf-8") as f:
+    with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     fuzzy_single_query = queries["fuzzy_single_query"]
     multiple_query = queries["multiple_query"]

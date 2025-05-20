@@ -1,6 +1,7 @@
 import os
 import sys
 # needed so that python can find our modules
+#FIXME: "Use setup.py or pyproject.toml with package_dir={"": "src"}"
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))  
 
 import time
@@ -14,8 +15,7 @@ from chiprag_modules import (
     query_database,
     extract_relevant_values
     )
-import pandas as pd
-#FIXME: remove some inputs and swap them with a config (stuff like models and so on)
+
 #FIXME: spalte für dokumentversion, overall db plan!
 #FIXME: tests
 def main():
@@ -29,7 +29,7 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "Liver of pig; carbaryl; zoxamide; poultry viscera" 
+    user_prompt = "zoxamide" 
 
     upload = True
     if upload:
@@ -58,7 +58,7 @@ def upload_new_document(
     name_postgre = os.getenv("NAME_POSTGRE")
     password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
     start_time = time.time()
-    conn = establish_connection("pesticide_db", name_postgre, password_postgre)
+    conn = establish_connection()
     print(f"4/5 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     upload_dataframe(pest_df, conn, True)
@@ -70,7 +70,7 @@ def answer_prompt(user_prompt):
     load_dotenv()
     password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
     start_time = time.time()
-    conn = establish_connection(f"pesticide_db", "postgres", password_postgre)
+    conn = establish_connection()
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)

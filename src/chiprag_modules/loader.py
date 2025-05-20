@@ -86,7 +86,7 @@ def load_pesticide_names_from_outline(
     pdf_path: str,
     start_outline: int,
     end_outline: int, 
-    pesticide_chapter_number: int
+    pesticide_chapter_number: int = 4
 ) -> list[str]:
     """
     Extracts all the pesticide names out of the outline.
