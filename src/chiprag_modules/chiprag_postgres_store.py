@@ -199,4 +199,4 @@ def query_database(
     if close_conn_afterwards:
         conn.close()
 
-    return list(set(fuzzy_res))
+    return fuzzy_res
