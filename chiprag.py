@@ -15,8 +15,6 @@ from chiprag_modules import (
     extract_relevant_values
     )
 
-import pandas as pd
-
 #FIXME: remove some inputs and swap them with a config (stuff like models and so on)
 #FIXME: spalte für dokumentversion, overall db plan!
 #FIXME: tests
@@ -57,10 +55,10 @@ def upload_new_document(
     pest_df = chunk_report_by_sections(pdf_str, pdf_pest)
     print(f"3/5 Chunking document done! - took {time.time() - start_time}")
     load_dotenv()
+    name_postgre = os.getenv("NAME_POSTGRE")
     password_postgre = os.getenv("POSTGRE_PASSWORD_HOME")
-
     start_time = time.time()
-    conn = establish_connection("pesticide_db", "postgres", password_postgre)
+    conn = establish_connection("pesticide_db", name_postgre, password_postgre)
     print(f"4/5 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     upload_dataframe(pest_df, conn, True)
@@ -76,11 +74,13 @@ def answer_prompt(user_prompt):
     print(f"1/3 Established connection! - took {time.time() - start_time}")
     start_time = time.time()
     context_list = query_database(user_prompt, conn, True)
+    print(context_list)
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
     final_str = extract_relevant_values(user_prompt, context_list)
     print(f"3/3 Got the final string! - took {time.time() - start_time}")
     return final_str
+
 
 if __name__ == "__main__":
     main()

@@ -2,15 +2,11 @@
 Collection of functions to send data to and get data from a PostgreSQL database in the context of this 
 somewhat unconventional RAG pipeline.
 """
-import os
 import pandas as pd
 import psycopg2
 import yaml
-from dotenv import load_dotenv
 from psycopg2 import OperationalError, DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
-from rapidfuzz import fuzz
-from sqlalchemy import create_engine
 
 def establish_connection(
     database: str, #pesticide_db

@@ -10,8 +10,7 @@ import pymupdf
 import re
 from pathlib import Path
 
-
-#FIXME: add multidoc support
+#TODO: no multidoc support done as it didn't seem feasible 
 def load_pesticide_chapters(
     pdf_path: str,    
     start_page: int,
@@ -23,10 +22,11 @@ def load_pesticide_chapters(
 
     Args:
         pdf_path (str): System path to the PDF document.
-        start_page (int): First page to load (inclusive). 
+        start_page (int): First page to load. Inclusive using page numbers (The numbers in the PDF-Viewer). 
                         Typically the first page containing pesticide data.
-        end_page (int): Last page to load (inclusive). Usually the last page with a relevant table, 
-                        excluding those about "Extraneous Maximum Residue Values."
+        end_page (int): Last page to load. Inclusive using page numbers (The numbers in the PDF-Viewer).
+                        Usually the last page with a relevant table, excluding 
+                        those about "Extraneous Maximum Residue Values."
 
     Returns:
         str: A String containing the text content of the document.
@@ -43,18 +43,25 @@ def load_pesticide_chapters(
         if value < 0:
             raise ValueError(f"{name} must be a non-negative integer, got {value}")
     if end_page < start_page:
-        raise ValueError(f"`end_page` ({end_page}) must be greater than `start_page` ({start_page}).")
-
+        raise ValueError(f"`end_page` ({end_page}) must be greater than or equal to `start_page` ({start_page}).")
+    if start_page == 0:
+        raise ValueError("use pdf-page numbers instead of indices, first page is 1.")
+    
     ## load document and delete unwanted pages
     doc = pymupdf.open(pdf_path)
     last_page = doc.page_count
-    if end_page <= last_page:
+    # turn page number to index
+    start_page -= 1
+    if end_page < last_page:
+        # "from=page is inclusive, ie it starts AT that index removing pages including this index"
+        # if we want page 3 (which is idx=2) it can delete everything starting at index 3 (which would be page=4)
         doc.delete_pages(from_page=end_page)
+    elif end_page == last_page:
+        pass
     else:
         logging.warning(f"end_page ({end_page}) is outside of the document (max page {last_page}), no pages deleted.")
-    #FIXME: logic doesn't work for "1", generally not fully thought through
     if start_page > 0:
-        doc.delete_pages(from_page=0, to_page=start_page-2)  # -2 because index starts at 0 and start_page is inclusive
+        doc.delete_pages(from_page=0, to_page=start_page-1)
 
     ## extract text
     text = ""
@@ -87,8 +94,10 @@ def load_pesticide_names_from_outline(
 
     Args:
         pdf_path (str): System path to the PDF document.
-        start_outline (int): First page to load (inclusive). This is the first page containing the outline listing all pesticides mentioned in the document.
-        end_page (int): Last page to load (inclusive). This is the last page containing the outline listing all pesticides mentioned in the document.
+        start_outline (int): First page to load. Inclusive using page numbers (The numbers in the PDF-Viewer).  
+                             This is the first page containing the outline listing all pesticides mentioned in the document.
+        end_page (int): Last page to load (inclusive). Inclusive using page numbers (The numbers in the PDF-Viewer).
+                        This is the last page containing the outline listing all pesticides mentioned in the document.
 
     Returns: 
         list[str]: List of all pesticide names listed on the specified outline pages.
@@ -106,18 +115,22 @@ def load_pesticide_names_from_outline(
             raise ValueError(f"{name} must be a non-negative integer, got {value}")
     if end_outline < start_outline:
         raise ValueError(f"`end_outline`({end_outline}) must be greater than `start_outline` ({start_outline}).")
+    if start_outline == 0:
+        raise ValueError("use pdf-page numbers instead of indices, first page is 1.")
     
     ## load document and delete unwanted pages
     doc = pymupdf.open(pdf_path)
     last_page = doc.page_count
-    if end_outline <= last_page:
+    # turn page number to index
+    start_outline -= 1
+    if end_outline < last_page:
         doc.delete_pages(from_page=end_outline)
+    elif end_outline == last_page:
+        pass
     else:
         logging.warning(f"end_outline ({end_outline}) is outside of the document (max page {last_page}), no pages deleted.")
-    #FIXME: logic doesn't work for "1", generally not fully thought through
     if start_outline > 0:
-        doc.delete_pages(from_page=0, to_page=start_outline-2)  # -2 because index starts at 0 and start_page is inclusive
-
+        doc.delete_pages(from_page=0, to_page=start_outline-1) 
     ## extract text
     text = ""
     for page in doc:
