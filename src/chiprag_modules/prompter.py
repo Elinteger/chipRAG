@@ -62,4 +62,4 @@ def extract_relevant_values(
         data_list = [[pesticide] + sublist for sublist in data_list]
         extracted_data += data_list
 
-    return pd.DataFrame(extracted_data, columns=['pesiticide', 'food', 'mrl'])
+    return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])

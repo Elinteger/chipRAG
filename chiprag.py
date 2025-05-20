@@ -76,9 +76,9 @@ def answer_prompt(user_prompt):
     context_list = query_database(user_prompt, conn, True)
     print(f"2/3 Got context list! - took {time.time() - start_time}")
     start_time = time.time()
-    final_str = extract_relevant_values(user_prompt, context_list)
+    final_dataframe = extract_relevant_values(user_prompt, context_list)
     print(f"3/3 Got the final string! - took {time.time() - start_time}")
-    return final_str
+    return final_dataframe
 
 
 if __name__ == "__main__":
