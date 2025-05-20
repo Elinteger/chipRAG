@@ -9,6 +9,7 @@ value_extraction_prompt: |
   If the section is actually fitting to the users prompt, only send back the list of lists, refrain from adding things suchs as '```python```' for example.
   If you are unsure about a value, write a -1 into that field. If you know there is no value to it, as its a category, write a -2. Do not add, remove or alter any information you get. Only extract and return.
   Put foods and categories into strings, keep numbers/Maximum residue values as numbers.
+  Do never send/write anything back but the list.
   Here is the section you are supposed to do that task with:
   {text}"
   

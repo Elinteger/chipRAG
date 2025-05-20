@@ -77,9 +77,9 @@ def chunk_report_by_sections(
         else:  
             # no match with current pesticide
             continue
-    # FIXME: check logic for if the first chapter_content entry can always be deleted 
-    # and how to figure out if it has to be + how to handle edge cases
+
     chapter_content.append(remaining_text)
+    # delete everything (empty string if theres nothing in front) before the first chapter starts
     del chapter_content[0]
 
     ## creating DataFrame

@@ -31,7 +31,7 @@ def main():
     outline_pest_number = 4
     #FIXME: when there are multiple keywords, results are mixed, already happens before prompting that keywords are asked for mixed! -> so most likely during creation of the context-list
     user_prompt = "Liver of pig; zoxamide" 
-    upload = False
+    upload = True
     if upload:
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
         print("-----------------------")
