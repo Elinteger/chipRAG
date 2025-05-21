@@ -4,11 +4,23 @@ import pandas as pd
 import psycopg2
 import requests
 import yaml
+from chiprag_modules import establish_connection
 from config.load_config import settings
 from psycopg2 import DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
 
-def fetch_data_from_eu_api() -> tuple[pd.DataFrame, pd.DataFrame]:
+
+def update_eu_data() -> None:
+    """
+    #FIXME: descriptipn
+    """
+    api_result = _fetch_data_from_eu_api()
+    applicable_data, not_yet_applicable_data = _clean_data_from_eu_api(api_result)
+    conn = establish_connection()
+    _store_data_from_eu_api(applicable_data, not_yet_applicable_data, conn)
+
+
+def _fetch_data_from_eu_api() -> list:
 #FIXME: description
     ## setup/config
     headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
@@ -17,10 +29,32 @@ def fetch_data_from_eu_api() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     response = requests.get(f"https://api.datalake.sante.service.ec.europa.eu/sante/pesticides/pesticide_residues_mrls/download?format={format}&language={language}&api-version=v2.0", headers=headers)
     data = response.json()
-    return _clean_data_from_eu_api(data)
+    return data
 
 
-def store_data_from_eu_api(
+def _clean_data_from_eu_api(
+    data: json
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    #FIXME: description
+    
+    df = pd.DataFrame(data)
+    # only get columns of importance
+    filtered_df = df[["pesticide_residue_name", "product_code", "product_name", "mrl_value_only", "applicability_text", "application_date"]]
+    # remove duplicates
+    filtered_df = filtered_df.drop_duplicates()
+    # remove non-applicable values
+    filtered_df = filtered_df[~filtered_df["applicability_text"].str.contains("No longer applicable")]
+    # put not yet applicable values without a date in their own table and sort them
+    not_yet_applicable_data = filtered_df[filtered_df["applicability_text"].str.contains("Not yet applicable") & filtered_df["application_date"].isna()]
+    not_yet_applicable_data = not_yet_applicable_data.sort_values(by="pesticide_residue_name")
+    # drop not yet applicable values from filtered_df
+    applicable_data = filtered_df.drop(not_yet_applicable_data.index)
+    # sort according to pesticide residue names and then their product code
+    applicable_data = filtered_df.sort_values(by=["pesticide_residue_name", "product_code"])
+
+    return applicable_data, not_yet_applicable_data
+
+def _store_data_from_eu_api(
         applicable_data: pd.DataFrame,
         not_yet_applicable_data: pd.DataFrame,
         conn: psycopg2.extensions.connection,
@@ -48,7 +82,7 @@ def store_data_from_eu_api(
 
     #FIXME: check what Unnamed:0 is about
     for df in [applicable_data, not_yet_applicable_data]:
-        df.drop(labels=["Unnamed: 0", "product_code"], axis=1)
+        df.drop(labels=["product_code"], axis=1)
 
         # turn dataframe into list, dataframe must have the specified columns!
         data = [(row['pesticide_residue_name'], row['product_name'], row['mrl_value_only'], row["applicability_text"], row["application_date"]) for _, row in df.iterrows()]
@@ -74,28 +108,3 @@ def store_data_from_eu_api(
     cur.close()
     if close_conn_afterwards:
         conn.close()
-    
-
-def _clean_data_from_eu_api(
-    data: json
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-    #FIXME: description
-    
-    df = pd.DataFrame(data)
-    # only get columns of importance
-    filtered_df = df[["pesticide_residue_name", "product_code", "product_name", "mrl_value_only", "applicability_text", "application_date"]]
-    # remove duplicates
-    filtered_df = filtered_df.drop_duplicates()
-    # remove non-applicable values
-    filtered_df = filtered_df[~filtered_df["applicability_text"].str.contains("No longer applicable")]
-    # put not yet applicable values without a date in their own table and sort them
-    not_yet_applicable_data = filtered_df[filtered_df["applicability_text"].str.contains("Not yet applicable") & filtered_df["application_date"].isna()]
-    not_yet_applicable_data = not_yet_applicable_data.sort_values(by="pesticide_residue_name")
-    # drop not yet applicable values from filtered_df
-    applicable_data = filtered_df.drop(not_yet_applicable_data.index)
-    # sort according to pesticide residue names and then their product code
-    applicable_data = filtered_df.sort_values(by=["pesticide_residue_name", "product_code"])
-
-    return applicable_data, not_yet_applicable_data
-
-

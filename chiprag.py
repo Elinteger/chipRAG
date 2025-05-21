@@ -6,7 +6,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 import time
 from dotenv import load_dotenv
-from eu_data_tools import fetch_data_from_eu_api
 from chiprag_modules import ( 
     load_pesticide_chapters, 
     load_pesticide_names_from_outline, 
