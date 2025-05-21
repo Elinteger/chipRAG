@@ -6,6 +6,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
 
 import time
 from dotenv import load_dotenv
+from eu_data_tools import fetch_data_from_eu_api
 from chiprag_modules import ( 
     load_pesticide_chapters, 
     load_pesticide_names_from_outline, 
@@ -16,7 +17,7 @@ from chiprag_modules import (
     extract_relevant_values
     )
 
-#FIXME: spalte für dokumentversion, overall db plan!
+#FIXME: spalte für dokumentversion in db
 #FIXME: tests
 def main():
     start_time = time.time()
@@ -36,8 +37,10 @@ def main():
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
         print("-----------------------")
     answer = answer_prompt(user_prompt)
+    answer.to_csv("pestizid.csv")
     print(answer)
     print(f"Took {divmod(int(time.time() - start_time), 60)[0]:02d}:{divmod(int(time.time() - start_time), 60)[1]:02d} overall")
+    return answer
 
 #FIXME: update old values with new ones! -> need new table definition first for that
 def upload_new_document(
@@ -79,7 +82,6 @@ def answer_prompt(user_prompt):
     final_dataframe = extract_relevant_values(user_prompt, context_list)
     print(f"3/3 Got the final string! - took {time.time() - start_time}")
     return final_dataframe
-
 
 if __name__ == "__main__":
     main()

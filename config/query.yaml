@@ -1,5 +1,9 @@
-insert_query: |
+insert_chinese_query: |
   INSERT INTO chinese_pesticide_residues (pesticide, text)
+  VALUES %s
+
+insert_eu_query: |
+  INSERT INTO european_pesticide_residues (pesticide, product, mrl, applicability, application_date)
   VALUES %s
 
 fuzzy_single_query: |

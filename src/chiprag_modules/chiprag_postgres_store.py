@@ -61,7 +61,7 @@ def upload_dataframe(
     # load SQL-queries
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
-    insert_query = queries["insert_query"]
+    insert_query = queries["insert_chinese_query"]
 
     # create cursor from connection object
     cur = conn.cursor()
