@@ -11,7 +11,7 @@ fuzzy_single_query: |
   FROM chinese_pesticide_residues AS t,
     regexp_split_to_table(t.text, '\s+') AS word
   WHERE similarity(word, %s) > 0.80;
-query_path
+
 # used to be to do a fuzzy query using a word window, sadly didn't work 
 
 # fuzzy_window_query: |

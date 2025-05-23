@@ -23,8 +23,8 @@ def extract_relevant_values(
         pd.DataFrame: Pandas DataFrame with the columns ['pesiticide', 'food', 'mrl'] extracted from the given context by an LLM.
     """
     ## faulty argument handling
-    if not isinstance(user_prompt, str):
-        raise TypeError(f"'user_prompt' must be a string, got {type(user_prompt).__name__}")
+    if not isinstance(user_prompt, list):
+        raise TypeError(f"'user_prompt' must be a list, got {type(user_prompt).__name__}")
 
     ## setup 
     openai_client = openai.OpenAI(
