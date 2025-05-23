@@ -10,8 +10,8 @@ fuzzy_single_query: |
   SELECT DISTINCT t.pesticide, t.text 
   FROM chinese_pesticide_residues AS t,
     regexp_split_to_table(t.text, '\s+') AS word
-  WHERE similarity(word, %s) > 0.60;
-
+  WHERE similarity(word, %s) > 0.80;
+query_path
 # used to be to do a fuzzy query using a word window, sadly didn't work 
 
 # fuzzy_window_query: |
@@ -36,3 +36,13 @@ multiple_query: |
   SELECT DISTINCT t.pesticide, t.text
   FROM chinese_pesticide_residues AS t
   WHERE t.text ILIKE %s;
+  
+get_unique_pesticides_eu: |
+  SELECT DISTINCT t.pesticide
+  FROM european_pesticide_residues AS t;
+
+get_relevant_applicable_entries_eu: |
+  SELECT DISTINCT t.pesticide, t.product, t.mrl, t.applicability
+  FROM european_pesticide_residues AS t
+  WHERE t.pesticide ~ %s and t.applicability ~ 'Applicable';
+  

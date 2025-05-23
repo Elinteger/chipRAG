@@ -18,7 +18,7 @@ from chiprag_modules import (
 
 #FIXME: spalte für dokumentversion in db
 #FIXME: tests
-def main():
+def main(prompt: str, upload_document: bool):
     start_time = time.time()
     print("Hello Chiprag!")
     print("-----------------------")
@@ -29,9 +29,9 @@ def main():
     start_outline = 4
     end_outline = 19
     outline_pest_number = 4
-    user_prompt = "zoxamide" 
+    user_prompt = prompt 
 
-    upload = True
+    upload = upload_document
     if upload:
         upload_new_document(test_document, start_tables, end_tables, start_outline, end_outline, outline_pest_number)
         print("-----------------------")
@@ -83,4 +83,9 @@ def answer_prompt(user_prompt):
     return final_dataframe
 
 if __name__ == "__main__":
-    main()
+    # if len(sys.argv) < 2:
+    #     print("Usage: python chiprag.py '<your prompt here>'")
+    #     sys.exit(1)
+    # main(sys.argv[1])
+    main("zoxamide", False)
+    

@@ -108,3 +108,87 @@ def _store_data_from_eu_api(
     cur.close()
     if close_conn_afterwards:
         conn.close()
+
+
+def query_pesticides_from_eu_api() -> list[str]:
+    """
+    #FIXME: add description
+    """
+    
+    conn = establish_connection()
+    # create cursor from connection object
+    cur = conn.cursor()
+
+    with open(settings.query_path, "r", encoding="utf-8") as f:
+        queries = yaml.safe_load(f)
+    get_query = queries["get_unique_pesticides_eu"]
+    # run SQL with data on database
+    try:
+        cur.execute(get_query)
+        # execute_values(cur, query)
+    except DatabaseError as e:
+        print(f"database error while trying to run SQL on postgre database: {e}")
+        conn.rollback()
+        raise
+    except ProgrammingError as e:
+        print(f"programming error while trying to run SQL on postgre database: {e}")
+        conn.rollback()
+        raise
+    except Exception as e:
+        print(f"unexpected error: {e}")
+        conn.rollback()
+        raise
+
+    conn.commit()
+    results = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return [row[0].strip() for row in results]
+
+
+def get_all_pesticide_data_from_eu_api(
+    pesticide_list: list[str],
+) -> dict:
+    '''
+    FIXME: des
+    '''
+    ## faulty argument handling
+    #FIXME: do this
+    
+    ## querying
+    # load SQL-queries
+    with open(settings.query_path, "r", encoding="utf-8") as f:
+        queries = yaml.safe_load(f)
+    get_query = queries["get_relevant_applicable_entries_eu"]
+
+    conn = establish_connection()
+    # create cursor from connection object
+    cur = conn.cursor()
+
+    # fuzzy text search
+    all_results_dict = {}
+    for pesticide in pesticide_list:
+        values_for_pesticide = []
+        try:
+            cur.execute(get_query, (pesticide,))
+        except DatabaseError as e:
+            print(f"database error while trying to run SQL on postgre database: {e}")
+            conn.rollback()
+            raise
+        except ProgrammingError as e:
+            print(f"programming error while trying to run SQL on postgre database: {e}")
+            conn.rollback()
+            raise
+        except Exception as e:
+            print(f"unexpected error: {e}")
+            conn.rollback()
+            raise
+        results = cur.fetchall()
+        all_results_dict[pesticide] = results
+    
+    cur.close()
+    conn.close()
+
+    return all_results_dict
