@@ -7,9 +7,7 @@ import yaml
 from config.load_config import settings
 from psycopg2 import DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
-
-#TODO: __init__
-from chiprag.postgres_utils.util_postgres_store import establish_connection
+from .util_postgres_store import establish_connection
 
 
 def upload_dataframe(

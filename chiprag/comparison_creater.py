@@ -2,6 +2,7 @@ import argparse
 
 from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values
+from .postgres_utils import get_all_pesticides
 
 def create_comparison():
     # parse inputs
@@ -16,6 +17,8 @@ def create_comparison():
     chi_values = _get_chi_values(keywords)
     eu_values = _get_eu_values(chi_values, keywords)
     print(eu_values)
+    
+    return 
 
 
 def _get_chi_values(keywords):
@@ -25,7 +28,8 @@ def _get_chi_values(keywords):
 
 def _get_eu_values(chi_values, keywords):
     #TODO:
-    pass
+    raw_data = get_all_pesticides()
+    eu_pesticides = [row[0].strip() for row in raw_data]
 
 
 if __name__ == "__main__":

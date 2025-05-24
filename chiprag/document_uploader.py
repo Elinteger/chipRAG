@@ -1,3 +1,6 @@
+"""
+Pipeline to read in a PDF, chunk it accordingly and upload it into a PostgreSQL database.
+"""
 import argparse
 
 from .chiprag_modules import load_pesticide_chapters, load_pesticide_names_from_outline, chunk_report_by_sections
@@ -54,3 +57,4 @@ def upload_document():
 
 if __name__ == "__main__":
     upload_document() 
+    

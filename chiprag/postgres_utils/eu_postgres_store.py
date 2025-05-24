@@ -5,7 +5,7 @@ import yaml
 from config.load_config import settings
 from psycopg2 import DatabaseError, ProgrammingError
 from psycopg2.extras import execute_values
-from .util_postgres_store import establish_connection
+from .util_postgres_store import establish_connection, get_data
 
 
 def get_pesticide_data(
@@ -83,3 +83,16 @@ def store_pesticide_data(
     finally:
         cur.close()
         conn.close()
+
+
+def get_all_pesticides():
+    """
+    FIXME:
+    """
+    with open(settings.query_path, "r", encoding="utf-8") as f:
+        queries = yaml.safe_load(f)
+    get_query = queries["get_unique_pesticides_eu"]
+
+    raw_data = get_data(get_query)
+
+    return raw_data

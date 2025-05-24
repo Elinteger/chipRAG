@@ -1,4 +1,3 @@
-
 import psycopg2
 from config.load_config import settings
 from psycopg2 import OperationalError, DatabaseError, ProgrammingError
@@ -57,6 +56,3 @@ def get_data(
     finally:
         cur.close()
         conn.close()
-
-    # return [row[0].strip() for row in results] from eu data
-    

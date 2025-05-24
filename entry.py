@@ -3,4 +3,4 @@ from chiprag.comparison_creater import create_comparison
 from chiprag.eu_data_updater import update_eu_data
 
 if __name__ == "__main__":
-    update_eu_data()
+    print(create_comparison())

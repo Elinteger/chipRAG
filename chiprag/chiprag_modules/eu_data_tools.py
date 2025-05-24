@@ -1,6 +1,9 @@
 import json
 import pandas as pd
 import requests
+import yaml
+from config.load_config import settings
+from chiprag.postgres_utils import get_all_pesticides
 
 
 def eu_fetch_api() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -36,3 +39,27 @@ def _eu_clean_data(
     applicable_data = filtered_df.sort_values(by=["pesticide_residue_name", "product_code"])
 
     return applicable_data, not_yet_applicable_data
+
+
+def get_fitting_pesticides(
+        pesticide_df: pd.DataFrame
+):
+    """
+    """
+    # prompt to compare chinese pesticide to all european ones
+    with open(settings.prompt_path, "r", encoding="utf-8") as f:
+        prompts = yaml.safe_load(f)
+    compare_pesticides_prompt = prompts["compare_pesticides_prompt"]
+
+    # get unique pesticides from chinese data
+    query_pesticides = pesticide_df["pesticide"].unique().tolist()
+
+    # get all pesticides 
+    eu_pesticides = get_all_pesticides()
+    
+    for pesticide in query_pesticides:
+        possible_matches_list = []
+        prompt = compare_pesticides_prompt.format(
+            chinese_pesticide=pesticide,
+            european_pesticides = eu_pesticides
+        )

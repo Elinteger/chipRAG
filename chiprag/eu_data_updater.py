@@ -1,5 +1,5 @@
 """
-Pipeline to fetch pesticide data from the API by the EU, clean it and finally save it to a PostgreSQL Database.
+Pipeline to fetch pesticide data from the API by the EU, clean it and finally save it to a PostgreSQL atabase.
 """
 from .chiprag_modules import eu_fetch_api
 from .postgres_utils import store_pesticide_data
