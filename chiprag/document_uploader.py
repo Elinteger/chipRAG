@@ -3,7 +3,7 @@ import argparse
 from .chiprag_modules import load_pesticide_chapters, load_pesticide_names_from_outline, chunk_report_by_sections
 from .postgres_utils import upload_dataframe
 
-def main():
+def upload_document():
     print("-- Uploading new document to database --")
 
     # parse inputs
@@ -53,4 +53,4 @@ def main():
     print("Upload complete.")
 
 if __name__ == "__main__":
-    main() 
+    upload_document() 

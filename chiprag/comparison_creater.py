@@ -3,7 +3,7 @@ import argparse
 from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values
 
-def main():
+def create_comparison():
     # parse inputs
     parser = argparse.ArgumentParser("Compare maximum residue values of selected pesticides and foods. Inputs are: \"zoxamide\" \"cheese\" \"pork\" for example")
     parser.add_argument("keywords", 
@@ -29,4 +29,4 @@ def _get_eu_values(chi_values, keywords):
 
 
 if __name__ == "__main__":
-    main()
+    create_comparison()
