@@ -1,0 +1,530 @@
+Adzuki
+Agaric fungi
+Apple
+Apricot
+Apricot kernel
+Aquatic products
+Aquatic vegetables
+Arrowhead (sagittaria sagittifolia)
+Artichoke
+Asparagus
+Atractylodes (dry)
+Atractylodes (fresh)
+Avocado
+Baby corn
+Bamboo shoot
+Banana
+Barley
+Beef
+Beimu (fritillaria cirrhosa) (dry)
+Beimu (fritillaria cirrhosa) (fresh)
+Bergamot
+Berries and other small fruits
+Berries and other small fruits (with the exception of blackberry, gooseberry, grape, kiwi fruit, strawberry)
+Berries and other small fruits (with the exception of cranberry, strawberry)
+Berries and other small fruits (with the exception of grape)
+Berries and other small fruits (with the exception of kiwi fruit)
+Berries and other small fruits (with the exception of strawberry)
+Betel pepper
+Beverages
+Beverages (with the exception of tea)
+Bitter gourd
+Blackberry
+Blueberry
+Boysenberry
+Brassica vegetables
+Brassica vegetables (with the exception of broccoli)
+Brassica vegetables (with the exception of broccoli, cabbage mustard, flowering chinese cabbage)
+Brassica vegetables (with the exception of broccoli, flowering chinese cabbage)
+Brassica vegetables (with the exception of cabbage)
+Brassica vegetables (with the exception of cabbage, broccoli, cabbage mustard, flowering chinese cabbage)
+Brassica vegetables (with the exception of cabbage, broccoli, sprouting broccoli, cabbage mustard, flowering chinese cabbage)
+Brassica vegetables (with the exception of cabbage, cabbage mustard, flowering chinese cabbage)
+Brassica vegetables (with the exception of curly cabbage)
+Brassicas vegetables
+Broad bean
+Broccoli
+Broomcorn
+Brown rice
+Brussels sprouts
+Bulb onions
+Bulb vegetables
+Bulb vegetables (with the exception of garlic)
+Bulb vegetables (with the exception of onion, scallion)
+Button mushroom (fresh)
+Cabbage
+Cabbage mustard
+Cabbage, kale, broccoli
+Camellia seed
+Canola oil
+Cantaloupe
+Cardamom
+Carrot
+Cashew nut
+Cassava
+Celeriac
+Celery
+Cereal
+Cereal (with the exception of barley, coarse cereals)
+Cereal (with the exception of the seperately listed)
+Cherry
+Cherry tomato
+Chestnut
+Chicken egg
+Chicken meat
+Chicken viscera
+Chickpeas
+Chicory
+Chili
+Chinese cabbage
+Chinese parsley (cilantro)
+Chinese yam
+Chrysanthemum (dry)
+Chrysanthemum (fresh)
+Citrus
+Citrus (mandarin orange, orange, tangerine)
+Citrus (with the exception of lemon )
+Citrus (with the exception of mandarin orange, orange, tangerine)
+Citrus (with the exception of mandarin orange, orange, tangerine, kumquat)
+Citrus (with the exception of mandarin orange, orange, tangerine, lemon, pumelo)
+Coarse cereals
+Coarse cereals (with exception of adzuki)
+Coarse cereals (with the exception of pea)
+Coarse cereals (with the exception of pea, lentils)
+Cocoa bean
+Coffee bean
+Common cattail
+Condiment made from fruits
+Condiment made from fruits (with the exception of cardamon)
+Condiment made from plant root and stem
+Condiment made from seeds
+Condiments
+Condiments (mint, spearmint, dried chili)
+Condiments (with the exception of condiment made from fruits)
+Condiments (with the exception of dried chili)
+Coriander seed
+Corn
+Corn flour
+Corn grits
+Corn oil
+Corydalis yanhusuo (dry)
+Corydalis yanhusuo (fresh)
+Cotton seed
+Cotton seed oil
+Cow milk
+Cowpea
+Cranberry
+Cress
+Crude corn oil
+Crude cotton seed oil
+Crude peanut oil
+Crude rapeseed oil
+Crude soybean oil
+Crude sunflower seed oil
+Crude vegetable oil
+Cucumber
+Cumin
+Curly cabbage
+Currant
+Date (fresh)
+Daylily (dry)
+Daylily (fresh)
+Deciduous fruits
+Deciduous fruits (with the exception of apple)
+Deciduous fruits (with the exception of apple, pear)
+Deciduous fruits (with the exception of apple, pear, hawthorn)
+Deciduous fruits (with the exception of pear)
+Dendrobium (dry)
+Dendrobium (fresh)
+Dewberry
+Dewberry (boysenberry and loganberry)
+Dewberry (including boysenberry and loganberry)
+Donkey meat
+Dragon fruit
+Dried apple
+Dried chili
+Dried fig
+Dried fruits
+Dried potato
+Dried tomato
+Dried vegetables
+Duck
+Durian
+Edible amaranth
+Edible fungi
+Eedible rape
+Eggplant
+Eggs
+Fat content <10%
+Fat content ≥10%
+Fat of cattle
+Fat of goat
+Fat of horse
+Fat of mammals
+Fat of mammals (with the exception of marine mammal)
+Fat of mammals (with the exception of milk fat)
+Fat of pig
+Fat of sheep
+Fennel
+Fennel seed
+Fig
+Flaxseed
+Flesh of mandarin orange (dry)
+Flower-head brassicas
+Flower-head brassicas vegetables
+Flowering chinese cabbage
+Fresh corn
+Fruit
+Fruit (with the exception of apple, pear, peach, cherry, nectarine, prune, blueberry, cranberry, watermelon, sweet melons)
+Fruits
+Garland chrysanthemum
+Garlic
+Garlic sprouts
+Ginger
+Ginseng
+Ginseng (dry)
+Ginseng (fresh)
+Goat meat
+Goat milk
+Goji berry
+Goji berry (dry)
+Goji berry (fresh)
+Goose
+Gooseberry
+Gorgon euryale
+Gourd vegetables
+Gourd vegetables (with the exception of cucumber)
+Gourd vegetables (with the exception of cucumber, bitter gourd, loofah, wax gourd, pumpkin)
+Gourd vegetables (with the exception of cucumber, pumpkin)
+Gourd vegetables (with the exception of cucumber, squash, bitter gourd)
+Gourd vegetables (with the exception of cucumber, squash, loofah, pumpkin)
+Gourd vegetables (with the exception of squash, cucumber)
+Gourd vegetables (with the exception of zucchini, bitter gourd, loofah, wax gourd, pumpkin)
+Grape
+Grape juice
+Green leaf vegetables
+Green vegetable
+Greengage
+Guava
+Hami melon
+Hawthorn
+Hazelnut
+Head brassicas
+Head lettuce
+Herbs
+Honeysuckle flower
+Hop
+Horse meat
+Horse-radish
+Hyacinth bean
+Jasmine
+Kale
+Ketchup
+Kidney bean
+Kidney of cattle
+Kidney of goat
+Kidney of pig
+Kidney of sheep
+Kiwi fruit
+Kohlrabi
+Kumquat
+Lamb/mutton
+Lamb’s lettuce
+Large melon
+Large-grained nuts
+Large-grained oil seeds
+Large-grained oil seeds (with the exception of peanut kernel)
+Large-grained oil seeds (with the exception of soybean)
+Leaf lettuce
+Leaf mustard
+Leaf onions
+Leaf stalk vegetables
+Leaf vegetables
+Leaf vegetables (with the exception of celery)
+Leaf vegetables (with the exception of ordinary cabbage)
+Leaf vegetables (with the exception of spinach, ordinary cabbage, edible amaranth, garland chrysanthemum, stem and leaf lettuce, leaf lettuce, stem lettuce leaf, celery, chinese cabbage)
+Leaf vegetables (with the exception of spinach, ordinary cabbage, leaf mustard, radish leaf, stem lettuce leaf, chinese cabbage)
+Leaf vegetables (with the exception of spinach, ordinary cabbage, stem lettuce leaf, chinese cabbage)
+Leaf vegetables (with the exception of spinach, stem and leaf lettuce, leaf lettuce, stem lettuce leaf, celery, chinese cabbage)
+Leaf vegetables (with the exception of spinach, stem and leaf lettuce, turnip leaf, stem lettuce leaf, celery)
+Leafy
+Leafy condiments
+Leafy condiments (with the exception of betel pepper)
+Leafy condiments (with the exception of mint and spearmint)
+Leek
+Legume vegetables
+Legume vegetables (with the exception of cowpea, kidney bean, pod-edible pea, hyacinth bean, broad bean and pea)
+Legume vegetables (with the exception of cowpea, vegetable soybean, broad bean)
+Legume vegetables (with the exception of kidney bean, vegetable soybean)
+Legume vegetables (with the exception of pod-edible pea)
+Lemon
+Lemongrass
+Lentils
+Lily bulb
+Lily bulb (dry)
+Lily bulb (fresh)
+Lima bean
+Litchi
+Liver of cattle
+Liver of goat
+Liver of pig
+Liver of sheep
+Loganberry
+Longan
+Loofah
+Loquat
+Lotus root
+Lotus seed
+Lotus seed (fresh)
+Lupin
+Macadamia nut
+Mandarin orange
+Mango
+Mangosteen
+Marine mammal
+Marjoram
+Meat from mammals
+Meat from mammals (with the exception of marine mammal)
+Meat from mammals (with the exception of marine mammal)
+Meat from mammals (with the exception of marine mammal)
+Meat of chicken
+Meat of goat
+Meat of horse
+Meat of mammals and its products
+Meat of mammals and its products (with the exception of marine mammal)
+Meat of sheep
+Medium-grained oil seeds
+Melons
+Melons (with the exception of sweet
+Melons (with the exception of sweet melons)
+Melons (with the exception of sweet melons, watermelon)
+Melons (with the exception of watermelon)
+Milk
+Milk fat
+Millet
+Mint
+Mulberry
+Mung bean
+Mushroom
+Mushroom (fresh)
+Mushrooms
+Muskmelon
+Mustard seed
+Nectarine
+Nuts
+Nuts (with the exception of hazelnut, macadamia nut)
+Nuts (with the exception of pistachio nuts)
+Oat
+Oil
+Oil seed and oil
+Oil seeds
+Oil seeds (with the exception of rapeseed, soybean, peanut kernel)
+Okra
+Olive
+Olive for oil
+Onion
+Orange
+Ordinary cabbage
+Ordinary cabbage/chinese cabbage
+Other root, tuber and tuberous rooted
+Other root, tuber and tuberous rooted vegetables
+Other solanaceous vegetables
+Other vegetables
+Oyster mushroom
+Oyster mushroom (fresh)
+Pakchoi
+Papaya
+Parsley
+Passion fruit
+Pea
+Peach
+Peanut kernel
+Peanut oil
+Pear
+Pecan
+Peel inedible tropical and sub-tropical fruits (with the exception of banana)
+Peel inedible tropical and sub-tropical fruits (with the exception of litchi, longan, mango, banana, dragon fruit)
+Pepper
+Persimmon
+Pineapple
+Pistachio nuts
+Plant root and stem
+Plum
+Pod inedible legume vegetables
+Pod-edible legume vegetables
+Pod-edible legume vegetables (pod-edible pea)
+Pod-edible legume vegetables (with the exception of cowpea, kidney bean, pod-edible pea)
+Pod-edible legume vegetables (with the exception of kidney bean)
+Pod-edible legume vegetables (with the exception of pod-edible pea)
+Pod-edible pea
+Pod-edible pea (with the exception of pea)
+Pod-edible vegetables
+Pod-inedible legume vegetables
+Pod-inedible legume vegetables (with the exception of pea, lima bean)
+Pod-inedible legume vegetables (with the exception of vegetable soybean)
+Pod-inedible vegetables
+Pomegranate
+Pork
+Potato
+Potato)
+Poultry
+Poultry fat
+Poultry meat
+Poultry meat, calculated by residue in the fat
+Poultry meat, expressed as residue in the fat
+Poultry viscera
+Preserved citrus
+Preserved fig
+Processed grains
+Processed grains (with the exception of wheat flour)
+Prune
+Pumelo
+Pumpkin
+Purple perilla
+Quinces
+Radish
+Radish leaf
+Raisin
+Rapeseed
+Raw milk
+Red bayberry
+Refined olive oil
+Rhubarb
+Rice
+Rices
+Root mustard
+Root, tuber and tuberous rooted
+Rosemary
+Rubus corchorifolius l.
+Rubus idaeus
+Rye
+Rye flour
+Sanqi (panax notoginseng) fibrous root
+Sanqi (panax notoginseng) fibrous root (dry)
+Sanqi (panax notoginseng) flower (dry)
+Sanqi (panax notoginseng) root tuber
+Sanqi (panax notoginseng) root tuber (dry)
+Savory summer
+Scallion
+Sesame
+Shadberry
+Sheep meat
+Sheep milk
+Small cucumber used for pickling
+Small melon
+Small vine climbing fruit
+Small-grained nuts
+Small-grained oil seeds
+Solanaceous vegetables
+Solanaceous vegetables (with the exception of chili)
+Solanaceous vegetables (with the exception of eggplant, chili)
+Solanaceous vegetables (with the exception of eggplant, okra)
+Solanaceous vegetables (with the exception of sweet pepper, okra)
+Solanaceous vegetables (with the exception of tomato)
+Solanaceous vegetables (with the exception of tomato, chili)
+Solanaceous vegetables (with the exception of tomato, eggplant, chili, okra)
+Sorghum
+Soybean
+Soybean oil
+Spearmint
+Spherical fennel
+Spinach
+Spring onion
+Sprouting broccoli
+Sprouting vegetables
+Squash
+Starfruit
+Stem and leaf lettuce
+Stem and leaf vegetables
+Stem and root vegetables
+Stem and root vegetables (with the exception of ginger)
+Stem and root vegetables (with the exception of turnip)
+Stem brassicas
+Stem lettuce
+Stem lettuce leaf
+Stem vegetables
+Stem vegetables (with the exception of stem lettuce)
+Stem, root, tuber and tuberous rooted
+Stem, root, tuber and tuberous rooted vegetables
+Stem, root, tuber and tuberous rooted vegetables (with the exception of carrot)
+Stem, root, tuber and tuberous rooted vegetables (with the exception of radish, carrot)
+Stem, root, tuber and tuberous rooted vegetables (with the exception of sweet potato)
+Stone fruits
+Stone fruits (with the exception of cherry)
+Stone fruits (with the exception of fresh date)
+Stone fruits (with the exception of peach)
+Stone fruits (with the exception of plum)
+Strawberry
+Sugar beet
+Sugar crop
+Sugar crops
+Sugarcane
+Sunflower seed
+Sweet basil herb
+Sweet melons
+Sweet melons (with the exception of cantaloupe)
+Sweet pepper
+Sweet potato
+Sweet potato leaf
+Sword bean
+Tangerine
+Tangerine juice
+Tangering
+Taro
+Taro leaf
+Tea
+Tomato
+Tomato juice
+Tomatoes
+Triticale
+Tropical and sub-tropical fruits
+Tropical and sub-tropical fruits (with the exception of banana)
+Tropical and sub-tropical fruits (with the exception of banana, papaya)
+Tropical and sub-tropical fruits (with the exception of mango)
+Turnip
+Turnip leaf
+Upland crops
+Upland crops (with the exception of corn)
+Upland crops (with the exception of corn, fresh corn)
+Upland crops (with the exception of fresh corn)
+Upland crops (with the exception of fresh maize, sorghum)
+Vegetable oil
+Vegetable soybean
+Vegetables
+Vegetables (with the exception of broccoli, sprouting broccoli, tomato, sweet pepper, cucumber, potato)
+Vegetables (with the exception of potato, sweet potato, chinese yam, cassava)
+Vegetables (with the exception of radish)
+Vegetabless
+Vines and shrubs fruits
+Virgin olive oil
+Viscera of cattle
+Viscera of chicken
+Viscera of goat
+Viscera of horse
+Viscera of mammals
+Viscera of mammals (with exception of kidneys of pig, cattle and sheep/goat)
+Viscera of mammals (with the exception of marine mammal)
+Viscera of pig
+Viscera of sheep
+Walnut
+Water bamboo (water rice)
+Water caltrops
+Water chestnut
+Water spinach
+Watercress
+Watermelon
+Wax apple
+Wax gourd
+Wheat
+Wheat flour
+Wheat germ
+Wheats
+Wheats (with the exception of barley, oat)
+Wheats (with the exception of wheat)
+Wheats (with the exception of wheat, barley)
+Whole rye flour
+Whole wheats flour
+Wine grape
+Winter squash
+Young garlic sprouts
+Zucchini
