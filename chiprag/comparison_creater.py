@@ -1,4 +1,5 @@
 import argparse
+import logging
 
 from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values
@@ -16,13 +17,18 @@ def create_comparison():
   
     # get values which are relevant for comparison
     chi_values = _get_chi_values(keywords)
-    # eu_values = _get_eu_values(chi_values, keywords)
+    if len(chi_values == None):
+        return chi_values
+    eu_values = _get_eu_values(chi_values, keywords)
     
     return chi_values
 
 
 def _get_chi_values(keywords):
     list = query_database(keywords)
+    if len(list) == 0:
+         logging.warning("Couldn't find any values in the database fitting the users request. Check request and database accordingly.")
+         return None
     return list
     # return extract_relevant_values(keywords, list)
 

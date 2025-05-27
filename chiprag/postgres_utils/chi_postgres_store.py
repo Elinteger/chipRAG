@@ -82,34 +82,18 @@ def query_database(
     # load SQL-queries
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
-    fuzzy_single_query = queries["fuzzy_single_query"]
-    multiple_query = queries["multiple_query"]
+    get_query = queries["multiple_query"]
 
     conn, cur = establish_connection()
    
     # fuzzy text search
     fuzzy_res = []
-    is_phrase = False
     try:
         for keyword in keywords:
             if len(keyword) == 0:
                 continue
-            # if keyword is a single word, do a fuzzy word by word match
-            if len(keyword.split()) == 1:
-                #FIXME: test mit ILIKE
-                # was: fuzzy_single query; False
-                sql_query = multiple_query
-                is_phrase = True 
-            # if keyword is a keyphrase, do an exact case-insensitive keyphrase match 
-            else:
-                sql_query = multiple_query
-                is_phrase = True
-            # query database  
             try:
-                if is_phrase:
-                    cur.execute(sql_query, (f"%{keyword}%",))
-                else:    
-                    cur.execute(sql_query, (keyword,))
+                cur.execute(get_query, (f"%{keyword}%",))
             except DatabaseError as e:
                 print(f"database error while trying to run SQL on postgre database: {e}")
                 conn.rollback()
