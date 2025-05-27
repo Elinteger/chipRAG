@@ -12,18 +12,19 @@ def create_comparison():
                         help="Required to know which pesticides/foods should be compared")
 
     args = parser.parse_args()
-    keywords = args.keywords  # a list of the keywords like ['a', 'b', 'c'] from "a" "b" "c"
+    keywords = args.keywords  # is a list of the keywords like ['a', 'b', 'c'] from input like "a" "b" "c"
+  
     # get values which are relevant for comparison
     chi_values = _get_chi_values(keywords)
-    eu_values = _get_eu_values(chi_values, keywords)
-    print(eu_values)
+    # eu_values = _get_eu_values(chi_values, keywords)
     
-    return 
+    return chi_values
 
 
 def _get_chi_values(keywords):
     list = query_database(keywords)
-    return extract_relevant_values(keywords, list)
+    return list
+    # return extract_relevant_values(keywords, list)
 
 
 def _get_eu_values(chi_values, keywords):

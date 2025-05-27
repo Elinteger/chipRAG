@@ -10,9 +10,11 @@ import logging
 import pandas as pd
 import re
 
+
 def chunk_report_by_sections(
     text: str,
-    pesticide_list: list[str]  
+    pesticide_list: list[str],
+    document_version: str  
 ) -> pd.DataFrame:
     """
     Splits a given text into chapters by identifying pesticide-related headings,
@@ -40,7 +42,7 @@ def chunk_report_by_sections(
     ## chunking text into sections
     # these serve as the "heading" of a certain chapter
     pesticides = []  
-    # heading, general informations, maximum residue tables
+    # consists of: heading, general informations, maximum residue tables
     chapter_content = []  
     remaining_text = text
 
@@ -60,7 +62,7 @@ def chunk_report_by_sections(
             # add to text column
             chapter_content.append(text_before_idx)
 
-            # clean pesticide before adding from parantheses, brackets and chapter numbers
+            # clean pesticide before adding by removing parantheses, brackets and chapter numbers
             pesticide_str = re.search(r'([\(\[].*?[\)\]])\s*$', pesticide).group(1) 
             if pesticide_str[-1]==')':
                 idx = pesticide_str.rfind('(')
@@ -68,8 +70,8 @@ def chunk_report_by_sections(
                 idx = pesticide_str.rfind('[')
             else: 
                logging.warning(
-                    "Elements in 'pesticide_list' are expected to contain either parentheses or brackets. "
-                    "Check the current document to determine whether this expectation is outdated or if the regex used is incorrect."
+                    "Elements in 'pesticide_list' are expected to contain either parentheses or brackets.\
+                    Check the current document to determine whether this expectation is outdated or if the regex used is incorrect."
                 )
             # add to pesticide column
             pesticides.append(pesticide_str[idx+1:-1])
@@ -86,5 +88,7 @@ def chunk_report_by_sections(
         "pesticide": pesticides,
         "text": chapter_content
     })
+    # add version number of the document to each row
+    df["version"] = document_version
     
     return df 

@@ -36,7 +36,7 @@ def upload_dataframe(
     conn, cur = establish_connection()
 
     # turn dataframe into list, dataframe must have the two specified columns!
-    data = [(row['pesticide'], row['text']) for _, row in df.iterrows()]
+    data = [(row['pesticide'], row['text'], row['version']) for _, row in df.iterrows()]
 
     # run SQL with data on database
     try:
@@ -75,7 +75,6 @@ def query_database(
         list[str]: List of all rows matching the SQL-query.
     '''
     ## faulty argument handling
-    #FIXME: |-| validate that user input is properly as expected: "citrus; zoxamide; pumpkin seeds" -> use AxonIvy?
     if not isinstance(keywords, list):
         raise TypeError(f"'keywords' must be a list of strings, got {type(keywords).__name__}")
 
@@ -87,13 +86,8 @@ def query_database(
     multiple_query = queries["multiple_query"]
 
     conn, cur = establish_connection()
-
-    # split user input to get keywords to look for
-    #FIXME: most likely not needed anymore as we get a list by now
-    # keywords = [item.strip() for item in user_prompt.split(';')]
-    
+   
     # fuzzy text search
-    #FIXME: |-| -> CREATE EXTENSION pg_trgm; in postgresql database!
     fuzzy_res = []
     is_phrase = False
     try:
@@ -102,8 +96,10 @@ def query_database(
                 continue
             # if keyword is a single word, do a fuzzy word by word match
             if len(keyword.split()) == 1:
-                sql_query = fuzzy_single_query
-                is_phrase = False 
+                #FIXME: test mit ILIKE
+                # was: fuzzy_single query; False
+                sql_query = multiple_query
+                is_phrase = True 
             # if keyword is a keyphrase, do an exact case-insensitive keyphrase match 
             else:
                 sql_query = multiple_query

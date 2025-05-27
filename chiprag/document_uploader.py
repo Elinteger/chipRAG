@@ -34,7 +34,6 @@ def upload_document():
                         help="Chapter number with which pesticide sections begin. For example 4 for \"4.15 Zo\"")
     args = parser.parse_args()
     document = args.document
-    #TODO: add this
     document_version = args.document_version
     begin_outline = args.begin_outline
     end_outline = args.end_outline
@@ -46,13 +45,13 @@ def upload_document():
     pdf_text = load_pesticide_chapters(document, begin_tables, end_tables)
     pdf_outline = load_pesticide_names_from_outline(document, begin_outline, end_outline, chapter_number)
     print("Read in PDF.")
-
+    
     # chunk loaded pdf into its sections
-    chunks = chunk_report_by_sections(pdf_text, pdf_outline)
+    chunk_df = chunk_report_by_sections(pdf_text, pdf_outline, document_version)
     print("Chunked PDF.")
 
     # upload chunks
-    upload_dataframe(chunks)
+    upload_dataframe(chunk_df)
     print("Upload complete.")
 
 if __name__ == "__main__":

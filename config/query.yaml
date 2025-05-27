@@ -1,5 +1,5 @@
 insert_chinese_query: |
-  INSERT INTO chinese_pesticide_residues (pesticide, text)
+  INSERT INTO chinese_pesticide_residues (pesticide, text, version)
   VALUES %s
 
 insert_eu_query: |
@@ -11,26 +11,6 @@ fuzzy_single_query: |
   FROM chinese_pesticide_residues AS t,
     regexp_split_to_table(t.text, '\s+') AS word
   WHERE similarity(word, %s) > 0.80;
-
-# used to be to do a fuzzy query using a word window, sadly didn't work 
-
-# fuzzy_window_query: |
-#   WITH word_windows AS (
-#     SELECT t.pesticide, t.text, 
-#       array_agg(word ORDER BY idx) AS words
-#     FROM chinese_pesticide_residues AS t
-#     CROSS JOIN LATERAL regexp_split_to_table(t.text, '\s+') WITH ORDINALITY AS word(word, idx)
-#     GROUP BY t.pesticide, t.text
-#   )
-#   SELECT DISTINCT t.pesticide, t.text, 
-#       COUNT(*) AS match_count
-#    FROM word_windows t
-#   CROSS JOIN LATERAL (
-#     SELECT array_to_string(words[i:i + {window_size}], ' ') AS phrase
-#     FROM generate_series(1, array_length(words, 1) - {window_size} + 1) AS g(i)
-#     WHERE similarity(array_to_string(words[i:i + {window_size}], ' '), %s) > 0.70
-#   ) AS matched_windows
-#   GROUP BY t.pesticide, t.text;
   
 multiple_query: |
   SELECT DISTINCT t.pesticide, t.text

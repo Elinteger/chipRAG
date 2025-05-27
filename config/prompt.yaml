@@ -8,7 +8,8 @@ value_extraction_prompt: |
   Don't add a comment explaining yourself.
   If the section is actually fitting to the users prompt, only send back the list of lists, refrain from adding things suchs as '```python```' for example.
   If you are unsure about a value, write a -1 into that field. If you know there is no value to it, as its a category, write a -2. Do not add, remove or alter any information you get. Only extract and return.
-  Put foods and categories into strings, keep numbers/Maximum residue values as numbers.
+  Put foods and categories into strings, keep numbers/Maximum residue values as numbers. Also the list should only consist of relevant foods and their pesticides. Don't add anything else like linebreaks you find in the original
+  excerpt in here.
   Do never send/write anything back but the list.
   Here is the section you are supposed to do that task with:
   {text}"

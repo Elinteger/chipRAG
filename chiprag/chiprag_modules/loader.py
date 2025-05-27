@@ -10,7 +10,7 @@ import pymupdf
 import re
 from pathlib import Path
 
-#TODO: no multidoc support done as it didn't seem feasible 
+
 def load_pesticide_chapters(
     pdf_path: str,    
     start_page: int,
@@ -53,7 +53,7 @@ def load_pesticide_chapters(
     # turn page number to index
     start_page -= 1
     if end_page < last_page:
-        # "from=page is inclusive, ie it starts AT that index removing pages including this index"
+        # "from=page" is inclusive, ie it starts AT that index removing pages including this very index
         # if we want page 3 (which is idx=2) it can delete everything starting at index 3 (which would be page=4)
         doc.delete_pages(from_page=end_page)
     elif end_page == last_page:
@@ -70,7 +70,7 @@ def load_pesticide_chapters(
         TODO: adapt the cropbox to the current document(s)
         cropbox is set to cut out the page number at the bottom, this is based on the translation of `GB 2763-2021` by the USDA.
 
-        for more information have a look at the documentation: https://pymupdf.readthedocs.io/en/latest/page.html#Page.set_cropbox
+        For more information have a look at the documentation: https://pymupdf.readthedocs.io/en/latest/page.html#Page.set_cropbox
         """
         cropbox_width = 600  # x1
         cropbox_height = 750  # y1
