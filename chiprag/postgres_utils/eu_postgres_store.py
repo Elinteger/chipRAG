@@ -54,16 +54,29 @@ def store_pesticide_data(
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
     insert_query = queries["insert_eu_query"]
+    truncate_query = queries["truncate_eu_query"]
     conn, cur = establish_connection()
+
+    # clear database of old data and reset the sequence for the automated id's
+    try: 
+        cur.execute(truncate_query)
+    except DatabaseError as e:
+        print(f"database error while trying to run SQL on postgre database: {e}")
+        conn.rollback()
+        raise
+    except ProgrammingError as e:
+        print(f"programming error while trying to run SQL on postgre database: {e}")
+        conn.rollback()
+        raise
+    except Exception as e:
+        print(f"unexpected error: {e}")
+        conn.rollback()
+        raise
 
     try:
         for df in [applicable_data, not_yet_applicable_data]:
-            #FIXME: maybe not needed?
-            df.drop(labels=["product_code"], axis=1)
-
             # turn dataframe into list, dataframe must have the specified columns!
             data = [(row['pesticide_residue_name'], row['product_name'], row['mrl_value_only'], row["applicability_text"], row["application_date"]) for _, row in df.iterrows()]
-
             # run SQL with data on database
             try:
                 execute_values(cur, insert_query, data)
