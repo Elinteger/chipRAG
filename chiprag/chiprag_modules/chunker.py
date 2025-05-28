@@ -12,9 +12,9 @@ import re
 
 
 def chunk_report_by_sections(
-    text: str,
-    pesticide_list: list[str],
-    document_version: str  
+        text: str,
+        pesticide_list: list[str],
+        document_version: str  
 ) -> pd.DataFrame:
     """
     Splits a given text into chapters by identifying pesticide-related headings,

@@ -11,7 +11,7 @@ from .util_postgres_store import establish_connection
 
 
 def upload_dataframe(
-    df: pd.DataFrame
+        df: pd.DataFrame
 ) -> None:
     """
     Uploads a given DataFrame using a query to a postgreSQL Database. This function is tailored to a 
@@ -60,7 +60,7 @@ def upload_dataframe(
 
 
 def query_database(
-    keywords: list[str],
+        keywords: list[str],
 ) -> list[str]:
     '''
     Queries the database using the provided Connection object.  

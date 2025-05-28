@@ -1,4 +1,5 @@
 """
+Functions for saving, updating, and retrieving EU DataLake data in a PostgreSQL database.
 """
 import pandas as pd
 import yaml
@@ -12,7 +13,13 @@ def get_pesticide_data(
         pesticide_list: list[str]
 ) -> dict:
     """
-    Gets all EU-info needed about pesticides for a list of pesticides
+    Fetches all data from the EU DataLake database for specified pesticides.
+
+    Args:
+        pesticide_list (list[str]): List of pesticide names to retrieve data for.
+
+    Returns:
+        dict: Mapping of pesticide names to their full database records.
     """
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
@@ -49,7 +56,18 @@ def store_pesticide_data(
         not_yet_applicable_data: pd.DataFrame,
 ) -> None:
     """
-    Store european pesticide data in database
+    Stores cleaned EU DataLake data in a PostgreSQL database.
+
+    First clears existing entries and resets the ID sequence, then inserts the new applicable data.
+
+    Args:
+        applicable_data (pd.DataFrame): DataFrame with applicable entries. 
+        Must include: pesticide_residue_name, product_name, mrl_value_only, applicability_text, application_date.
+        not_yet_applicable_data (pd.DataFrame): DataFrame with not yet applicable entries. 
+        Must include: pesticide_residue_name, product_name, mrl_value_only, applicability_text, application_date.
+
+    Returns:
+        None
     """
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
@@ -98,9 +116,12 @@ def store_pesticide_data(
         conn.close()
 
 
-def get_all_pesticides():
+def get_all_pesticides() -> list:
     """
-    FIXME:
+    Retrieves a list of all unique pesticides from the PostgreSQL database.
+
+    Returns:
+        list: All unique pesticide names.
     """
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)

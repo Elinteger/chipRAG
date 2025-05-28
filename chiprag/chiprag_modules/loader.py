@@ -12,9 +12,9 @@ from pathlib import Path
 
 
 def load_pesticide_chapters(
-    pdf_path: str,    
-    start_page: int,
-    end_page: int 
+        pdf_path: str,    
+        start_page: int,
+        end_page: int 
 ) -> str:
     """
     Extracts all the text from the specified PDF in range of the specified pages. 
@@ -83,10 +83,10 @@ def load_pesticide_chapters(
 
 
 def load_pesticide_names_from_outline(
-    pdf_path: str,
-    start_outline: int,
-    end_outline: int, 
-    pesticide_chapter_number: int = 4
+        pdf_path: str,
+        start_outline: int,
+        end_outline: int, 
+        pesticide_chapter_number: int = 4
 ) -> list[str]:
     """
     Extracts all the pesticide names out of the outline.

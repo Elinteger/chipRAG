@@ -9,8 +9,8 @@ import yaml
 from config.load_config import settings
 
 def extract_relevant_values(
-    user_prompt: str,
-    prompt_context: list[str]     
+        user_prompt: str,
+        prompt_context: list[str]     
 ) -> pd.DataFrame:
     """
     Prompts an LLM to extract Food/Maximum Residue Limit value pairs from the extracted context based on the users input. 
