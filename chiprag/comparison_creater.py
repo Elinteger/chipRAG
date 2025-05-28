@@ -1,6 +1,8 @@
+"""
+FIXME: Finish this and add comments, return types and so on everywhere afterwards!
+"""
 import argparse
 import logging
-
 from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values
 from .postgres_utils import get_all_pesticides

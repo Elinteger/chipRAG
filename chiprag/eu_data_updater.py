@@ -5,7 +5,7 @@ from .chiprag_modules import eu_fetch_api
 from .postgres_utils import store_pesticide_data
 
 
-def update_eu_data():
+def update_eu_data() -> None:
     print("-- Fetching and uploading new data from EU-Database --")
     applicable, ny_applicable = eu_fetch_api()
     print("Got Data from EU-API.")

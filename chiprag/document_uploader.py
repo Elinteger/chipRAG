@@ -5,7 +5,7 @@ import argparse
 from .chiprag_modules import load_pesticide_chapters, load_pesticide_names_from_outline, chunk_report_by_sections
 from .postgres_utils import upload_dataframe
 
-def upload_document():
+def upload_document() -> None:
     print("-- Uploading new document to database --")
 
     # parse inputs

@@ -1,9 +1,12 @@
+"""
+Utility functions for PostgreSQL in Python, including connecting to the database and querying data.
+"""
 import psycopg2
 from config.load_config import settings
 from psycopg2 import OperationalError, DatabaseError, ProgrammingError
 
 
-def establish_connection():
+def establish_connection() -> tuple[psycopg2.extensions.connection, psycopg2.extensions.cursor]:
     """
     Establishes a connection with a configured PostgreSQL database. 
 
@@ -33,7 +36,16 @@ def establish_connection():
 
 def get_data(
         query: str
-):
+) -> list:
+    """
+    Executes a simple SQL query without additional parameters.
+
+    Args:
+        query (str): The SQL query to execute.
+
+    Returns:
+        list: Results returned by the query.
+    """
     conn, cur = establish_connection()
 
     try: 
