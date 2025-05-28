@@ -10,14 +10,8 @@ upsert_chinese_query: |
 insert_eu_query: |
   INSERT INTO european_pesticide_residues (pesticide, product, mrl, applicability, application_date)
   VALUES %s
-
-fuzzy_single_query: |
-  SELECT DISTINCT t.pesticide, t.text 
-  FROM chinese_pesticide_residues AS t,
-    regexp_split_to_table(t.text, '\s+') AS word
-  WHERE similarity(word, %s) > 0.80;
   
-multiple_query: |
+get_fitting_chinese_chunks_query: |
   SELECT DISTINCT t.pesticide, t.text
   FROM chinese_pesticide_residues AS t
   WHERE t.text ILIKE %s;

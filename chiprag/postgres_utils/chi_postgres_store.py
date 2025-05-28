@@ -82,7 +82,7 @@ def query_database(
     # load SQL-queries
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
-    get_query = queries["multiple_query"]
+    get_query = queries["get_fitting_chinese_chunks_query"]
 
     conn, cur = establish_connection()
    
