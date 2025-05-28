@@ -16,7 +16,7 @@ def upload_document():
                         help="Path to PDF document which is to be scanned in.")
     parser.add_argument("document_version",
                         type=str,
-                        help="Version of the document, following the style of \"GB2021-001\", \"GB2022-002\"...")
+                        help="Version of the document, following the style of \"GB2021-001\", \"GB2021-002\", \"GB2022-001\"...")
     parser.add_argument("begin_outline",
                         type=int,
                         help="First page where the outline in which pesticides are listed begins.")

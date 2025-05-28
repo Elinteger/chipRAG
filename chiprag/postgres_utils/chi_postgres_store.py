@@ -30,7 +30,7 @@ def upload_dataframe(
     # load SQL-queries
     with open(settings.query_path, "r", encoding="utf-8") as f:
         queries = yaml.safe_load(f)
-    insert_query = queries["insert_chinese_query"]
+    upsert_query = queries["upsert_chinese_query"]
 
     # connect to database
     conn, cur = establish_connection()
@@ -40,7 +40,7 @@ def upload_dataframe(
 
     # run SQL with data on database
     try:
-        execute_values(cur, insert_query, data)
+        execute_values(cur, upsert_query, data)
         conn.commit()
     except DatabaseError as e:
         print(f"database error while trying to run SQL on postgre database: {e}")

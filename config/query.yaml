@@ -1,6 +1,11 @@
-insert_chinese_query: |
+upsert_chinese_query: |
   INSERT INTO chinese_pesticide_residues (pesticide, text, version)
   VALUES %s
+  ON CONFLICT (pesticide)
+  DO UPDATE SET
+    text = EXCLUDED.text,
+    version = EXCLUDED.version
+  WHERE chinese_pesticide_residues.version < EXCLUDED.version;
 
 insert_eu_query: |
   INSERT INTO european_pesticide_residues (pesticide, product, mrl, applicability, application_date)

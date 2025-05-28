@@ -62,19 +62,23 @@ def chunk_report_by_sections(
             # add to text column
             chapter_content.append(text_before_idx)
 
-            # clean pesticide before adding by removing parantheses, brackets and chapter numbers
-            pesticide_str = re.search(r'([\(\[].*?[\)\]])\s*$', pesticide).group(1) 
-            if pesticide_str[-1]==')':
-                idx = pesticide_str.rfind('(')
-            elif pesticide_str[-1]==']':
-                idx = pesticide_str.rfind('[')
-            else: 
-               logging.warning(
-                    "Elements in 'pesticide_list' are expected to contain either parentheses or brackets.\
-                    Check the current document to determine whether this expectation is outdated or if the regex used is incorrect."
-                )
+            # if exist(!), clean pesticide before adding by removing parantheses, brackets and chapter numbers
+            if re.search(r'([\(\[].*?[\)\]])\s*$', pesticide) != None:
+                pesticide_str = re.search(r'([\(\[].*?[\)\]])\s*$', pesticide).group(1) 
+                if pesticide_str[-1]==')':
+                    idx = pesticide_str.rfind('(')
+                elif pesticide_str[-1]==']':
+                    idx = pesticide_str.rfind('[')
+                else: 
+                    logging.info(
+                        "Elements in 'pesticide_list' are expected to contain either parentheses or brackets for chinese characters infront of the english pesticide name.\
+                        Check the current document to determine whether this expectation is outdated or if the regex used is incorrect."
+                    )
             # add to pesticide column
-            pesticides.append(pesticide_str[idx+1:-1])
+                pesticides.append(pesticide_str[idx+1:-1])
+            # if there are no parantheses or brackets just add the heading as is
+            else: 
+                pesticides.append(pesticide)
         else:  
             # no match with current pesticide
             continue
