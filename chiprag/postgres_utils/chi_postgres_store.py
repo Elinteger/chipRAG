@@ -21,6 +21,9 @@ def upload_dataframe(
         df (pd.DataFrame): The Pandas DataFrame which is to be uploaded.
         conn (psycopg2 Connection Object): Connection Object to perform actions with the database.
         close_conn_afterwards (bool): Variable to decide whether to close the Connection Object after use. Defaults to True.
+
+    Returns:
+        None
     """
     ## faulty argument handling
     if not isinstance(df, pd.DataFrame):
