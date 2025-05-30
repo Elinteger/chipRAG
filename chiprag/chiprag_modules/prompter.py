@@ -127,6 +127,7 @@ def compare_values(
                 # [[pesticide] + sublist for sublist in data_list]
                 data_list = ast.literal_eval(answer)
                 for sublist in data_list:
+                    #FIXME: issue with "Celeriac" which is part of multiple pesticides, check logic there again: TypeError: can only concatenate list (not "str") to list
                     ## add other values for full list, -1 for valid mrl now, actual comparison later to keep things in order
                     row = [chi_pesticide, eu_pesticide] + sublist + [-1]
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
