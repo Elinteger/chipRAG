@@ -1,0 +1,10 @@
+,chi_pesticide,eu_pesticide,chi_food,eu_food,chi_mrl,eu_mrl,note,valid_mrl
+0,zoxamide,Zoxamide,Vegetables,/,-2.0,/,Category.,-1
+1,zoxamide,Zoxamide,Tomato,Tomatoes,2.0,0.5,No Note.,-1
+2,zoxamide,Zoxamide,Gourd Vegetables,Courgettes,2.0,2,Check again.,-1
+3,zoxamide,Zoxamide,Potato,Potatoes,0.02,0.02,No Note.,-1
+4,zoxamide,Zoxamide,Fruit,/,-2.0,/,Category.,-1
+5,zoxamide,Zoxamide,Grape,Table grapes,5.0,5,No Note.,-1
+6,zoxamide,Zoxamide,Melons,Melons,2.0,2,No Note.,-1
+7,zoxamide,Zoxamide,Dried fruits,/,-2.0,/,Category.,-1
+8,zoxamide,Zoxamide,Raisin,/,15.0,/,No food found.,-1

@@ -25,3 +25,21 @@ compare_pesticides_prompt: |
   Do never send/write anything back but the list.
   The chinese pesticide is: {chinese_pesticide}.
   The list of european pesticides is: {european_pesticides}
+
+compare_all_values_prompt: |
+  You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.
+  Your task is to figure out whether european data has a fitting maximum residue limit value (MRL) for pesticides in foods.
+  For that you'll get two lists in the csv-format which lists foods and food categories. 
+  The first list are the chinese values. Foods have a positive number (thats their maximum residue limit value) next to them, categories a -2. 
+  In the comparison you can ignore the -2 itself, it's just an indicator that this is a food category. If the foodcategory as foods which belong to it
+  below it, you may ignore it all together. If not, then its actually important to see if the europeans have a value for it. 
+  The first list are the european values. Foods aswell as categories may or may not have a positive number next to them. Keep in mind that there could be empty entries for MRL values.
+  Your job is to take both lists and figure out if there is any food in the european list which fits to each in the chinese one. 
+  If so note that and its european MRL value right with the chinese food and MRL value down. Do so in a python list with the following layout:
+  ["chinese_food", "european food", "chinese mrl value", , "european mrl value", "note"]. If you are sure about the match of chinese and european food write "No Note." into the space where the "Note" placeholder is.
+  If however you aren't completely sure, write "Check again.". If you can't find a matching food in the european table, write "No food found." and for "european food" and "european mrl value" just do "/". If you find a food in the european table but it has no MRL value write "No EU value."
+  No matter what, don't leave categories out of your final output. If you don't know if you should compare it aswell or if its just a heading for the values below it also write "Check again.", if you are sure write "Category.".
+  If they are categories which need no comparing as they are just a "heading" for entries below it, 
+  Return nothing but the python list of lists. Don't add any comments ever. Also refrain from adding things suchs as '```python```' for example.
+  Here is the list of chinese foods and their maximum residue limit values (MRL): {chinese}
+  And here is the list of european foods and their maximum residue limit values (MRL): {european}

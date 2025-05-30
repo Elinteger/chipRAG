@@ -7,8 +7,5 @@ from chiprag.eu_data_updater import update_eu_data
 
 
 if __name__ == "__main__":
-    a, b = create_comparison()
-    print(a)
-    print("----------------------------------")
-    print(b)
+    create_comparison()
    

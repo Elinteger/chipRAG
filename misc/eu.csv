@@ -1,0 +1,305 @@
+,chi_pesticide,eu_pesticide,food,mrl
+0,Zoxamide,Zoxamide,(a) edible peel,0.02
+1,Zoxamide,Zoxamide,(a) flowering brassica,0.02
+2,Zoxamide,Zoxamide,(a) flowers,0.05
+3,Zoxamide,Zoxamide,(a) grapes,5
+4,Zoxamide,Zoxamide,(a) lettuces and salad plants,30
+5,Zoxamide,Zoxamide,(a) potatoes,0.02
+6,Zoxamide,Zoxamide,(a) Solanaceae and Malvaceae,
+7,Zoxamide,Zoxamide,(a) swine,0.01
+8,Zoxamide,Zoxamide,(b) bovine,0.01
+9,Zoxamide,Zoxamide,(b) cucurbits with edible peel,2
+10,Zoxamide,Zoxamide,(b) head brassica,0.02
+11,Zoxamide,Zoxamide,"(b) inedible peel, small",0.02
+12,Zoxamide,Zoxamide,(b) leaves and herbs,0.05
+13,Zoxamide,Zoxamide,(b) spinaches and similar leaves,30
+14,Zoxamide,Zoxamide,(b) strawberries,0.02
+15,Zoxamide,Zoxamide,(b) tropical root and tuber vegetables,0.02
+16,Zoxamide,Zoxamide,(c) cane fruits,0.02
+17,Zoxamide,Zoxamide,(c) cucurbits with inedible peel,2
+18,Zoxamide,Zoxamide,(c) grape leaves and similar species,0.02
+19,Zoxamide,Zoxamide,"(c) inedible peel, large",0.02
+20,Zoxamide,Zoxamide,(c) leafy brassica,0.02
+21,Zoxamide,Zoxamide,(c) other root and tuber vegetables except sugar beets,0.02
+22,Zoxamide,Zoxamide,(c) roots,0.05
+23,Zoxamide,Zoxamide,(c) sheep,0.01
+24,Zoxamide,Zoxamide,(d) any other parts of the plant,0.05
+25,Zoxamide,Zoxamide,(d) kohlrabies,0.02
+26,Zoxamide,Zoxamide,(d) other small fruits and berries,0.02
+27,Zoxamide,Zoxamide,(d) sweet corn,0.02
+28,Zoxamide,Zoxamide,(d) watercresses,0.02
+29,Zoxamide,Zoxamide,(e) equine,0.01
+30,Zoxamide,Zoxamide,(e) other fruiting vegetables,
+31,Zoxamide,Zoxamide,(e) witloofs/Belgian endives,0.02
+32,Zoxamide,Zoxamide,(f) herbs and edible flowers,30
+33,Zoxamide,Zoxamide,(f) poultry,0.01
+34,Zoxamide,Zoxamide,(g) other farmed terrestrial animals,0.01
+35,Zoxamide,Zoxamide,Algae and prokaryotes organisms,
+36,Zoxamide,Zoxamide,Allspice/pimento,0.05
+37,Zoxamide,Zoxamide,Almonds,0.02
+38,Zoxamide,Zoxamide,American persimmons/Virginia kaki,0.02
+39,Zoxamide,Zoxamide,Amphibians and Reptiles,0.01
+40,Zoxamide,Zoxamide,Anise/aniseed,0.05
+41,Zoxamide,Zoxamide,Apples,0.02
+42,Zoxamide,Zoxamide,Apricots,0.02
+43,Zoxamide,Zoxamide,Aril spices,0.05
+44,Zoxamide,Zoxamide,Arrowroots,0.02
+45,Zoxamide,Zoxamide,Asparagus,0.02
+46,Zoxamide,Zoxamide,Aubergines/eggplants,0.02
+47,Zoxamide,Zoxamide,Avocados,0.02
+48,Zoxamide,Zoxamide,Azaroles/Mediterranean medlars,0.02
+49,Zoxamide,Zoxamide,Baby leaf crops (including brassica species),30
+50,Zoxamide,Zoxamide,Bamboo shoots,0.02
+51,Zoxamide,Zoxamide,Bananas,0.02
+52,Zoxamide,Zoxamide,Bark spices,0.05
+53,Zoxamide,Zoxamide,Barley,0.02
+54,Zoxamide,Zoxamide,Basil and edible flowers,30
+55,Zoxamide,Zoxamide,Beans,0.02
+56,Zoxamide,Zoxamide,Beans (with pods),0.02
+57,Zoxamide,Zoxamide,Beans (without pods),0.02
+58,Zoxamide,Zoxamide,Beetroots,0.02
+59,Zoxamide,Zoxamide,Berries and small fruits,
+60,Zoxamide,Zoxamide,Birds eggs,0.01
+61,Zoxamide,Zoxamide,Black caraway/black cumin,0.05
+62,Zoxamide,Zoxamide,Blackberries,0.02
+63,Zoxamide,Zoxamide,Blueberries,0.02
+64,Zoxamide,Zoxamide,Borage seeds,0.05
+65,Zoxamide,Zoxamide,Brassica vegetables(excluding brassica roots and brassica baby leaf crops),0.02
+66,Zoxamide,Zoxamide,Brazil nuts,0.02
+67,Zoxamide,Zoxamide,Breadfruits,0.02
+68,Zoxamide,Zoxamide,Broccoli,0.02
+69,Zoxamide,Zoxamide,Brussels sprouts,0.02
+70,Zoxamide,Zoxamide,Buckwheat and other pseudocereals,0.02
+71,Zoxamide,Zoxamide,Bud spices,0.05
+72,Zoxamide,Zoxamide,Bulb vegetables,0.02
+73,Zoxamide,Zoxamide,Capers,0.05
+74,Zoxamide,Zoxamide,Carambolas,0.02
+75,Zoxamide,Zoxamide,Caraway,0.05
+76,Zoxamide,Zoxamide,Cardamom,0.05
+77,Zoxamide,Zoxamide,Cardoons,0.02
+78,Zoxamide,Zoxamide,Carobs/Saint John's breads,0.05
+79,Zoxamide,Zoxamide,Carrots,0.02
+80,Zoxamide,Zoxamide,Cashew nuts,0.02
+81,Zoxamide,Zoxamide,Cassava roots/manioc,0.02
+82,Zoxamide,Zoxamide,Castor beans,0.05
+83,Zoxamide,Zoxamide,Cattle,0.01
+84,Zoxamide,Zoxamide,Cauliflowers,0.02
+85,Zoxamide,Zoxamide,Celeriacs/turnip rooted celeries,0.02
+86,Zoxamide,Zoxamide,Celeries,0.02
+87,Zoxamide,Zoxamide,Celery,0.05
+88,Zoxamide,Zoxamide,Celery leaves,30
+89,Zoxamide,Zoxamide,CEREALS,0.02
+90,Zoxamide,Zoxamide,Chamomile,0.05
+91,Zoxamide,Zoxamide,Chards/beet leaves,30
+92,Zoxamide,Zoxamide,Cherimoyas,0.02
+93,Zoxamide,Zoxamide,Cherries (sweet),0.02
+94,Zoxamide,Zoxamide,Chervil,30
+95,Zoxamide,Zoxamide,Chestnuts,0.02
+96,Zoxamide,Zoxamide,Chicken,0.01
+97,Zoxamide,Zoxamide,Chicory roots,0.02
+98,Zoxamide,Zoxamide,Chinese cabbages/pe-tsai,0.02
+99,Zoxamide,Zoxamide,Chives,30
+100,Zoxamide,Zoxamide,Cinnamon,0.05
+101,Zoxamide,Zoxamide,Citrus fruits,0.02
+102,Zoxamide,Zoxamide,Cloves,0.05
+103,Zoxamide,Zoxamide,Cocoa beans,0.05
+104,Zoxamide,Zoxamide,Coconuts,0.02
+105,Zoxamide,Zoxamide,Coffee beans,0.05
+106,Zoxamide,Zoxamide,Commodities from,0.01
+107,Zoxamide,Zoxamide,Common millet/proso millet,0.02
+108,Zoxamide,Zoxamide,Coriander,0.05
+109,Zoxamide,Zoxamide,Cotton seeds,0.05
+110,Zoxamide,Zoxamide,Courgettes,2
+111,Zoxamide,Zoxamide,Cranberries,0.02
+112,Zoxamide,Zoxamide,Cresses and other sprouts and shoots,30
+113,Zoxamide,Zoxamide,Cucumbers,2
+114,Zoxamide,Zoxamide,Cultivated fungi,0.02
+115,Zoxamide,Zoxamide,Cumin,0.05
+116,Zoxamide,Zoxamide,"Currants (black, red and white)",0.02
+117,Zoxamide,Zoxamide,d) goat,0.01
+118,Zoxamide,Zoxamide,Dates,0.02
+119,Zoxamide,Zoxamide,Dewberries,0.02
+120,Zoxamide,Zoxamide,Dill,0.05
+121,Zoxamide,Zoxamide,Duck,0.01
+122,Zoxamide,Zoxamide,Durians,0.02
+123,Zoxamide,Zoxamide,Edible offals (other than liver and kidney),0.01
+124,Zoxamide,Zoxamide,Elderberries,0.02
+125,Zoxamide,Zoxamide,Escaroles/broad-leaved endives,30
+126,Zoxamide,Zoxamide,Fat,0.01
+127,Zoxamide,Zoxamide,Fennel,0.05
+128,Zoxamide,Zoxamide,Fenugreek,0.05
+129,Zoxamide,Zoxamide,Figs,0.02
+130,Zoxamide,Zoxamide,Florence fennels,0.02
+131,Zoxamide,Zoxamide,Flower pistil spices,0.05
+132,Zoxamide,Zoxamide,Fruit spices,0.05
+133,Zoxamide,Zoxamide,Fruiting vegetables,
+134,Zoxamide,Zoxamide,"FRUITS, FRESH or FROZEN; TREE NUTS",
+135,Zoxamide,Zoxamide,"Fungi, mosses and lichens",0.02
+136,Zoxamide,Zoxamide,Garlic,0.02
+137,Zoxamide,Zoxamide,Geese,0.01
+138,Zoxamide,Zoxamide,Gherkins,2
+139,Zoxamide,Zoxamide,Ginseng,0.05
+140,Zoxamide,Zoxamide,Globe artichokes,0.02
+141,Zoxamide,Zoxamide,Goat,0.01
+142,Zoxamide,Zoxamide,Gold of pleasure seeds,0.05
+143,Zoxamide,Zoxamide,"Gooseberries (green, red and yellow)",0.02
+144,Zoxamide,Zoxamide,Granate apples/pomegranates,0.02
+145,Zoxamide,Zoxamide,Grapefruits,0.02
+146,Zoxamide,Zoxamide,Guavas,0.02
+147,Zoxamide,Zoxamide,Hazelnuts/cobnuts,0.02
+148,Zoxamide,Zoxamide,Head cabbages,0.02
+149,Zoxamide,Zoxamide,Hemp seeds,0.05
+150,Zoxamide,Zoxamide,Herbal infusions from,0.05
+151,Zoxamide,Zoxamide,Hibiscus/roselle,0.05
+152,Zoxamide,Zoxamide,Honey and other apiculture products (7),0.05
+153,Zoxamide,Zoxamide,HOPS,0.05
+154,Zoxamide,Zoxamide,Horse,0.01
+155,Zoxamide,Zoxamide,Horseradish (11),
+156,Zoxamide,Zoxamide,Horseradishes,0.02
+157,Zoxamide,Zoxamide,Jambuls/jambolans,0.02
+158,Zoxamide,Zoxamide,Jasmine,0.05
+159,Zoxamide,Zoxamide,Jerusalem artichokes,0.02
+160,Zoxamide,Zoxamide,Juniper berry,0.05
+161,Zoxamide,Zoxamide,Kaki/Japanese persimmons,0.02
+162,Zoxamide,Zoxamide,Kales,0.02
+163,Zoxamide,Zoxamide,Kapok,0.05
+164,Zoxamide,Zoxamide,Kidney,0.01
+165,Zoxamide,Zoxamide,"Kiwi fruits (green, red, yellow)",0.02
+166,Zoxamide,Zoxamide,Kumquats,0.02
+167,Zoxamide,Zoxamide,Lamb's lettuces/corn salads,30
+168,Zoxamide,Zoxamide,Land cresses,30
+169,Zoxamide,Zoxamide,Laurel/bay leaves,30
+170,Zoxamide,Zoxamide,"Leaf vegetables, herbs and edible flowers",
+171,Zoxamide,Zoxamide,Leeks,0.02
+172,Zoxamide,Zoxamide,Legume vegetables,0.02
+173,Zoxamide,Zoxamide,Lemons,0.02
+174,Zoxamide,Zoxamide,Lentils,0.02
+175,Zoxamide,Zoxamide,Lettuces,30
+176,Zoxamide,Zoxamide,Lime/linden,0.05
+177,Zoxamide,Zoxamide,Limes,0.02
+178,Zoxamide,Zoxamide,Linseeds,0.05
+179,Zoxamide,Zoxamide,Liquorice,0.05
+180,Zoxamide,Zoxamide,Litchis/lychees,0.02
+181,Zoxamide,Zoxamide,Liver,0.01
+182,Zoxamide,Zoxamide,Loquats/Japanese medlars,0.02
+183,Zoxamide,Zoxamide,Lupins/lupini beans,0.02
+184,Zoxamide,Zoxamide,Macadamias,0.02
+185,Zoxamide,Zoxamide,Mace,0.05
+186,Zoxamide,Zoxamide,Maize/corn,0.02
+187,Zoxamide,Zoxamide,Mandarins,0.02
+188,Zoxamide,Zoxamide,Mangoes,0.02
+189,Zoxamide,Zoxamide,Mate/maté,0.05
+190,Zoxamide,Zoxamide,Medlars,0.02
+191,Zoxamide,Zoxamide,Melons,2
+192,Zoxamide,Zoxamide,Milk,0.01
+193,Zoxamide,Zoxamide,Miscellaneous fruitswith,0.02
+194,Zoxamide,Zoxamide,Mosses and lichens,0.02
+195,Zoxamide,Zoxamide,Mulberries (black and white),0.02
+196,Zoxamide,Zoxamide,Muscle,0.01
+197,Zoxamide,Zoxamide,Mustard seeds,0.05
+198,Zoxamide,Zoxamide,Nutmeg,0.05
+199,Zoxamide,Zoxamide,Oat,0.02
+200,Zoxamide,Zoxamide,Oil fruits,
+201,Zoxamide,Zoxamide,Oil palms fruits,0.05
+202,Zoxamide,Zoxamide,Oil palms kernels,0.05
+203,Zoxamide,Zoxamide,Oilseeds,0.05
+204,Zoxamide,Zoxamide,OILSEEDS AND OIL FRUITS,
+205,Zoxamide,Zoxamide,Okra/lady's fingers,0.02
+206,Zoxamide,Zoxamide,Olives for oil production,0.02
+207,Zoxamide,Zoxamide,Onions,0.02
+208,Zoxamide,Zoxamide,Oranges,0.02
+209,Zoxamide,Zoxamide,Others (2),0.01
+210,Zoxamide,Zoxamide,Others (2),0.02
+211,Zoxamide,Zoxamide,Others (2),0.05
+212,Zoxamide,Zoxamide,Others (2),2
+213,Zoxamide,Zoxamide,Others (2),30
+214,Zoxamide,Zoxamide,Palm hearts,0.02
+215,Zoxamide,Zoxamide,Papayas,0.02
+216,Zoxamide,Zoxamide,Parsley,30
+217,Zoxamide,Zoxamide,Parsley roots/Hamburg roots parsley,0.02
+218,Zoxamide,Zoxamide,Parsnips,0.02
+219,Zoxamide,Zoxamide,Passionfruits/maracujas,0.02
+220,Zoxamide,Zoxamide,Peaches,0.02
+221,Zoxamide,Zoxamide,Peanuts/groundnuts,0.05
+222,Zoxamide,Zoxamide,Pears,0.02
+223,Zoxamide,Zoxamide,Peas,0.02
+224,Zoxamide,Zoxamide,Peas (with pods),0.02
+225,Zoxamide,Zoxamide,Peas (without pods),0.02
+226,Zoxamide,Zoxamide,Pecans,0.02
+227,Zoxamide,Zoxamide,"Peppercorn (black, green and white)",0.05
+228,Zoxamide,Zoxamide,Pine nut kernels,0.02
+229,Zoxamide,Zoxamide,Pineapples,0.02
+230,Zoxamide,Zoxamide,Pistachios,0.02
+231,Zoxamide,Zoxamide,Plums,0.02
+232,Zoxamide,Zoxamide,Pome fruits,0.02
+233,Zoxamide,Zoxamide,Poppy seeds,0.05
+234,Zoxamide,Zoxamide,Prickly pears/cactus fruits,0.02
+235,Zoxamide,Zoxamide,PRODUCTS OF ANIMAL ORIGIN -TERRESTRIAL ANIMALS,
+236,Zoxamide,Zoxamide,PULSES,0.02
+237,Zoxamide,Zoxamide,Pumpkin seeds,0.05
+238,Zoxamide,Zoxamide,Pumpkins,2
+239,Zoxamide,Zoxamide,Purslanes,30
+240,Zoxamide,Zoxamide,Quail,0.01
+241,Zoxamide,Zoxamide,Quinces,0.02
+242,Zoxamide,Zoxamide,Radishes,0.02
+243,Zoxamide,Zoxamide,Rapeseeds/canola seeds,0.05
+244,Zoxamide,Zoxamide,Raspberries (red and yellow),0.02
+245,Zoxamide,Zoxamide,Red mustards,30
+246,Zoxamide,Zoxamide,Rhubarbs,0.02
+247,Zoxamide,Zoxamide,Rice,0.02
+248,Zoxamide,Zoxamide,Roman rocket/rucola,30
+249,Zoxamide,Zoxamide,Rooibos,0.05
+250,Zoxamide,Zoxamide,Root and rhizome spices,
+251,Zoxamide,Zoxamide,Root and tuber vegetables,0.02
+252,Zoxamide,Zoxamide,Rose,0.05
+253,Zoxamide,Zoxamide,Rose hips,0.02
+254,Zoxamide,Zoxamide,Rosemary,30
+255,Zoxamide,Zoxamide,Rye,0.02
+256,Zoxamide,Zoxamide,Safflower seeds,0.05
+257,Zoxamide,Zoxamide,Saffron,0.05
+258,Zoxamide,Zoxamide,Sage,30
+259,Zoxamide,Zoxamide,Salsifies,0.02
+260,Zoxamide,Zoxamide,Seed spices,0.05
+261,Zoxamide,Zoxamide,Sesame seeds,0.05
+262,Zoxamide,Zoxamide,Shallots,0.02
+263,Zoxamide,Zoxamide,Sheep,0.01
+264,Zoxamide,Zoxamide,Sichuan pepper,0.05
+265,Zoxamide,Zoxamide,Sorghum,0.02
+266,Zoxamide,Zoxamide,Soursops/guanabanas,0.02
+267,Zoxamide,Zoxamide,Soyabeans,0.05
+268,Zoxamide,Zoxamide,SPICES,
+269,Zoxamide,Zoxamide,Spinaches,30
+270,Zoxamide,Zoxamide,Spring onions/green onions and Welsh onions,0.02
+271,Zoxamide,Zoxamide,Star apples/cainitos,0.02
+272,Zoxamide,Zoxamide,Stem vegetables,0.02
+273,Zoxamide,Zoxamide,Stone fruits,0.02
+274,Zoxamide,Zoxamide,Strawberry,0.05
+275,Zoxamide,Zoxamide,Sugar beet roots,0.02
+276,Zoxamide,Zoxamide,Sugar canes,0.02
+277,Zoxamide,Zoxamide,SUGAR PLANTS,0.02
+278,Zoxamide,Zoxamide,Sunflower seeds,0.05
+279,Zoxamide,Zoxamide,Swedes/rutabagas,0.02
+280,Zoxamide,Zoxamide,Sweet peppers/bell peppers,0.02
+281,Zoxamide,Zoxamide,Sweet potatoes,0.02
+282,Zoxamide,Zoxamide,Table grapes,5
+283,Zoxamide,Zoxamide,Table olives,0.02
+284,Zoxamide,Zoxamide,Tamarind,0.05
+285,Zoxamide,Zoxamide,Tarragon,30
+286,Zoxamide,Zoxamide,Teas,0.05
+287,Zoxamide,Zoxamide,"TEAS, COFFEE, HERBAL INFUSIONS, COCOA AND CAROBS",0.05
+288,Zoxamide,Zoxamide,Terrestrial invertebrate animals,0.01
+289,Zoxamide,Zoxamide,Thyme,30
+290,Zoxamide,Zoxamide,Tomatoes,0.5
+291,Zoxamide,Zoxamide,Tree nuts,0.02
+292,Zoxamide,Zoxamide,Turmeric/curcuma,0.05
+293,Zoxamide,Zoxamide,Turnips,0.02
+294,Zoxamide,Zoxamide,Valerian,0.05
+295,Zoxamide,Zoxamide,Vanilla,0.05
+296,Zoxamide,Zoxamide,"VEGETABLES, FRESH or FROZEN",
+297,Zoxamide,Zoxamide,Walnuts,0.02
+298,Zoxamide,Zoxamide,Watermelons,2
+299,Zoxamide,Zoxamide,Wheat,0.02
+300,Zoxamide,Zoxamide,Wild fungi,0.02
+301,Zoxamide,Zoxamide,Wild terrestrial vertebrate animals,0.01
+302,Zoxamide,Zoxamide,Wine grapes,5
+303,Zoxamide,Zoxamide,Yams,0.02
