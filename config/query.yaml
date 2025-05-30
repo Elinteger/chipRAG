@@ -26,7 +26,6 @@ get_unique_pesticides_eu: |
   FROM european_pesticide_residues AS t;
 
 get_relevant_applicable_entries_eu: |
-  SELECT DISTINCT t.pesticide, t.product, t.mrl, t.applicability
+  SELECT DISTINCT t.pesticide, t.product, t.mrl
   FROM european_pesticide_residues AS t
-  WHERE t.pesticide ~ %s and t.applicability ~ 'Applicable';
-  
+  WHERE t.pesticide = %s and t.applicability = 'Applicable';

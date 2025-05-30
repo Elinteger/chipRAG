@@ -30,8 +30,7 @@ def get_pesticide_data(
     try:
         for pesticide in pesticide_list:
             try: 
-                cur.execute(query)
-                conn.commit()
+                cur.execute(query, (pesticide.strip(),))
                 res = cur.fetchall()
                 pesticide_dict[pesticide] = res
             except DatabaseError as e:
@@ -49,6 +48,10 @@ def get_pesticide_data(
     finally:
         cur.close()
         conn.close()
+    
+    # remove empty values
+    filtered_pesticide_dict = {k: v for k, v in pesticide_dict.items() if v}
+    return filtered_pesticide_dict
 
 
 def store_pesticide_data(
@@ -94,7 +97,7 @@ def store_pesticide_data(
     try:
         for df in [applicable_data, not_yet_applicable_data]:
             # turn dataframe into list, dataframe must have the specified columns!
-            data = [(row['pesticide_residue_name'], row['product_name'], row['mrl_value_only'], row["applicability_text"], row["application_date"]) for _, row in df.iterrows()]
+            data = [(row['pesticide_residue_name'].strip(), row['product_name'].strip(), row['mrl_value_only'], row["applicability_text"].strip(), row["application_date"]) for _, row in df.iterrows()]
             # run SQL with data on database
             try:
                 execute_values(cur, insert_query, data)

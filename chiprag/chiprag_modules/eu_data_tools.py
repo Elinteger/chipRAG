@@ -133,5 +133,3 @@ def get_fitting_pesticides(
         possible_matches_dict[chi_pest] = possible_matches_list
 
     return possible_matches_dict
-
-# FIXME: liste an sich schonmal falsch, aber eig brauchen wir ein dict was das jeweilige pestizid den zuordnet!
