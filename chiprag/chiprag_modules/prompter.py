@@ -57,3 +57,12 @@ def extract_relevant_values(
         extracted_data += data_list
 
     return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])
+
+
+def compare_values(
+        chi_df: pd.DataFrame,
+        eu_df: pd.DataFrame,
+        bridge_table: dict
+) -> pd.DataFrame:
+    pass
+    #FIXME: todo

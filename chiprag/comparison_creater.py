@@ -5,7 +5,7 @@ import argparse
 import logging
 import pandas as pd
 from .postgres_utils import query_database
-from .chiprag_modules import extract_relevant_values, get_fitting_pesticides
+from .chiprag_modules import extract_relevant_values, get_fitting_pesticides, compare_values
 from .postgres_utils import get_pesticide_data
 
 def create_comparison():
@@ -16,15 +16,17 @@ def create_comparison():
                         help="Required to know which pesticides/foods should be compared")
 
     args = parser.parse_args()
-    keywords = args.keywords  # is a list of the keywords like ['a', 'b', 'c'] from input like "a" "b" "c"
-  
+    # is a list of the keywords like ['a', 'b', 'c'] from input like "a" "b" "c"
+    keywords = args.keywords 
+
     # get values which are relevant for comparison
     chi_values = _get_chi_values(keywords)
     if chi_values.empty:
         return chi_values
-    eu_values = _get_eu_values(chi_values, keywords)
-
-    return chi_values["pesticide"].unique().tolist(), eu_values
+    eu_values, bridge_dict = _get_eu_values(chi_values, keywords)
+    # compare
+    comparison = compare_values(chi_values, eu_values, bridge_dict)
+    return comparison
 
 
 def _get_chi_values(keywords):
@@ -54,12 +56,8 @@ def _get_eu_values(chi_values, keywords):
                 'mrl': tup[2]
             })
     eu_df = pd.DataFrame(rows)
-    # FIXME: now do a prompt for each pesticide in the chinese - look for each fitting in the european - with each european and create the final comparison this way
-    # maybe use csvs for this
+    return eu_df, eu_pesticide_dict
 
-    # how do go on from here:
-    # get all entries first and do big boi queries, or query those inidivdually and then have matched columns?
-    return eu_values
 
 if __name__ == "__main__":
     create_comparison()
