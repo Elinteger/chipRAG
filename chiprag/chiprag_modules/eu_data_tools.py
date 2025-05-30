@@ -1,12 +1,15 @@
 """
 Provides functions to fetch data from APIs listed on the EU DataLake (https://developer.datalake.sante.service.ec.europa.eu/apis), clean it, and extract specific information using an LLM.
 """
+import ast
 import json
+import openai
 import pandas as pd
 import requests
 import yaml
 from config.load_config import settings
 from chiprag.postgres_utils import get_all_pesticides
+from rapidfuzz import fuzz
 
 
 def eu_fetch_api() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -82,15 +85,53 @@ def get_fitting_pesticides(
         prompts = yaml.safe_load(f)
     compare_pesticides_prompt = prompts["compare_pesticides_prompt"]
 
-    # get unique pesticides from chinese data
-    query_pesticides = pesticide_df["pesticide"].unique().tolist()
+    openai_client = openai.OpenAI(
+        base_url=settings.kipitz_base_url,
+        api_key=settings.kipitz_api_token
+    )
 
-    # get all pesticides 
-    eu_pesticides = get_all_pesticides()
-    
-    for pesticide in query_pesticides:
-        possible_matches_list = []
+    # get unique pesticides from chinese data
+    chi_pesticides = pesticide_df["pesticide"].unique().tolist()
+
+    # get all pesticides from eu database
+    raw_data = get_all_pesticides()
+    all_eu_pesticides = [row[0].strip() for row in raw_data]
+
+    ## to pre-filter out possible matches so we don't send too much to the LLM later on
+    #TODO: could be bad practice, if there are entirely different names for pesticides! -> do domain research
+    threshold = 50
+    # common english words in the dataset we don't want in our match
+    stop_words = {"and", "its", "as", "of", "sum", "expressed", "including", "other"}
+
+    possible_matches_dict = {}
+    # do exact search with the leftover pesticide list using an LLM
+    for chi_pest in chi_pesticides:
+        # pre filter
+        rough_fuzzy_matches = [
+            (eu_pest)
+            for chi_word in chi_pest.split()
+            for eu_pest in all_eu_pesticides
+            for eu_word in eu_pest.split()
+            if eu_word.lower() not in stop_words
+            and fuzz.ratio(chi_word.lower(), eu_word.lower()) >= threshold
+        ]
+        # remove duplicates
+        rough_fuzzy_matches = list(set(rough_fuzzy_matches))
+        # prepare prompt
         prompt = compare_pesticides_prompt.format(
-            chinese_pesticide=pesticide,
-            european_pesticides = eu_pesticides
+            chinese_pesticide=chi_pest,
+            european_pesticides = rough_fuzzy_matches
         )
+        # prompt LLM with the fuzzy matches
+        possible_matches_list = []
+        completion = openai_client.chat.completions.create(
+        model=settings.kipitz_model,
+        messages=[{"role": settings.kipitz_role, "content": prompt}],   
+        )
+        answer = completion.choices[0].message.content
+        possible_matches_list = ast.literal_eval(answer)
+        possible_matches_dict[chi_pest] = possible_matches_list
+
+    return possible_matches_dict
+
+# FIXME: liste an sich schonmal falsch, aber eig brauchen wir ein dict was das jeweilige pestizid den zuordnet!
