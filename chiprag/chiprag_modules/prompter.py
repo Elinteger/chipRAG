@@ -94,7 +94,6 @@ def compare_values(
 
     # build the prompt
     chi_pesticides = chi_df["pesticide"].unique().tolist()
-    data_listes = []
     for chi_pesticide in chi_pesticides:
         # get dataframe with just that pesticide
         chi_pest_df = chi_df[chi_df["pesticide"] == chi_pesticide]

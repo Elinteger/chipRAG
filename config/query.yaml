@@ -25,7 +25,9 @@ get_unique_pesticides_eu: |
   SELECT DISTINCT t.pesticide
   FROM european_pesticide_residues AS t;
 
+# don't add DISTINCT here! 1. we lose some entries we need, 
+# 2. PostgreSQL sorts when removing entries with DISTINCT, that makes categories obsolete and adulterates data
 get_relevant_applicable_entries_eu: |
-  SELECT DISTINCT t.pesticide, t.product, t.mrl
+  SELECT t.pesticide, t.product, t.mrl
   FROM european_pesticide_residues AS t
   WHERE t.pesticide = %s and t.applicability = 'Applicable';

@@ -70,7 +70,7 @@ def _eu_clean_data(
 
 def get_fitting_pesticides(
         pesticide_df: pd.DataFrame
-) -> None:
+) -> dict:
     """
     Returns matching pesticides from the European database corresponding to entries in the Chinese pesticide residue dataset.
 
