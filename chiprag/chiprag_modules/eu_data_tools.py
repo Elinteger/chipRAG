@@ -78,7 +78,7 @@ def get_fitting_pesticides(
         pesticide_df (pd.DataFrame): DataFrame containing Chinese pesticides, food products, and their maximum residue limits.
 
     Returns:
-        FIXME: nothing as of now
+        dict: Dictionary holding all possible matches in the format {chinese_pesticide: [european_pesticide, european_pesticide...]}
     """
     # prompt to compare chinese pesticide to all european ones
     with open(settings.prompt_path, "r", encoding="utf-8") as f:
