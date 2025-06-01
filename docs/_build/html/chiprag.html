@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>chiprag package &#8212; chipRAG 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="chiprag.chiprag_modules package" href="chiprag.chiprag_modules.html" />
+    <link rel="prev" title="chipRAG documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="chiprag-package">
+<h1>chiprag package<a class="headerlink" href="#chiprag-package" title="Link to this heading">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chiprag.chiprag_modules.html">chiprag.chiprag_modules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#module-chiprag.chiprag_modules.chunker">chiprag.chiprag_modules.chunker module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.chunker.chunk_report_by_sections"><code class="docutils literal notranslate"><span class="pre">chunk_report_by_sections()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#module-chiprag.chiprag_modules.eu_data_tools">chiprag.chiprag_modules.eu_data_tools module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.eu_data_tools.eu_fetch_api"><code class="docutils literal notranslate"><span class="pre">eu_fetch_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.eu_data_tools.get_fitting_pesticides"><code class="docutils literal notranslate"><span class="pre">get_fitting_pesticides()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#module-chiprag.chiprag_modules.loader">chiprag.chiprag_modules.loader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.loader.load_pesticide_chapters"><code class="docutils literal notranslate"><span class="pre">load_pesticide_chapters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.loader.load_pesticide_names_from_outline"><code class="docutils literal notranslate"><span class="pre">load_pesticide_names_from_outline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#module-chiprag.chiprag_modules.prompter">chiprag.chiprag_modules.prompter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.prompter.compare_values"><code class="docutils literal notranslate"><span class="pre">compare_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.chiprag_modules.html#chiprag.chiprag_modules.prompter.extract_relevant_values"><code class="docutils literal notranslate"><span class="pre">extract_relevant_values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.chiprag_modules.html#module-chiprag.chiprag_modules">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="chiprag.postgres_utils.html">chiprag.postgres_utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.postgres_utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.postgres_utils.html#module-chiprag.postgres_utils.chi_postgres_store">chiprag.postgres_utils.chi_postgres_store module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.chi_postgres_store.query_database"><code class="docutils literal notranslate"><span class="pre">query_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.chi_postgres_store.upload_dataframe"><code class="docutils literal notranslate"><span class="pre">upload_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.postgres_utils.html#module-chiprag.postgres_utils.eu_postgres_store">chiprag.postgres_utils.eu_postgres_store module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.eu_postgres_store.get_all_pesticides"><code class="docutils literal notranslate"><span class="pre">get_all_pesticides()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.eu_postgres_store.get_pesticide_data"><code class="docutils literal notranslate"><span class="pre">get_pesticide_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.eu_postgres_store.store_pesticide_data"><code class="docutils literal notranslate"><span class="pre">store_pesticide_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.postgres_utils.html#module-chiprag.postgres_utils.util_postgres_store">chiprag.postgres_utils.util_postgres_store module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.util_postgres_store.establish_connection"><code class="docutils literal notranslate"><span class="pre">establish_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="chiprag.postgres_utils.html#chiprag.postgres_utils.util_postgres_store.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.postgres_utils.html#module-chiprag.postgres_utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-chiprag.comparison_creater">
+<span id="chiprag-comparison-creater-module"></span><h2>chiprag.comparison_creater module<a class="headerlink" href="#module-chiprag.comparison_creater" title="Link to this heading">¶</a></h2>
+<p>Pipeline that creates and saves a pre-formatted Excel file comparing the Maximum Residue Limit (MRL) values for specified pesticides and foods.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.comparison_creater.create_comparison">
+<span class="sig-prename descclassname"><span class="pre">chiprag.comparison_creater.</span></span><span class="sig-name descname"><span class="pre">create_comparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keywords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#chiprag.comparison_creater.create_comparison" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a formatted Excel sheet comparing Chinese and European Maximum Residue Limit (MRL) values for specified pesticides and foods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>keywords</strong> (<em>list</em><em>[</em><em>str</em><em>] </em><em>| </em><em>str</em>) – Required to know which pesticides/foods should be compared.</p></li>
+<li><p><strong>output_path</strong> (<em>str</em>) – Path where the excel output should be saved to. Defaults to “output.xlsx” in the working directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame with the exact same output as is in the excel sheet.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.document_uploader">
+<span id="chiprag-document-uploader-module"></span><h2>chiprag.document_uploader module<a class="headerlink" href="#module-chiprag.document_uploader" title="Link to this heading">¶</a></h2>
+<p>Pipeline to read in a PDF, chunk it accordingly and upload it into a PostgreSQL database.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.document_uploader.upload_document">
+<span class="sig-prename descclassname"><span class="pre">chiprag.document_uploader.</span></span><span class="sig-name descname"><span class="pre">upload_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_outline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_outline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_tables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_tables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pest_chapter_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#chiprag.document_uploader.upload_document" title="Link to this definition">¶</a></dt>
+<dd><p>Uploads a document containing Chinese pesticide residue values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document</strong> (<em>str</em>) – Path to PDF document which is to be scanned in.</p></li>
+<li><p><strong>document_version</strong> (<em>str</em>) – Version of the document, following the style of “GB2021-001”, “GB2021-002”, “GB2022-001”…</p></li>
+<li><p><strong>begin_outline</strong> (<em>int</em>) – First page where the outline in which pesticides are listed begins.</p></li>
+<li><p><strong>end_outline</strong> (<em>int</em>) – Last page which holds the outline in which the pesticides are listed.</p></li>
+<li><p><strong>begin_tables</strong> (<em>int</em>) – First page which holds information/tables relevant to you.</p></li>
+<li><p><strong>end_tables</strong> (<em>int</em>) – ast page which holds information/tables relevant to you.</p></li>
+<li><p><strong>pest_chapter_number</strong> (<em>int</em>) – Chapter number with which pesticide sections begin. For example 4 for “4.15 Zo”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.eu_data_updater">
+<span id="chiprag-eu-data-updater-module"></span><h2>chiprag.eu_data_updater module<a class="headerlink" href="#module-chiprag.eu_data_updater" title="Link to this heading">¶</a></h2>
+<p>Fetches pesticide data from the EU API, cleans it, and stores it in a PostgreSQL database.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.eu_data_updater.update_eu_data">
+<span class="sig-prename descclassname"><span class="pre">chiprag.eu_data_updater.</span></span><span class="sig-name descname"><span class="pre">update_eu_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#chiprag.eu_data_updater.update_eu_data" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves pesticide and Maximum Residue Limit (MRL) data from the EU DataLake.
+Cleans the data and uploads it to a PostgreSQL database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-chiprag" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">chipRAG</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">chiprag package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-chiprag.comparison_creater">chiprag.comparison_creater module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-chiprag.document_uploader">chiprag.document_uploader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-chiprag.eu_data_updater">chiprag.eu_data_updater module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-chiprag">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">chipRAG documentation</a></li>
+      <li>Next: <a href="chiprag.chiprag_modules.html" title="next chapter">chiprag.chiprag_modules package</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Elias Schubert.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/chiprag.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

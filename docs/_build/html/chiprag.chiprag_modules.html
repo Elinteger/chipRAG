@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>chiprag.chiprag_modules package &#8212; chipRAG 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="chiprag.postgres_utils package" href="chiprag.postgres_utils.html" />
+    <link rel="prev" title="chiprag package" href="chiprag.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="chiprag-chiprag-modules-package">
+<h1>chiprag.chiprag_modules package<a class="headerlink" href="#chiprag-chiprag-modules-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-chiprag.chiprag_modules.chunker">
+<span id="chiprag-chiprag-modules-chunker-module"></span><h2>chiprag.chiprag_modules.chunker module<a class="headerlink" href="#module-chiprag.chiprag_modules.chunker" title="Link to this heading">¶</a></h2>
+<p>This module provides a single function that splits the chapters of a document into rows of a Pandas DataFrame,
+based on its text content/headers.</p>
+<p>It is tailored to the English translations of the Chinese report titled “Translation of Maximum Residue Limits
+for Pesticides in Foods,” published by the United States Department of Agriculture. Specifically, it targets
+the translation of document <cite>GB 2763-2021</cite>, but it should work similarly for related reports of the same kind.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.chunker.chunk_report_by_sections">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.chunker.</span></span><span class="sig-name descname"><span class="pre">chunk_report_by_sections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pesticide_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.chunker.chunk_report_by_sections" title="Link to this definition">¶</a></dt>
+<dd><p>Splits a given text into chapters by identifying pesticide-related headings,
+which are matched against a provided list of pesticide names. These pesticide
+names are extracted from the same source documents outline/table of content.</p>
+<p>Each identified chapter is paired with the corresponding pesticide name and returned
+as a row in a Pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The full text content of a PDF document.</p></li>
+<li><p><strong>pesticide_list</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – A list of pesticide names to be matched against headings in the text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A DataFrame with columns “pesticide” and “text”, where each row contains</dt><dd><p>a pesticide name and the corresponding chapter text.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.chiprag_modules.eu_data_tools">
+<span id="chiprag-chiprag-modules-eu-data-tools-module"></span><h2>chiprag.chiprag_modules.eu_data_tools module<a class="headerlink" href="#module-chiprag.chiprag_modules.eu_data_tools" title="Link to this heading">¶</a></h2>
+<p>Provides functions to fetch data from APIs listed on the EU DataLake (<a class="reference external" href="https://developer.datalake.sante.service.ec.europa.eu/apis">https://developer.datalake.sante.service.ec.europa.eu/apis</a>), clean it, and extract specific information using an LLM.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.eu_data_tools.eu_fetch_api">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.eu_data_tools.</span></span><span class="sig-name descname"><span class="pre">eu_fetch_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">DataFrame</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.eu_data_tools.eu_fetch_api" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches all pesticide, product, and MRL data from the EU DataLake.</p>
+<p>Cleans the retrieved data using the helper function <cite>_eu_clean_data()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>A tuple of two DataFrames —</dt><dd><p>the first with currently applicable values,
+the second with values not yet applicable.
+Columns include: “pesticide_residue_name”, “product_code”, “product_name”,
+“mrl_value_only”, “applicability_text”, “application_date”.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[pd.DataFrame, pd.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.eu_data_tools.get_fitting_pesticides">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.eu_data_tools.</span></span><span class="sig-name descname"><span class="pre">get_fitting_pesticides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pesticide_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.eu_data_tools.get_fitting_pesticides" title="Link to this definition">¶</a></dt>
+<dd><p>Returns matching pesticides from the European database corresponding to entries in the Chinese pesticide residue dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pesticide_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing Chinese pesticides, food products, and their maximum residue limits.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary holding all possible matches in the format {chinese_pesticide: [european_pesticide, european_pesticide…]}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.chiprag_modules.loader">
+<span id="chiprag-chiprag-modules-loader-module"></span><h2>chiprag.chiprag_modules.loader module<a class="headerlink" href="#module-chiprag.chiprag_modules.loader" title="Link to this heading">¶</a></h2>
+<p>This module provides functions to read specified parts of a PDF document and split it accordingly.</p>
+<p>It is tailored to the English translations of the Chinese report titled “Translation of Maximum Residue Limits
+for Pesticides in Foods,” published by the United States Department of Agriculture. Specifically, it targets
+the translation of document <cite>GB 2763-2021</cite>, but it should work similarly for related reports of the same kind.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.loader.load_pesticide_chapters">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.loader.</span></span><span class="sig-name descname"><span class="pre">load_pesticide_chapters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_page</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.loader.load_pesticide_chapters" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts all the text from the specified PDF in range of the specified pages.
+Expects the content of the pages to be the document mentioned above.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdf_path</strong> (<em>str</em>) – System path to the PDF document.</p></li>
+<li><p><strong>start_page</strong> (<em>int</em>) – First page to load. Inclusive using page numbers (The numbers in the PDF-Viewer).
+Typically the first page containing pesticide data.</p></li>
+<li><p><strong>end_page</strong> (<em>int</em>) – Last page to load. Inclusive using page numbers (The numbers in the PDF-Viewer).
+Usually the last page with a relevant table, excluding
+those about “Extraneous Maximum Residue Values.”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A String containing the text content of the document.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.loader.load_pesticide_names_from_outline">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.loader.</span></span><span class="sig-name descname"><span class="pre">load_pesticide_names_from_outline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_outline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_outline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pesticide_chapter_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.loader.load_pesticide_names_from_outline" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts all the pesticide names out of the outline.
+Expects the content of the pages to be the document mentioned above.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdf_path</strong> (<em>str</em>) – System path to the PDF document.</p></li>
+<li><p><strong>start_outline</strong> (<em>int</em>) – First page to load. Inclusive using page numbers (The numbers in the PDF-Viewer).
+This is the first page containing the outline listing all pesticides mentioned in the document.</p></li>
+<li><p><strong>end_page</strong> (<em>int</em>) – Last page to load (inclusive). Inclusive using page numbers (The numbers in the PDF-Viewer).
+This is the last page containing the outline listing all pesticides mentioned in the document.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all pesticide names listed on the specified outline pages.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.chiprag_modules.prompter">
+<span id="chiprag-chiprag-modules-prompter-module"></span><h2>chiprag.chiprag_modules.prompter module<a class="headerlink" href="#module-chiprag.chiprag_modules.prompter" title="Link to this heading">¶</a></h2>
+<p>Functions that prompt a large language model (LLM) and return their outputs as pandas DataFrames.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.prompter.compare_values">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.prompter.</span></span><span class="sig-name descname"><span class="pre">compare_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chi_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eu_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bridge_table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.prompter.compare_values" title="Link to this definition">¶</a></dt>
+<dd><p>Prompts an LLM to create a comparison by matching European pesticide Maximum Residue Limit (MRL) values to Chinese MRL values.
+Cleans the response and determines the valid MRL for each entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chi_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing Chinese pesticide information.</p></li>
+<li><p><strong>eu_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing European pesticide information.</p></li>
+<li><p><strong>bridge_table</strong> (<em>dict</em>) – Dictionary mapping Chinese pesticide names to European pesticide names.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame comparing both datasets, including notes on the certainty of each result.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chiprag.chiprag_modules.prompter.extract_relevant_values">
+<span class="sig-prename descclassname"><span class="pre">chiprag.chiprag_modules.prompter.</span></span><span class="sig-name descname"><span class="pre">extract_relevant_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_prompt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prompt_context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="headerlink" href="#chiprag.chiprag_modules.prompter.extract_relevant_values" title="Link to this definition">¶</a></dt>
+<dd><p>Prompts an LLM to extract Food/Maximum Residue Limit value pairs from the extracted context based on the users input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_prompt</strong> (<em>str</em>) – Keywords given by the user, split by ‘;’. This is not enforced by code, but is a requirement.</p></li>
+<li><p><strong>list</strong><strong>[</strong><strong>str</strong><strong>]</strong> (<em>prompt_context</em>) – List of all sections of the PDF matching the users prompt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas DataFrame with the columns [‘pesiticide’, ‘food’, ‘mrl’] extracted from the given context by an LLM.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chiprag.chiprag_modules">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-chiprag.chiprag_modules" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">chipRAG</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="chiprag.html">chiprag package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="chiprag.html#subpackages">Subpackages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.html#module-chiprag.comparison_creater">chiprag.comparison_creater module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.html#module-chiprag.document_uploader">chiprag.document_uploader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.html#module-chiprag.eu_data_updater">chiprag.eu_data_updater module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chiprag.html#module-chiprag">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="chiprag.html">chiprag package</a><ul>
+      <li>Previous: <a href="chiprag.html" title="previous chapter">chiprag package</a></li>
+      <li>Next: <a href="chiprag.postgres_utils.html" title="next chapter">chiprag.postgres_utils package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Elias Schubert.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/chiprag.chiprag_modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
