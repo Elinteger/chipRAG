@@ -1,7 +1,6 @@
 """
 Pipeline that creates and saves a pre-formatted Excel file comparing the Maximum Residue Limit (MRL) values for specified pesticides and foods.
 """
-import argparse
 import logging
 import pandas as pd
 from openpyxl.styles import Font, PatternFill
@@ -11,34 +10,21 @@ from .chiprag_modules import extract_relevant_values, get_fitting_pesticides, co
 from .postgres_utils import get_pesticide_data
 
 
-def create_comparison() -> pd.DataFrame:
+def create_comparison(
+        keywords: list[str],
+        output_path: str
+) -> pd.DataFrame:
     """
     Generates a formatted Excel sheet comparing Chinese and European Maximum Residue Limit (MRL) values for specified pesticides and foods.
-    Intended to be called only via the CLI entry point.
-    Although the function itself takes no arguments, the following documentation serves informational purposes for 
-    the arguments of the CLI.
 
     Args:
         keywords (list[str] | str): Required to know which pesticides/foods should be compared.
-        --output_path (str): Path where the excel output should be saved to. Defaults to "output.xlsx" in the working directory.
+        output_path (str): Path where the excel output should be saved to. Defaults to "output.xlsx" in the working directory.
 
     Returns:
         pd.DataFrame: DataFrame with the exact same output as is in the excel sheet.
     """
     logging.info("-- Creating comparison --")
-    # parse inputs
-    parser = argparse.ArgumentParser("Compare maximum residue values of selected pesticides and foods. Inputs are: \"zoxamide\" \"wheat\" \"olive oil\" for example")
-    parser.add_argument("keywords", 
-                        nargs="+",
-                        help="Required to know which pesticides/foods should be compared.")
-    parser.add_argument("--output_path",
-                        default="output.xlsx",
-                        help = "Path where the excel output should be saved to. Defaults to \"output.xlsx\" in the working directory.")
-
-    args = parser.parse_args()
-    keywords = args.keywords  # is a list of the keywords like ['a', 'b', 'c'] from input like "a" "b" "c"
-    output_path = args.output_path
-
     # get values which are relevant for comparison
     chi_values = _get_chi_values(keywords)
     if chi_values.empty:

@@ -1,4 +1,4 @@
-#TODO: means to adapt!
+#FIXME: means to adapt!
 **Chi**nese **P**esticide **RAG**
 
 Example usage for document_uploader:

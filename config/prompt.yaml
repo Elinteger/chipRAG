@@ -1,3 +1,4 @@
+#FIXME: redo
 value_extraction_prompt: |  
   The User asked this for this pesticide or food: {prompt}
   You're about to get a section about the pesticide {pesticide} followed by a single or multiple tables with a bunch of foods possibly within a foodcategory. These tables have the headings \"Food/Category Name\"
@@ -14,6 +15,7 @@ value_extraction_prompt: |
   Here is the section you are supposed to do that task with:
   {text}"
   
+#FIXME: redo
 compare_pesticides_prompt: |
   You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.
   Your task is to check if a pesticide the Chinese use match any of the ones listed by the European Union.
@@ -26,6 +28,7 @@ compare_pesticides_prompt: |
   The chinese pesticide is: {chinese_pesticide}.
   The list of european pesticides is: {european_pesticides}
 
+#FIXME: check again
 compare_all_values_prompt: |
   You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.
   Your task is to figure out whether european data has a fitting maximum residue limit value (MRL) for pesticides in foods.
