@@ -125,8 +125,8 @@ def get_fitting_pesticides(
         # prompt LLM with the fuzzy matches
         possible_matches_list = []
         completion = openai_client.chat.completions.create(
-        model=settings.kipitz_model,
-        messages=[{"role": settings.kipitz_role, "content": prompt}],   
+            model=settings.kipitz_model,
+            messages=[{"role": settings.kipitz_role, "content": prompt}],   
         )
         answer = completion.choices[0].message.content
         possible_matches_list = ast.literal_eval(answer)

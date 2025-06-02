@@ -109,7 +109,7 @@ def compare_values(
     with open(settings.prompt_path, "r", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
     compare_all_values_prompt = prompts["compare_all_values_prompt"]
-
+    #FIXME: what if there are no fitting pesticides?
     ## prompt the LLM
     chi_pesticides = chi_df["pesticide"].unique().tolist()
     for chi_pesticide in chi_pesticides:

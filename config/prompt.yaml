@@ -19,18 +19,21 @@ value_extraction_prompt: |
   Now process this section:
   {text}
 
-#FIXME: redo
 compare_pesticides_prompt: |
-  You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.
-  Your task is to check if a pesticide the Chinese use match any of the ones listed by the European Union.
-  For that you'll get the pesticides name from the chinese and a bunch of pesticides from the EU.
-  If there are any pesticides which match the Chinese one as in them being the exact same or them possibly being the same/very similar
-  write the European ones from the list down.
-  Return a python list with square brackets with all pesticides which resemble or could resemble the same pesticide. Only put elements in the list
-  which are exactly like this in the european pesticides list that you got. Never write any own pesticides in there or change any values/string.
-  Do never send/write anything back but the list.
-  The chinese pesticide is: {chinese_pesticide}.
-  The list of european pesticides is: {european_pesticides}
+  You are a chemistry expert specializing in pesticides used in food production in Europe and China.
+
+  Your task:
+  - Compare the Chinese pesticide name: "{chinese_pesticide}"
+  - With the list of European pesticide names: {european_pesticides}
+
+  Instructions:
+  - Only identify pesticides from the European list that appear to be **the exact same or very similar** to the Chinese pesticide.
+  - Only include pesticides in your output **if they are present exactly as-is in the provided European list**. No modifications, partial matches, or inferred names are allowed.
+  - The output must be a Python list using square brackets, where **each pesticide name is a string in double quotes ("")**, like: `["Valid Name 1", "Valid Name 2"]`
+  - Do **not** return anything except the list. No explanations, no surrounding text, no formatting like ```python```.
+  - If no matches are found, return an empty list: `[]`
+
+  Never include a pesticide in the output unless it appears **verbatim** in the provided European list.
 
 #FIXME: check again
 compare_all_values_prompt: |
