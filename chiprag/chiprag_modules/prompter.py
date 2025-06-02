@@ -128,11 +128,11 @@ def compare_values(
             # build prompt
             chi_data_csv_string = chi_pest_df[["food", "mrl"]].to_csv(index=False)
             eu_data_csv_string = eu_pest_df[["food", "mrl"]].to_csv(index=False)
-            # ask prompt
             prompt = compare_all_values_prompt.format(
             chinese=chi_data_csv_string,
             european=eu_data_csv_string
             )
+            # ask prompt
             completion = openai_client.chat.completions.create(
             model=settings.kipitz_model,
             messages=[{"role": settings.kipitz_role, "content": prompt}],   
@@ -151,16 +151,13 @@ def compare_values(
                 pass
 
     ## set valid maximum residue limit values
-
     # column names as variables for easier access 
     chi, eu, valid = 'chi_mrl', 'eu_mrl', 'valid_mrl'
-
     # replace -2 with "/"
-    comparison_dataframe[chi].replace(-2, "/")
+    comparison_dataframe[chi] = comparison_dataframe[chi].replace(-2, "/")
     # convert MRL columns to numeric for comparison
     comparison_dataframe[chi] = pd.to_numeric(comparison_dataframe[chi], errors='coerce')
     comparison_dataframe[eu] = pd.to_numeric(comparison_dataframe[eu], errors='coerce')
-
     # check scenarios of which columns have a value and determine valid_mrl accordingly
     # both missing -> "/"
     both_na = comparison_dataframe[chi].isna() & comparison_dataframe[eu].isna()
