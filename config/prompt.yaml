@@ -1,20 +1,24 @@
-#FIXME: redo
 value_extraction_prompt: |  
-  The User asked this for this pesticide or food: {prompt}
-  You're about to get a section about the pesticide {pesticide} followed by a single or multiple tables with a bunch of foods possibly within a foodcategory. These tables have the headings \"Food/Category Name\"
-  and \"Maximum Residue Limit\". Some foods have those Foods got no Maximum Residue Limit value next to them. Those are usually categories for foods or simply a food that goes over
-  multiple rows in the original document.
-  Your job is to extract all categories, foods and their respective Maximum Residue Limits and return them to me as Python-List elements. Only do so though, when the pesticide or food is actually mentioned by the user.
-  If you can neither verify that the section is about the asked pesticide nor that the food or foodcategory asked for is mentioned in the section, skip that entry send absolutely nothing but an empty list.
-  Don't add a comment explaining yourself.
-  If the section is actually fitting to the users prompt, only send back the list of lists, refrain from adding things suchs as '```python```' for example.
-  If you are unsure about a value, write a -1 into that field. If you know there is no value to it, as its a category, write a -2. Do not add, remove or alter any information you get. Only extract and return.
-  Put foods and categories into strings, keep numbers/Maximum residue values as numbers. Also the list should only consist of relevant foods and their pesticides. Don't add anything else like linebreaks you find in the original
-  excerpt in here.
-  Do never send/write anything back but the list.
-  Here is the section you are supposed to do that task with:
-  {text}"
-  
+  You are a structured data extractor. A user is asking about the pesticide or food: "{prompt}".
+
+  You will receive a section that contains information about the pesticide "{pesticide}", possibly including one or more tables listing foods and their corresponding "Maximum Residue Limit".
+
+  Your task:
+  - Only respond if the pesticide or food/food category the user mentioned appears in the section.
+  - Extract only those **foods or food categories that are an exact or very close match** to the user's prompt (e.g. "virgin olive oil" is valid for "olive oil").
+  - If a **food category** is an exact or close match to the prompt, include the category **and all foods listed underneath it**, even if the sub-entries themselves do not exactly match the prompt.
+  - Output the result as a Python list of lists, formatted as: [["Food Name or Category", MRL_value], ...]
+  - If a value is missing because it's a category label, use `-2`.
+  - If a value is present but unclear, use `-1`.
+  - Enclose food or category names in double quotes. Keep residue limits as numbers (not strings).
+  - Do NOT add any explanations, comments, or formatting (e.g. no ```python```).
+  - If there is no relevant match for the pesticide or food/food category, return an empty list: `[]`.
+
+  Do not alter, add, or infer information. Only extract what is explicitly present. Ignore visual layout like line breaks.
+
+  Now process this section:
+  {text}
+
 #FIXME: redo
 compare_pesticides_prompt: |
   You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.

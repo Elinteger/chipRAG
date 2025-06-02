@@ -13,8 +13,8 @@ insert_eu_query: |
 
 # does reset the sequence for the id's aswell, might need adaptation depending on how id's are being generated!
 truncate_eu_query: |
-  TRUNCATE TABLE european_pesticide_residues;
-  ALTER SEQUENCE eu_seq RESTART WITH 1;
+  TRUNCATE TABLE european_pesticide_residues RESTART IDENTITY;
+
 
 get_fitting_chinese_chunks_query: |
   SELECT DISTINCT t.pesticide, t.text

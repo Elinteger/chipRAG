@@ -39,7 +39,8 @@ def extract_relevant_values(
     base_value_extraction_prompt = prompts["value_extraction_prompt"]
 
     extracted_data = []
-    ## extract pesticides and values out of context
+    ## extract pesticides and values with context/text chunks
+    #TODO: takes a couple minutes for big prompt_context lists, perhaps parallelize?
     for context in prompt_context:
         pesticide = context[0]
         text = context[1]
@@ -55,8 +56,16 @@ def extract_relevant_values(
         )
         answer = completion.choices[0].message.content
         data_list = ast.literal_eval(answer)
-        data_list = [[pesticide] + sublist for sublist in data_list]
-        extracted_data += data_list
+        # normalize to a list of lists
+        if isinstance(data_list, list):
+            if all(isinstance(item, list) for item in data_list):
+                # already a list of lists
+                normalized_data = data_list
+            else:
+                normalized_data = [data_list]
+
+        normalized_data = [[pesticide] + sublist for sublist in normalized_data]
+        extracted_data += normalized_data
 
     return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])
 
