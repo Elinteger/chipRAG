@@ -99,7 +99,7 @@ def get_fitting_pesticides(
 
     ## to pre-filter out possible matches so we don't send too much to the LLM later on
     #TODO: could be bad practice, if there are entirely different names for pesticides! -> do domain research
-    threshold = 50
+    threshold = 40
     # common english words in the dataset we don't want in our match
     stop_words = {"and", "its", "as", "of", "sum", "expressed", "including", "other"}
 
@@ -131,5 +131,5 @@ def get_fitting_pesticides(
         answer = completion.choices[0].message.content
         possible_matches_list = ast.literal_eval(answer)
         possible_matches_dict[chi_pest] = possible_matches_list
-
+        
     return possible_matches_dict

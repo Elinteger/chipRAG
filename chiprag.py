@@ -14,12 +14,16 @@ __email__ = "eschubert.mail@gmail.com"
 __version__ = "1.0.0"
 
 import argparse
+import logging
 from chiprag.document_uploader import upload_document
 from chiprag.comparison_creater import create_comparison
 from chiprag.eu_data_updater import update_eu_data
 
 
 def main():
+    #TODO: remove or adapt depending on requirements
+    logging.basicConfig(level=logging.INFO)
+
     parser = argparse.ArgumentParser(description="chipRAG CLI")
     subparsers = parser.add_subparsers(dest="command", required=True, help="Choose a command to run")
 

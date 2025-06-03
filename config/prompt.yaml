@@ -19,8 +19,6 @@ value_extraction_prompt: |
   Now process this section:
   {text}
 
-#FIXME:  ["Demeton" is not found in the list, but "Oxydemeton-methyl" is, however, the exact match "Demeton" is not present, the closest match is a part of "Oxydemeton-methyl" which is not allowed, so]
-# -> this in prompt but also in the code for no entries found that could match in fuzzy
 compare_pesticides_prompt: |
   You are a chemistry expert specializing in pesticides used in food production in Europe and China.
 
@@ -29,13 +27,12 @@ compare_pesticides_prompt: |
   - With the list of European pesticide names: {european_pesticides}
 
   Instructions:
-  - Only identify pesticides from the European list that appear to be **the exact same or very similar** to the Chinese pesticide.
+  - Only identify pesticides from the European list that appear to be/represent the Chinese Pesticide
   - Only include pesticides in your output **if they are present exactly as-is in the provided European list**. No modifications, partial matches, or inferred names are allowed.
+  - Do not add, remove or alter any of the pesticide names given, only add them to your output exactly as they are.
   - The output must be a Python list using square brackets, where **each pesticide name is a string in double quotes ("")**, like: `["Valid Name 1", "Valid Name 2"]`
   - Do **not** return anything except the list. No explanations, no surrounding text, no formatting like ```python```.
-  - If no matches are found, return an empty list: `[]`
-
-  Never include a pesticide in the output unless it appears **verbatim** in the provided European list.
+  - If no matches are found, return absolutely nothing but an empty list: []. Do not add any comments or explanations.
 
 compare_all_values_prompt: |
   You are a food science and chemistry expert specializing in the work with pesticides used for food production in Europe and China.

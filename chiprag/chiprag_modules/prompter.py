@@ -142,7 +142,7 @@ def compare_values(
             try:
                 data_list = ast.literal_eval(answer)
                 for sublist in data_list:
-                    #FIXME: issue with "Celeriac" which is part of multiple pesticides, check logic there again: TypeError: can only concatenate list (not "str") to list
+                    #FIXME: issue with "Celeriac" which is part of multiple pesticides -> long story short, check if it works for that
                     ## combine answer from LLM with the other infos to create a full row in the comparison DataFrame
                     row = [chi_pesticide, eu_pesticide] + sublist + [-1]
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
