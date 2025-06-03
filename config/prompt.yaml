@@ -64,6 +64,8 @@ compare_all_values_prompt: |
     - if you aren't sure in a case if you got a category there that needs comparing or if its just a heading, also just write "Check again."
     - if you can't find a matching food in the european data write "No food found."
     - if you find a fitting food (or category in this case) in the european table but it has no associated mrl value write "No EU value."
+  - the values you put into "chinese_food", "european_food" and "note" should be python-strings, so the contents should be inside of quotation marks: "example"
+  - the values in chinese_mrl_value and european_mrl_value, if not "/", should not be in quotation marks 
 
   ## Rules:
   - even if you don't compare the chinese categories as they have a -2 next to them, do not leave them out of the final input, put them into a list like instructed above

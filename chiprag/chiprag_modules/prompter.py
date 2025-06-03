@@ -141,9 +141,16 @@ def compare_values(
             answer = completion.choices[0].message.content
             try:
                 data_list = ast.literal_eval(answer)
-                for sublist in data_list:
+                # normalize to a list of lists 
+                if isinstance(data_list, list):
+                    if all(isinstance(item, list) for item in data_list):
+                        # already a list of lists
+                        normalized_data_list = data_list
+                    else:
+                        normalized_data_list = [data_list]
+                for sublist in normalized_data_list:
                     #FIXME: issue with "Celeriac" which is part of multiple pesticides -> long story short, check if it works for that
-                    ## combine answer from LLM with the other infos to create a full row in the comparison DataFrame
+                    ## combine answer from LLM with the other infos to create a full row in the comparison DataFrame + sublist + -1 as temp mrl value
                     row = [chi_pesticide, eu_pesticide] + sublist + [-1]
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
             except (ValueError, SyntaxError):

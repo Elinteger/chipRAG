@@ -22,7 +22,8 @@ from chiprag.eu_data_updater import update_eu_data
 
 def main():
     #TODO: remove or adapt depending on requirements
-    logging.basicConfig(level=logging.INFO)
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="chipRAG CLI")
     subparsers = parser.add_subparsers(dest="command", required=True, help="Choose a command to run")
