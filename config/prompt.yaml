@@ -19,6 +19,8 @@ value_extraction_prompt: |
   Now process this section:
   {text}
 
+#FIXME:  ["Demeton" is not found in the list, but "Oxydemeton-methyl" is, however, the exact match "Demeton" is not present, the closest match is a part of "Oxydemeton-methyl" which is not allowed, so]
+# -> this in prompt but also in the code for no entries found that could match in fuzzy
 compare_pesticides_prompt: |
   You are a chemistry expert specializing in pesticides used in food production in Europe and China.
 
@@ -35,21 +37,40 @@ compare_pesticides_prompt: |
 
   Never include a pesticide in the output unless it appears **verbatim** in the provided European list.
 
-#FIXME: check again
 compare_all_values_prompt: |
-  You are an expert in chemistry, especially in the work of pesticides which are used for food production in Europe and China.
-  Your task is to figure out whether european data has a fitting maximum residue limit value (MRL) for pesticides in foods.
-  For that you'll get two lists in the csv-format which lists foods and food categories. 
-  The first list are the chinese values. Foods have a positive number (thats their maximum residue limit value) next to them, categories a -2. 
-  In the comparison you can ignore the -2 itself, it's just an indicator that this is a food category. If the foodcategory as foods which belong to it
-  below it, you may ignore it all together. If not, then its actually important to see if the europeans have a value for it. 
-  The first list are the european values. Foods aswell as categories may or may not have a positive number next to them. Keep in mind that there could be empty entries for MRL values.
-  Your job is to take both lists and figure out if there is any food in the european list which fits to each in the chinese one. 
-  If so note that and its european MRL value right with the chinese food and MRL value down. Do so in a python list with the following layout:
-  ["chinese_food", "european food", "chinese mrl value", , "european mrl value", "note"]. If you are sure about the match of chinese and european food write "No Note." into the space where the "Note" placeholder is.
-  If however you aren't completely sure, write "Check again.". If you can't find a matching food in the european table, write "No food found." and for "european food" and "european mrl value" just do "/". If you find a food in the european table but it has no MRL value write "No EU value."
-  No matter what, don't leave categories out of your final output. If you don't know if you should compare it aswell or if its just a heading for the values below it also write "Check again.", if you are sure write "Category.".
-  If they are categories which need no comparing as they are just a "heading" for entries below it, 
-  Return nothing but the python list of lists. Don't add any comments ever. Also refrain from adding things suchs as '```python```' for example.
-  Here is the list of chinese foods and their maximum residue limit values (MRL): {chinese}
-  And here is the list of european foods and their maximum residue limit values (MRL): {european}
+  You are a food science and chemistry expert specializing in the work with pesticides used for food production in Europe and China.
+
+  ## Your task:
+  - For each food or food category (if necessary) out of the chinese data which is in a csv format: {chinese}
+  - Find a fitting food or food category (again, if necessary) in the european data which also is in a csv format: {european}
+  
+  ## Information about the chinese data:
+  - the chinese data you get consists out of a 'food'-column and a 'mrl'-column; mrl stands for maximum residue limit (of the given pesticide in the food)
+  - some foods have a -2 in the 'mrl'-column next to them, those are categories
+    - you can ignore the -2 itself, as it is just a marker
+    - for categories (so those with a -2 in the mrl column) you don't look for comparable foods or categories in the european data, you just leave them be
+    - if you ever find a category which has no -2 next to it in the chinese data, then you are tasked to find a comparable food or category in the european data
+
+  ## Information about the european data:
+  - the european data you get also consist out of a 'food'-column and a 'mrl'-column; mrl again stands for maximum residue limit (of the given pesticide in the food)
+  - some foods have absolutely no value, not even an empty string, next to them in the 'mrl'-column, those are the categories in the european data
+  
+  ## Instructions:
+  - for each "row" in the chinese data, as long as it is no marked category as described above in "Information about the chinese data", try to find a fitting food in the given european data
+  - put your findings into a python list which follows this layout: ["chinese_food", "european_food", chinese_mrl_value, european_mrl_value, "note"]
+  - for "chinese_food" and "chinese_mrl_value" always put in the unaltered values from the original chinese data
+  - for "european_food" and "european_mrl_value" put in fitting values you found in the european data, if there is no matching food in the european data just put in a "/" for both of them
+  - for the "note"-placeholder follow this ruleset:
+    - if you are absolutely sure about the match of the chinese and european food write "No Note."
+    - if you aren't completely sure if the european food you found matches the one from the chinese data write "Check again."
+    - if the entry in the "food"-column in the chinese data is a marked category and you therefor do not do a comparison write "Category."
+    - if you aren't sure in a case if you got a category there that needs comparing or if its just a heading, also just write "Check again."
+    - if you can't find a matching food in the european data write "No food found."
+    - if you find a fitting food (or category in this case) in the european table but it has no associated mrl value write "No EU value."
+
+  ## Rules:
+  - even if you don't compare the chinese categories as they have a -2 next to them, do not leave them out of the final input, put them into a list like instructed above
+  - never alter, add or remove any information, only work with what you get from me
+  - **always** and **only** send back a nested list, so a list holding all the comparisons you made following the layout above, even if there would be a single or even no entry in the nested list, so start each output with a [, then put all the "comparison lists" and then end on a ], creating a nested list this way
+  - do never add and send anything else, never write any comments, refrain from any output that isnt the nested list
+  - also refrain from adding things such as '```python```' for example

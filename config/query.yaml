@@ -15,7 +15,6 @@ insert_eu_query: |
 truncate_eu_query: |
   TRUNCATE TABLE european_pesticide_residues RESTART IDENTITY;
 
-
 get_fitting_chinese_chunks_query: |
   SELECT DISTINCT t.pesticide, t.text
   FROM chinese_pesticide_residues AS t
