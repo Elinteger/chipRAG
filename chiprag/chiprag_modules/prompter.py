@@ -98,8 +98,7 @@ def compare_values(
             "eu_mrl",
             "note",
             "valid_mrl"
-        ]
-    )
+        ])
 
     ## setup 
     openai_client = openai.OpenAI(
@@ -109,20 +108,43 @@ def compare_values(
     with open(settings.prompt_path, "r", encoding="utf-8") as f:
         prompts = yaml.safe_load(f)
     compare_all_values_prompt = prompts["compare_all_values_prompt"]
-    #FIXME: what if there are no fitting pesticides?
+
     ## prompt the LLM
     chi_pesticides = chi_df["pesticide"].unique().tolist()
     for chi_pesticide in chi_pesticides:
         # get dataframe with just that pesticide
+        # pesticide, food, mrl
         chi_pest_df = chi_df[chi_df["pesticide"] == chi_pesticide]
         # get list of fitting european pesticides and their data
         eu_pest_df_list = []
+
+        # if no european counterparts could be found to the chinese pesticide, add default line to final dataframe
+        if len(bridge_table[chi_pesticide]) == 0:
+            #FIXME: optimize this code 
+            df_to_add = chi_df[chi_df["pesticide"]==chi_pesticide]
+            # pesticide, eu_pesticide, food, mrl
+            df_to_add.insert(1, 'eu_pesticide', "/")
+            # pesticide, eu_pesticide, food, eu_food, mrl
+            df_to_add.insert(3, 'eu_food', "/")
+            # pesticide, eu_pesticide, food, eu_food, mrl, eu_mrl
+            df_to_add.insert(5, 'eu_mrl', "/")
+            # pesticide, eu_pesticide, food, eu_food, mrl, eu_mrl, note
+            df_to_add.insert(6, 'note', "No fitting eu-pesticide found.")
+            # pesticide, eu_pesticide, food, eu_food, mrl, eu_mrl, note, valid_mrl
+            df_to_add.insert(7, 'valid_mrl', "/")
+            # swap column names with the ones from comparison df and append it to it
+            df_to_add_trimmed = pd.DataFrame(df_to_add.values, columns=comparison_dataframe.columns)
+            comparison_dataframe = pd.concat([comparison_dataframe, df_to_add_trimmed], ignore_index=True)
+            continue
+
+        # if there are possible european counterparts go through them, get applicable values out and prompt with those
         for fitting_pesticide in bridge_table[chi_pesticide]:
             match_df = eu_df[eu_df["eu_pesticide"]==fitting_pesticide]
             # only add if the eu_pesticide dataframe actually still has the pesticide 
             # -> could be lost if its not yet applicable!
             if not match_df.empty:
                 eu_pest_df_list.append(match_df)
+
         for eu_pest_df in eu_pest_df_list:
             eu_pesticide = eu_pest_df["eu_pesticide"].iloc[0]
             # build prompt
@@ -149,7 +171,7 @@ def compare_values(
                     else:
                         normalized_data_list = [data_list]
                 for sublist in normalized_data_list:
-                    #FIXME: issue with "Celeriac" which is part of multiple pesticides -> long story short, check if it works for that
+                    #FIXME: error in obsidian!!
                     ## combine answer from LLM with the other infos to create a full row in the comparison DataFrame + sublist + -1 as temp mrl value
                     row = [chi_pesticide, eu_pesticide] + sublist + [-1]
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
@@ -172,8 +194,8 @@ def compare_values(
     # only eu present -> use EU value
     only_eu = comparison_dataframe[chi].isna() & comparison_dataframe[eu].notna()
     comparison_dataframe.loc[only_eu, valid] = comparison_dataframe.loc[only_eu, eu]
-    # only chi present -> default 0.1 and note
-    only_chi = comparison_dataframe[chi].notna() & comparison_dataframe[eu].isna()
+    # only chi present and there is a fitting european pesticide -> default 0.1 and note
+    only_chi = comparison_dataframe[chi].notna() & comparison_dataframe[eu].isna() & (comparison_dataframe['eu_pesticide'].astype(str) != "/")
     comparison_dataframe.loc[only_chi, valid] = 0.1
     comparison_dataframe.loc[only_chi, 'note'] = "Defaults to 0.1, no value in EU. Check again."
     # both present -> take min

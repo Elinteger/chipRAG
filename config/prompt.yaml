@@ -32,7 +32,8 @@ compare_pesticides_prompt: |
   - Do not add, remove or alter any of the pesticide names given, only add them to your output exactly as they are.
   - The output must be a Python list using square brackets, where **each pesticide name is a string in double quotes ("")**, like: `["Valid Name 1", "Valid Name 2"]`
   - Do **not** return anything except the list. No explanations, no surrounding text, no formatting like ```python```.
-  - If no matches are found, return absolutely nothing but an empty list: []. Do not add any comments or explanations.
+  - If no exact match is found, return exactly [] — no comments, no explanations, no suggestions.
+  - Do never explain your behavior or output.
 
 compare_all_values_prompt: |
   You are a food science and chemistry expert specializing in the work with pesticides used for food production in Europe and China.

@@ -85,15 +85,26 @@ def _get_eu_values(
     eu_values = get_pesticide_data(eu_pesticides_list)
     # build dataframe
     rows = []
-    for key, tuples_list in eu_values.items():
-        for tup in tuples_list:
-            # tup is like ('Zoxamide', 'Wheat', '0.02')
+    for chi_pest, fitting_eu_pest in eu_pesticide_dict.items():
+        if len(fitting_eu_pest) == 0:
             rows.append({
-                'chi_pesticide': key,
-                'eu_pesticide': tup[0],
-                'food': tup[1],
-                'mrl': tup[2]
-            })
+                    'chi_pesticide': chi_pest,
+                    'eu_pesticide': "/",
+                    'food': "/",
+                    'mrl': "/"
+                    })
+            continue
+        
+        for eu_pest_key in fitting_eu_pest:
+            if eu_pest_key in eu_values:
+                for items in eu_values[eu_pest_key]:
+                    rows.append({
+                    'chi_pesticide': chi_pest,
+                    'eu_pesticide': items[0],
+                    'food': items[1],
+                    'mrl': items[2]
+                    })
+
     eu_df = pd.DataFrame(rows)
 
     return eu_df, eu_pesticide_dict
@@ -149,6 +160,7 @@ def _render_to_xlsx(
                     worksheet.cell(row=row_idx, column=col_idx).font = bold_font
 
         # conditional formatting for "note" column
+        #FIXME: add red for rows where no eu pesticide could be found
         note_col_idx = comparsion_df.columns.get_loc('note') + 1
         for row_idx, note in enumerate(comparsion_df['note'], start=2):
             cell = worksheet.cell(row=row_idx, column=note_col_idx)
