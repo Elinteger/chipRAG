@@ -58,7 +58,7 @@ compare_all_values_prompt: |
   - put your findings into a python list which follows this layout: ["chinese_food", "european_food", chinese_mrl_value, european_mrl_value, "note"]
   - for "chinese_food" and "chinese_mrl_value" always put in the unaltered values from the original chinese data
   - for "european_food" and "european_mrl_value" put in fitting values you found in the european data, if there is no matching food in the european data just put in a "/" for both of them
-  - for the "note"-placeholder follow this ruleset:
+  - for the "note"-placeholder follow this ruleset, always write the exact string as it is shwon you here:
     - if you are absolutely sure about the match of the chinese and european food write "No Note."
     - if you aren't completely sure if the european food you found matches the one from the chinese data write "Check again."
     - if the entry in the "food"-column in the chinese data is a marked category and you therefor do not do a comparison write "Category."

@@ -9,7 +9,7 @@ from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values, get_fitting_pesticides, compare_values
 from .postgres_utils import get_pesticide_data
 
-
+import json
 def create_comparison(
         keywords: list[str],
         output_path: str
@@ -25,14 +25,18 @@ def create_comparison(
         pd.DataFrame: DataFrame with the exact same output as is in the excel sheet.
     """
     logging.info("-- Creating comparison --")
-    # get values which are relevant for comparison
-    chi_values = _get_chi_values(keywords)
-    if chi_values.empty:
-        logging.info("No values found, aborting comparison.")
-        return chi_values
-    logging.info("Got chinese values.")
-    eu_values, bridge_dict = _get_eu_values(chi_values)
-    logging.info("Got european values.")
+    # # get values which are relevant for comparison
+    # chi_values = _get_chi_values(keywords)
+    # if chi_values.empty:
+    #     logging.info("No values found, aborting comparison.")
+    #     return chi_values
+    # logging.info("Got chinese values.")
+    # eu_values, bridge_dict = _get_eu_values(chi_values)
+    # logging.info("Got european values.")
+    chi_values = pd.read_csv("chiwheatsave.csv", index_col=0)
+    eu_values = pd.read_csv("euwheatsave.csv", index_col=0)
+    with open('bridghedictwheat.json', 'r') as fp:
+        bridge_dict = json.load(fp)
     # create comparison
     comparison = compare_values(chi_values, eu_values, bridge_dict)
     logging.info("Created comparison.")
@@ -135,8 +139,6 @@ def _render_to_xlsx(
     # turn DataFrame to excel and format
     with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
         comparsion_df.to_excel(writer, index=False, sheet_name="GB Comparison")
-        #FIXME: is workbook necessary?
-        # workbook = writer.book
         worksheet = writer.sheets["GB Comparison"]
 
         # set column widths based on max content length
@@ -160,13 +162,14 @@ def _render_to_xlsx(
                     worksheet.cell(row=row_idx, column=col_idx).font = bold_font
 
         # conditional formatting for "note" column
-        #FIXME: add red for rows where no eu pesticide could be found
         note_col_idx = comparsion_df.columns.get_loc('note') + 1
         for row_idx, note in enumerate(comparsion_df['note'], start=2):
             cell = worksheet.cell(row=row_idx, column=note_col_idx)
             if pd.isna(note) or note == "No Note.":
                 # no change
                 continue  
+            elif "No fitting eu-pesticide found." in str(note):
+                cell.fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")  # light red
             elif "Category." in str(note):
                 cell.fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")  # light green
             else:

@@ -24,6 +24,8 @@ def main():
     #TODO: remove or adapt depending on requirements
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.INFO)
+    # "silence" httpx logger
+    logging.getLogger("httpx").setLevel(logging.WARNING)
 
     parser = argparse.ArgumentParser(description="chipRAG CLI")
     subparsers = parser.add_subparsers(dest="command", required=True, help="Choose a command to run")

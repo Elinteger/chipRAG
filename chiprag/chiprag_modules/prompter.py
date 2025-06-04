@@ -6,6 +6,7 @@ import logging
 import numpy as np
 import openai
 import pandas as pd
+import re
 import yaml
 from config.load_config import settings
 
@@ -49,23 +50,52 @@ def extract_relevant_values(
             prompt=keyword,
             pesticide=pesticide,
             text=text
-            )
+        )
         completion = openai_client.chat.completions.create(
-        model=settings.kipitz_model,
-        messages=[{"role": settings.kipitz_role, "content": prompt}],   
+            model=settings.kipitz_model,
+            messages=[{"role": settings.kipitz_role, "content": prompt}],   
         )
         answer = completion.choices[0].message.content
-        data_list = ast.literal_eval(answer)
-        # normalize to a list of lists
-        if isinstance(data_list, list):
-            if all(isinstance(item, list) for item in data_list):
-                # already a list of lists
-                normalized_data = data_list
-            else:
-                normalized_data = [data_list]
+        try:
+        ## answer cleaning
+            clean_answer = answer.strip()
+            # ensure the answer starts with '[['
+            flat_start = re.sub(r'\s+', '', clean_answer[:10])
+            if not flat_start.startswith("[["):
+                print(f"Fixing missing opening brackets. Original: {clean_answer[:30]}...")
+                clean_answer = "[[" + clean_answer.lstrip("[").lstrip()
+                print(f"AFTERWARDS: {clean_answer}")
+             # ensure the answer ends with ']]'
+            flat_end = re.sub(r'\s+', '', clean_answer[-10:])
+            if not flat_end.endswith("]]"):
+                print(f"Fixing missing closing brackets. Original end: {clean_answer[-30:]}...")
+                clean_answer = clean_answer.rstrip()
+                if clean_answer.endswith("],"):
+                    clean_answer = clean_answer[:-1] + "]]"
+                elif clean_answer.endswith("]"):
+                    clean_answer += "]"
+                else:
+                    clean_answer += "]]"
+                print(f"AFTERWARDS: {clean_answer}")
 
-        normalized_data = [[pesticide] + sublist for sublist in normalized_data]
-        extracted_data += normalized_data
+            answer = clean_answer
+
+            data_list = ast.literal_eval(answer)
+            # normalize to a list of lists, catch non nested lists
+            # is doubled logic with LLM drifting, but I am too scared to break anything now 
+            if isinstance(data_list, list):
+                if all(isinstance(item, list) for item in data_list):
+                    # already a list of lists
+                    normalized_data = data_list
+                else:
+                    normalized_data = [data_list]
+
+            normalized_data = [[pesticide] + sublist for sublist in normalized_data]
+            extracted_data += normalized_data
+        except (ValueError, SyntaxError) as e:
+            logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
+            logging.warning(f"Non nested list has been returned by LLM in extraction step. Check prompt, value has been lost! This was the LLMs answer: { completion.choices[0].message.content}")
+            pass
 
     return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])
 
@@ -120,7 +150,7 @@ def compare_values(
 
         # if no european counterparts could be found to the chinese pesticide, add default line to final dataframe
         if len(bridge_table[chi_pesticide]) == 0:
-            #FIXME: optimize this code 
+            #FIXME: optimize this code, is currently just a prove of concept
             df_to_add = chi_df[chi_df["pesticide"]==chi_pesticide]
             # pesticide, eu_pesticide, food, mrl
             df_to_add.insert(1, 'eu_pesticide', "/")
@@ -141,7 +171,7 @@ def compare_values(
         for fitting_pesticide in bridge_table[chi_pesticide]:
             match_df = eu_df[eu_df["eu_pesticide"]==fitting_pesticide]
             # only add if the eu_pesticide dataframe actually still has the pesticide 
-            # -> could be lost if its not yet applicable!
+            # -> is lost if its not yet applicable, as we only query for applicable values as of right now
             if not match_df.empty:
                 eu_pest_df_list.append(match_df)
 
@@ -151,17 +181,45 @@ def compare_values(
             chi_data_csv_string = chi_pest_df[["food", "mrl"]].to_csv(index=False)
             eu_data_csv_string = eu_pest_df[["food", "mrl"]].to_csv(index=False)
             prompt = compare_all_values_prompt.format(
-            chinese=chi_data_csv_string,
-            european=eu_data_csv_string
+                chinese=chi_data_csv_string,
+                european=eu_data_csv_string
             )
             # ask prompt
             completion = openai_client.chat.completions.create(
-            model=settings.kipitz_model,
-            messages=[{"role": settings.kipitz_role, "content": prompt}],   
+                model=settings.kipitz_model,
+                messages=[{"role": settings.kipitz_role, "content": prompt}],   
             )
             # get answer and put it into dataframe
             answer = completion.choices[0].message.content
             try:
+                ## answer cleaning
+                clean_answer = answer.strip()
+                # ensure the answer starts with '[['
+                flat_start = re.sub(r'\s+', '', clean_answer[:10])
+                if not flat_start.startswith("[["):
+                    print(f"Fixing missing opening brackets. Original: {clean_answer[:30]}...")
+                    clean_answer = "[[" + clean_answer.lstrip("[").lstrip()
+                    print(f"AFTERWARDS: {clean_answer}")
+                # ensure the answer ends with ']]'
+                flat_end = re.sub(r'\s+', '', clean_answer[-10:])
+                if not flat_end.endswith("]]"):
+                    print(f"Fixing missing closing brackets. Original end: {clean_answer[-30:]}...")
+                    clean_answer = clean_answer.rstrip()
+                    if clean_answer.endswith("],"):
+                        clean_answer = clean_answer[:-1] + "]]"
+                    elif clean_answer.endswith("]"):
+                        clean_answer += "]"
+                    else:
+                        clean_answer += "]]"
+                    print(f"AFTERWARDS: {clean_answer}")
+                # insert missing commas between sublists if needed
+                if re.search(r"\]\s*\[", clean_answer):
+                    print("Inserting missing commas between list elements.")
+                    clean_answer = re.sub(r"\]\s*\[", "], [", clean_answer)
+                    print(f"AFTERWARDS: {clean_answer}")
+
+                answer = clean_answer
+
                 data_list = ast.literal_eval(answer)
                 # normalize to a list of lists 
                 if isinstance(data_list, list):
@@ -171,12 +229,12 @@ def compare_values(
                     else:
                         normalized_data_list = [data_list]
                 for sublist in normalized_data_list:
-                    #FIXME: error in obsidian!!
                     ## combine answer from LLM with the other infos to create a full row in the comparison DataFrame + sublist + -1 as temp mrl value
                     row = [chi_pesticide, eu_pesticide] + sublist + [-1]
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
-            except (ValueError, SyntaxError):
-                logging.warning(f"Non list has been returned my LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: { completion.choices[0].message.content}")
+            except (ValueError, SyntaxError) as e:
+                logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
+                logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: { completion.choices[0].message.content}")
                 pass
 
     ## set valid maximum residue limit values
@@ -196,8 +254,8 @@ def compare_values(
     comparison_dataframe.loc[only_eu, valid] = comparison_dataframe.loc[only_eu, eu]
     # only chi present and there is a fitting european pesticide -> default 0.1 and note
     only_chi = comparison_dataframe[chi].notna() & comparison_dataframe[eu].isna() & (comparison_dataframe['eu_pesticide'].astype(str) != "/")
-    comparison_dataframe.loc[only_chi, valid] = 0.1
-    comparison_dataframe.loc[only_chi, 'note'] = "Defaults to 0.1, no value in EU. Check again."
+    comparison_dataframe.loc[only_chi, valid] = 0.01
+    comparison_dataframe.loc[only_chi, 'note'] = "Defaults to 0.01, no value in EU. Check again."
     # both present -> take min
     both_present = comparison_dataframe[chi].notna() & comparison_dataframe[eu].notna()
     comparison_dataframe.loc[both_present, valid] = np.minimum(
