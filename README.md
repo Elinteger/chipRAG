@@ -147,7 +147,7 @@ python chiprag.py comp "keyword1" "keyword2" ... --output_path="path/to/output.x
 | `keywords`       | Keywords like pesticide/food names to compare                                                        |
 | `--output_path`  | Path where the Excel output should be saved to. Defaults to `output.xlsx` in the working directory |
 
-> Keywords must exactly match (case-insensitive) the names in the Chinese document!
+> Keywords must exactly match (case-insensitive) the names in the translation by the USDA of the Chinese document!
 
 **Examples:**
 
