@@ -5,7 +5,7 @@ value_extraction_prompt: |
 
   Your task:
   - Only respond if the pesticide or food/food category the user mentioned appears in the section.
-  - Extract only those **foods or food categories that are an exact or very close match** to the user's prompt (e.g. "virgin olive oil" is valid for "olive oil").
+  - Extract only those **foods or food categories that are an exact or very close match** to the user's prompt (e.g. "virgin olive oil" is valid for "olive oil", but "radish" isn't "celeriac" for example).
   - If a **food category** is an exact or close match to the prompt, include the category **and all foods listed underneath it**, even if the sub-entries themselves do not exactly match the prompt.
   - Output the result as a Python list of lists, formatted as: [["Food Name or Category", MRL_value], ...]
   - If a value is missing because it's a category label, use `-2`.
@@ -72,5 +72,6 @@ compare_all_values_prompt: |
   - even if you don't compare the chinese categories as they have a -2 next to them, do not leave them out of the final input, put them into a list like instructed above
   - never alter, add or remove any information, only work with what you get from me
   - **always** and **only** send back a nested list, so a list holding all the comparisons you made following the layout above, even if there would be a single or even no entry in the nested list, so start each output with a [, then put all the "comparison lists" and then end on a ], creating a nested list this way
+  - even if you don't find a food that fits in the european data keep the layout of "chinese_food", "european_food", chinese_mrl_value, european_mrl_value, "note"], just with "/" in the european_food and european_mrl_value columns
   - do never add and send anything else, never write any comments, refrain from any output that isnt the nested list
   - also refrain from adding things such as '```python```' for example

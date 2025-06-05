@@ -9,7 +9,7 @@ from .postgres_utils import query_database
 from .chiprag_modules import extract_relevant_values, get_fitting_pesticides, compare_values
 from .postgres_utils import get_pesticide_data
 
-import json
+
 def create_comparison(
         keywords: list[str],
         output_path: str
@@ -25,24 +25,20 @@ def create_comparison(
         pd.DataFrame: DataFrame with the exact same output as is in the excel sheet.
     """
     logging.info("-- Creating comparison --")
-    # # get values which are relevant for comparison
-    # chi_values = _get_chi_values(keywords)
-    # if chi_values.empty:
-    #     logging.info("No values found, aborting comparison.")
-    #     return chi_values
-    # logging.info("Got chinese values.")
-    # eu_values, bridge_dict = _get_eu_values(chi_values)
-    # logging.info("Got european values.")
-    chi_values = pd.read_csv("chiwheatsave.csv", index_col=0)
-    eu_values = pd.read_csv("euwheatsave.csv", index_col=0)
-    with open('bridghedictwheat.json', 'r') as fp:
-        bridge_dict = json.load(fp)
+    # get values which are relevant for comparison
+    chi_values = _get_chi_values(keywords)
+    if chi_values.empty:
+        logging.info("No values found, aborting comparison.")
+        return chi_values
+    logging.info("Got chinese values.")
+    eu_values, bridge_dict = _get_eu_values(chi_values)
+    logging.info("Got european values.")
     # create comparison
     comparison = compare_values(chi_values, eu_values, bridge_dict)
     logging.info("Created comparison.")
     # save as formatted excel
     formatted_comparsion = _render_to_xlsx(comparison, output_path)
-    logging.info(f"Saved formatted excel sheet at {output_path}.")
+    logging.info(f"Stored formatted excel sheet at {output_path}.")
 
     return formatted_comparsion
 

@@ -73,7 +73,7 @@ authors = [
   {name = "Elias Schubert", email = "eschubert.mail@gmail.com"}
 ]
 
-description = "Tailored RAG pipeline for comparing MRL values from Chinese pesticide documents (GB standards) with those from the EU DataLake."
+description = "A customized Retrieval-Augmented Generation (RAG) pipeline designed to compare Maximum Residue Limit (MRL) values from Chinese food safety standard (GB) PDFs with those from the EU DataLake."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICEN[CS]E.*"]

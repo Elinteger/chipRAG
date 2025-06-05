@@ -57,7 +57,7 @@ def extract_relevant_values(
         )
         answer = completion.choices[0].message.content
         try:
-        ## answer cleaning
+            ## answer cleaning
             clean_answer = answer.strip()
             # ensure the answer starts with '[['
             flat_start = re.sub(r'\s+', '', clean_answer[:10])
@@ -200,18 +200,12 @@ def compare_values(
                     print(f"Fixing missing opening brackets. Original: {clean_answer[:30]}...")
                     clean_answer = "[[" + clean_answer.lstrip("[").lstrip()
                     print(f"AFTERWARDS: {clean_answer}")
-                # ensure the answer ends with ']]'
-                flat_end = re.sub(r'\s+', '', clean_answer[-10:])
-                if not flat_end.endswith("]]"):
-                    print(f"Fixing missing closing brackets. Original end: {clean_answer[-30:]}...")
-                    clean_answer = clean_answer.rstrip()
-                    if clean_answer.endswith("],"):
-                        clean_answer = clean_answer[:-1] + "]]"
-                    elif clean_answer.endswith("]"):
-                        clean_answer += "]"
-                    else:
-                        clean_answer += "]]"
-                    print(f"AFTERWARDS: {clean_answer}")
+                # ensure the answer ends with ']]' or '],]'
+                open_count = clean_answer.count('[')
+                close_count = clean_answer.count(']')
+                if close_count < open_count:
+                    print(f"Fixing bracket imbalance. open: {open_count}, close: {close_count}")
+                    clean_answer += (']' * (open_count - close_count))
                 # insert missing commas between sublists if needed
                 if re.search(r"\]\s*\[", clean_answer):
                     print("Inserting missing commas between list elements.")
@@ -234,7 +228,7 @@ def compare_values(
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
             except (ValueError, SyntaxError) as e:
                 logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
-                logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: { completion.choices[0].message.content}")
+                logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
                 pass
 
     ## set valid maximum residue limit values
@@ -268,5 +262,10 @@ def compare_values(
     comparison_dataframe[eu] = comparison_dataframe[eu].astype(str).replace("nan", "/")
     comparison_dataframe[valid] = comparison_dataframe[valid].astype(str).replace("nan", "/")
 
+    # add . at the end of notes if they aren't there by default
+    comparison_dataframe['note'] = comparison_dataframe['note'].apply(
+        lambda x: x if pd.isna(x) or str(x).strip().endswith('.') else str(x).strip() + '.'
+    )
+    
     return comparison_dataframe
         
