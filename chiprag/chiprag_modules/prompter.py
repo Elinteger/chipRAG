@@ -62,13 +62,10 @@ def extract_relevant_values(
             # ensure the answer starts with '[['
             flat_start = re.sub(r'\s+', '', clean_answer[:10])
             if not flat_start.startswith("[["):
-                print(f"Fixing missing opening brackets. Original: {clean_answer[:30]}...")
                 clean_answer = "[[" + clean_answer.lstrip("[").lstrip()
-                print(f"AFTERWARDS: {clean_answer}")
-             # ensure the answer ends with ']]'
+            # ensure the answer ends with ']]'
             flat_end = re.sub(r'\s+', '', clean_answer[-10:])
             if not flat_end.endswith("]]"):
-                print(f"Fixing missing closing brackets. Original end: {clean_answer[-30:]}...")
                 clean_answer = clean_answer.rstrip()
                 if clean_answer.endswith("],"):
                     clean_answer = clean_answer[:-1] + "]]"
@@ -76,13 +73,12 @@ def extract_relevant_values(
                     clean_answer += "]"
                 else:
                     clean_answer += "]]"
-                print(f"AFTERWARDS: {clean_answer}")
 
             answer = clean_answer
 
             data_list = ast.literal_eval(answer)
             # normalize to a list of lists, catch non nested lists
-            # is doubled logic with LLM drifting, but I am too scared to break anything now 
+            # is doubled logic with LLM drifting, but never change a running system
             if isinstance(data_list, list):
                 if all(isinstance(item, list) for item in data_list):
                     # already a list of lists
@@ -94,7 +90,7 @@ def extract_relevant_values(
             extracted_data += normalized_data
         except (ValueError, SyntaxError) as e:
             logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
-            logging.warning(f"Non nested list has been returned by LLM in extraction step. Check prompt, value has been lost! This was the LLMs answer: { completion.choices[0].message.content}")
+            logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
             pass
 
     return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])
@@ -150,7 +146,7 @@ def compare_values(
 
         # if no european counterparts could be found to the chinese pesticide, add default line to final dataframe
         if len(bridge_table[chi_pesticide]) == 0:
-            #FIXME: optimize this code, is currently just a prove of concept
+            #TODO: maybe optimize this code, is currently just a (functioning) prove of concept
             df_to_add = chi_df[chi_df["pesticide"]==chi_pesticide]
             # pesticide, eu_pesticide, food, mrl
             df_to_add.insert(1, 'eu_pesticide', "/")
@@ -197,20 +193,15 @@ def compare_values(
                 # ensure the answer starts with '[['
                 flat_start = re.sub(r'\s+', '', clean_answer[:10])
                 if not flat_start.startswith("[["):
-                    print(f"Fixing missing opening brackets. Original: {clean_answer[:30]}...")
                     clean_answer = "[[" + clean_answer.lstrip("[").lstrip()
-                    print(f"AFTERWARDS: {clean_answer}")
                 # ensure the answer ends with ']]' or '],]'
                 open_count = clean_answer.count('[')
                 close_count = clean_answer.count(']')
                 if close_count < open_count:
-                    print(f"Fixing bracket imbalance. open: {open_count}, close: {close_count}")
                     clean_answer += (']' * (open_count - close_count))
                 # insert missing commas between sublists if needed
                 if re.search(r"\]\s*\[", clean_answer):
-                    print("Inserting missing commas between list elements.")
                     clean_answer = re.sub(r"\]\s*\[", "], [", clean_answer)
-                    print(f"AFTERWARDS: {clean_answer}")
 
                 answer = clean_answer
 
