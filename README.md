@@ -189,7 +189,7 @@ chipRAG is tailored to specific USDA PDF formats, using the 2021 and 2022 Englis
 
 A short pipeline breakdown for quick understanding. Functions may call other helper functions internally; this is meant as a top-level representation. 
 
-The format used is: `[module.py]function()` → connecting functions
+The format used is: `module.py:function()` → connecting functions
 
 ### Upload documents
 
