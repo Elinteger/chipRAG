@@ -6,7 +6,7 @@
 
 Although chipRAG is tailored for this specific use case, it can serve as a blueprint for building RAG systems that extracts context out of structured data (CSV, XLSX, SQL) from unstructured or semi-structured sources (PDFs).
 
-Created during an internship at the *German* [*Bundesamt für Verbraucherschutz und Lebensmittelsicherheit (BVL)*](https://www.bvl.bund.de/DE/Home/home_node.html),the **Federal Office of Consumer Protection and Food Safety**.
+Created during an internship at the *German* [*Bundesamt für Verbraucherschutz und Lebensmittelsicherheit (BVL)*](https://www.bvl.bund.de/DE/Home/home_node.html), the **Federal Office of Consumer Protection and Food Safety**.
 
 ---
 
