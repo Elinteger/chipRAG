@@ -90,7 +90,7 @@ def extract_relevant_values(
             extracted_data += normalized_data
         except (ValueError, SyntaxError) as e:
             logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
-            logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
+            logging.warning(f"Not fully correctly formatted output by LLM. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
             pass
 
     return pd.DataFrame(extracted_data, columns=['pesticide', 'food', 'mrl'])
@@ -219,7 +219,7 @@ def compare_values(
                     comparison_dataframe.loc[len(comparison_dataframe)] = row
             except (ValueError, SyntaxError) as e:
                 logging.warning(f"Error type: {type(e).__name__}, Message: {e}")
-                logging.warning(f"Non nested list has been returned by LLM in comparing step. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
+                logging.warning(f"Not fully correctly formatted output by LLM. Check prompt, value has been lost! This was the LLMs answer: {completion.choices[0].message.content}\nand this the cleaned answer: {answer}")
                 pass
 
     ## set valid maximum residue limit values
