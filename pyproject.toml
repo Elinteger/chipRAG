@@ -5,6 +5,21 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "chipRAG"
 version = "1.0.0"
+requires-python = ">=3.11"
+
+authors = [
+  { name = "Elias Schubert", email = "eschubert.mail@gmail.com" }
+]
+
+description = "A customized Retrieval-Augmented Generation (RAG) pipeline designed to compare Maximum Residue Limit (MRL) values from Chinese food safety standard (GB) PDFs with those from the EU DataLake."
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["structured data", "RAG", "LLM"]
+
+classifiers = [
+  "Programming Language :: Python"
+]
+
 dependencies = [
   "annotated-types==0.7.0",
   "anyio==4.9.0",
@@ -51,7 +66,6 @@ dependencies = [
   "python-dateutil==2.9.0.post0",
   "python-dotenv==1.1.0",
   "pytz==2025.2",
-  "pywin32==310",
   "PyYAML==6.0.2",
   "pyzmq==26.4.0",
   "RapidFuzz==3.13.0",
@@ -68,19 +82,12 @@ dependencies = [
   "urllib3==2.4.0",
   "wcwidth==0.2.13"
 ]
-requires-python = ">=3.11"
-authors = [
-  {name = "Elias Schubert", email = "eschubert.mail@gmail.com"}
-]
-
-description = "A customized Retrieval-Augmented Generation (RAG) pipeline designed to compare Maximum Residue Limit (MRL) values from Chinese food safety standard (GB) PDFs with those from the EU DataLake."
-readme = "README.md"
-license = "MIT"
-license-files = ["LICEN[CS]E.*"]
-keywords = ["structured data", "RAG", "LLM"]
-classifiers = [
-  "Programming Language :: Python"
-]
 
 [project.urls]
 Repository = "https://github.com/Elinteger/chipRAG.git"
+
+[tool.setuptools]
+license-files = ["LICENSE"]
+
+[tool.setuptools.packages.find]
+include = ["chiprag"]
